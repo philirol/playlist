@@ -1,0 +1,1 @@
+SELECT * FROM `villes` WHERE `ville_departement` LIKE '02';

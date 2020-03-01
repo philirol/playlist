@@ -1,0 +1,52 @@
+//On va chercher une police Google, on importe des variables pour Bootstrap,
+// on va chercher les fichiers sass et js dans les ressources et qu’on les compile en les envoyant dans des dossiers publics.
+
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Sniglet');
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+html {
+    font-size: 0.8rem;
+}
+
+@include media-breakpoint-up(sm) {
+    html {
+        font-size: 1rem;
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    html {
+        font-size: 1rem;
+    }
+}
+
+
+body {
+    //background-color: #eaeaea;
+    font-family: 'Sniglet', cursive;
+}
+.bg-dark {
+    //background-color: #b71212 !important;
+  }
+
+  .table-info,
+  .table-info > th,
+  .table-info > td {
+    background-color: #63cad8;
+  }
+
+.navbar {
+    background-color: #86592f88;
+}
+
+.navbar-expand-md {
+    @include font-size(1.4rem);
+}
+
+.navbar-expand {
+    padding: 0;
+    font-size: 0.8rem;
+}
