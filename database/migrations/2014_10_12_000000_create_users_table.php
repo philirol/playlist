@@ -16,15 +16,16 @@ class CreateUsersTable extends Migration
         Schema::disableForeignKeyConstraints();
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('band_id');  
+            $table->unsignedBigInteger('band_id')->default(0);  
                 $table->foreign('band_id')
                 ->references('id')
                 ->on('bands')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
             $table->string('name');
+            $table->boolean('leader')->default(false);
             $table->boolean('admin')->default(false);
-            $table->string('email');
+            $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

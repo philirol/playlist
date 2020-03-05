@@ -57,6 +57,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/') }}">@lang('Aide')</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/userband') }}">@lang('Votre groupe')</a>
+                        </li>
                         @if(Auth::check() and Auth::user()->admin)
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('user.index') }}">@lang('Utilisateurs')</a>

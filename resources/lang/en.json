@@ -40,6 +40,8 @@
 
     "Changer de statut": "Change status",
 
+    "Choisir une ville": "Select your city/town",
+
     "cliquez ici pour en recevoir un nouveau": "click here to request another",
 
     "Code postal": "Postal code",
@@ -186,7 +188,7 @@
 
     "Nom": "Name",
 
-    "Nom : ": "Name: ",
+    "Nom du groupe : ": "Band name: ",
 
     "Nom de connexion : ": "Login name:",
 

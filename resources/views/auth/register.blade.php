@@ -61,6 +61,48 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label for="bandname" class="col-md-4 col-form-label text-md-right">@lang('Nom du groupe')</label>
+
+                            <div class="col-md-6">
+                                <input id="bandname" type="text" class="form-control @error('bandname') is-invalid @enderror" name="bandname" value="{{ old('bandname') }}" required autocomplete="bandname" autofocus>
+
+                                @error('bandname')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('bandname') }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        {{-- 
+                        <div class="form-group">
+                            <select class="custom-select form-control @error('entreprise_id') is-invalid @enderror" name="entreprise_id">
+                                @foreach($entreprises as $entr)
+                                <option value="{{ $entr->id }}" {{ $client->entreprise_id == $entr->id ? 'selected' : ''}}>{{  $entr->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('entreprise_id')
+                            <div class="invalid-feedback">
+                                {{ $errors->first('entreprise_id') }}
+                            </div>
+                            @enderror
+                        </div>
+                        --}}
+
+
+                        <div class="form-group row">
+                        <label for="departement" class="col-md-4 col-form-label text-md-right">@lang('Votre département')</label>
+                            <div class="col-md-6">
+                                <select class="custom-select form-control @error('departement_id') is-invalid @enderror" name="departement_code">
+                                <option value="" selected='selected'>-- Sélectionner un département --</option>
+                                    @foreach($departement as $dep)
+                                    <option value="{{ $dep->departement_code }}">{{  $dep->departement_code }} - {{  $dep->departement_nom }}</option>
+                                    @endforeach                                    
+                                </select>
+                            </div>
+                        </div> 
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
@@ -74,4 +116,5 @@
         </div>
     </div>
 </div>
+
 @endsection

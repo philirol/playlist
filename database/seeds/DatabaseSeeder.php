@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Faker\Factory as Faker;
 
@@ -14,24 +15,28 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         DB::table('bands')->insert([
+            'id' => 1,
             'bandname' => 'Démo Band',
             'slug' => 'demo-band',
             'ville_id' => '30000',
         ]);
 
         DB::table('bands')->insert([
+            'id' => 2,
             'bandname' => 'The Rolling Fools',
             'slug' => 'rolling_bugs',
             'ville_id' => '15000',
         ]);
 
         DB::table('bands')->insert([
+            'id' => 3,
             'bandname' => 'Mothers if Invasion',
             'slug' => 'mothers_invasion',
             'ville_id' => '9200',
         ]);
 
         DB::table('bands')->insert([
+            'id' => 4,
             'bandname' => 'Arthur et le Minigirls',
             'slug' => 'arthur_minigirls',
             'ville_id' => '28546',
@@ -56,12 +61,31 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
             'band_id' => 1,
             'name' => 'Phil',
-            'admin' => 1,
+            'admin' => true,
+            'leader' => true,
             'email' => 'philirol@hotmail.com',
             'password' => Hash::make('password'),
         ]);
 
-        factory(App\User::class, 9)->create();
+        DB::table('users')->insert([
+            'band_id' => 2,
+            'name' => 'leader1',
+            'admin' => false,
+            'leader' => true,
+            'email' => 'leader1@free.fr',
+            'password' => Hash::make('password'),
+        ]);
+
+        DB::table('users')->insert([
+            'band_id' => 3,
+            'name' => 'leader2',
+            'admin' => false,
+            'leader' => true,
+            'email' => 'leader2@outlook.fr',
+            'password' => Hash::make('password'),
+        ]);
+
+        factory(App\User::class, 5)->create();
 
 
         DB::table('songs')->insert([

@@ -51,7 +51,7 @@ class Handler extends ExceptionHandler
             if ($request->expectsJson()) {
                 return response()->json(['error' => 'Unauthorized.'], 403);
             }
-            return redirect()->route('newprofil');
+            return redirect()->route('register.step2');
         }
         return parent::render($request, $exception);        
     }

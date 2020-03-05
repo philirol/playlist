@@ -21,11 +21,11 @@ class CreateBandsTable extends Migration
         });*/
 
         Schema::create('bands', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('id'); 
             $table->string('bandname');
             $table->string('slug');
             $table->string('deposit_file')->nullable($value=true);
-            $table->unsignedBigInteger('ville_id');
+            $table->unsignedBigInteger('ville_id')->nullable();
             $table->foreign('ville_id')
                 ->references('id')
                 ->on('villes')

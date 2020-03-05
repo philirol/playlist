@@ -40,11 +40,9 @@ class ProfilController extends Controller
 
     public function newUser($slug = null) //déclaré dans le Handler Exception (route profile)
     {
-        $query = Departement::whereSlug($slug)->firstOrFail();
-        $villes = $query->scopeOfDepartement()->paginate(30);
-        $departements = Departement::all();
-        $villes_nbr = $query->count();
-        return view('user.newprofil', compact('villes', 'departements', 'slug','villes_nbr'));
+        $user = Auth::user();
+        $bandname = Band::all();
+        return view('user.profil', compact('user', 'bandname'));
     }
 
     /**

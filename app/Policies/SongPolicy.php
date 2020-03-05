@@ -2,8 +2,7 @@
 
 namespace App\Policies;
 
-use App\User;
-use App\Song;
+use App\{User, Band, Song};
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -42,9 +41,7 @@ class SongPolicy
      */
     public function view(User $user = null, Song $song = null)
     {
-        if (is_null($user)) {
-            return true;
-        }       
+          
         return !$user->band_id == 0;
     }
 

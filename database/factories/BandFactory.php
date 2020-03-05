@@ -4,6 +4,7 @@
 
 use App\Band;
 use Faker\Generator as Faker;
+use Illuminate\Support\Str;
 
 $factory->define(Band::class, function (Faker $faker) {
     $bandname = $faker->Company();

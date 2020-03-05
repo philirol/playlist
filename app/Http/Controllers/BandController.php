@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Gate;
-use App\{User,Band,Ville};
+use App\Band;
 
 use Illuminate\Http\Request;
 
@@ -11,7 +10,8 @@ class BandController extends Controller
 {
     public function construct()
     {
-        $this->middleware('admin');
+        $this->middleware('admin')->except(['show']); //permet ces fonctions à l'user non authentifié
+        $this->middleware('leader')->only(['show','edit','update']);
     }
 
     public function index()
@@ -20,12 +20,9 @@ class BandController extends Controller
         ->orderBy('bandname')
         ->get();*/
         // dd(Gate::allows('index-band'));
-        $arrayId = Band::all()->pluck('bandname')->implode(' - ');
-
-        $test = User::query();
         
         $bands = Band::with('ville')->withCount(['songs','users'])->get();        
-        return view('band.index', compact('bands', 'arrayId', 'test'));               
+        return view('band.index', compact('bands'));               
     }
 
     /**
@@ -63,7 +60,6 @@ class BandController extends Controller
      */
     public function show(Band $band)
     {
-        //$band = Band::all()->get($id);
         return view('band.show', compact('band'));
     }
 

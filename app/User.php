@@ -10,9 +10,7 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    protected $guard = 'admin';
-
-    protected $fillable = ['band_id', 'name', 'email', 'password'];
+    protected $fillable = ['band_id', 'name', 'leader', 'admin', 'email', 'password'];
 
     protected $hidden = ['password', 'remember_token'];
 

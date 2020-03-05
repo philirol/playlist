@@ -8,7 +8,7 @@
             <div class="card-body">
                 <h5 class="card-title">@lang('Nom') : {{ $user->name }}</h5>
                 <br>
-                <p class="card-text">@lang('Groupe') : {{ $user->band->bandname }}</p>
+                <p class="card-text">@lang('Groupe') : {{ $bandname }}</p>
                 <br>
                 <p class="card-text">Email : {{ $user->email }}</p>
                 <br>

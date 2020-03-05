@@ -37,7 +37,7 @@ class SongController extends Controller
         $songs = Song::where('band_id', $bandId)->orderBy('order', 'ASC')->get();
 */  
         
-        $this->authorize('view', Song::class);
+        
             // Auth::user()->can('viewAny', Song::class);
             if(!Auth::check()){
                 $band_id = 1; //pour groupe démo

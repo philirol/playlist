@@ -9,7 +9,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin');
+        $this->middleware('admin', ['only' => 'index']);
     }
     
     public function index($slug = null)
@@ -23,7 +23,11 @@ class UserController extends Controller
     
     public function show($id)
     {
-        return view('user.show', ['user' => User::findOrFail($id)]);
+        $user = User::findOrFail($id);
+        $user->band_id == 0 ? $bandname = "PAS DE GROUPE" : $bandname = $user->band->bandname ;
+        
+        // return view('user.show', ['user' => User::findOrFail($id)]);
+        return view('user.show', compact('user', 'bandname'));
     }
 
     public function edit($id){
