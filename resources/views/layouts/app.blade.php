@@ -49,7 +49,7 @@
                             <a class="nav-link" href="{{ url('/') }}">@lang('Imprimer Playlist')<span class="sr-only">(current)</span></a>
                         </li>            
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('profil') }}">Profil</a>
+                            <a class="nav-link" href="{{ route('user.index') }}">Profil</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('contact.create') }}">Contact</a>
@@ -58,11 +58,11 @@
                             <a class="nav-link" href="{{ url('/') }}">@lang('Aide')</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/userband') }}">@lang('Votre groupe')</a>
+                            <a class="nav-link" href="{{ route('banduser')}}">@lang('Le groupe')</a>
                         </li>
                         @if(Auth::check() and Auth::user()->admin)
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('user.index') }}">@lang('Utilisateurs')</a>
+                            <a class="nav-link" href="{{ route('user.indexByAdmin') }}">@lang('Utilisateurs')</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('band.index') }}">@lang('Groupes')</a>

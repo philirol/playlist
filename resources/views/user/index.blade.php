@@ -8,7 +8,7 @@
                 <td class="align-middle">
                     <div class="select">
                         <select onchange="window.location.href = this.value">
-                            <option value="{{ route('user.index') }}" @unless($slug) selected @endunless>@lang('Tous les groupes')</option>
+                            <option value="{{ route('user.indexByAdmin') }}" @unless($slug) selected @endunless>@lang('Tous les groupes')</option>
                             @foreach($bands as $band)
                                 <option value="{{ route('user.band', $band->slug) }}" {{ $slug == $band->slug ? 'selected' : '' }}>{{ $band->bandname }}</option>
                             @endforeach
@@ -24,9 +24,8 @@
                 <tr>
                     <td><strong>{{ $user->name }}</strong></td>
                     <!-- <td><strong>{{ $user->email }}</strong></td> -->
-                    <td><a href="{{ route('user.show', $user->id) }}" class="btn btn-light my-3">Voir</a></td>
-                    <td><a href="{{ route('user.edit', $user->id) }}" class="btn btn-success my-3">Modifier</a></td>
-                    <td><a href="{{ route('user.destroy', $user->id) }}" class="btn btn-danger my-3">Supprimer</a></td>
+                    <td>{{ $user->email }}</td>
+                    <td>{{ $user->leader }}</td>
                 </tr>
             @endforeach
             </tbody>

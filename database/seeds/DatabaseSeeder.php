@@ -85,80 +85,113 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password'),
         ]);
 
-        factory(App\User::class, 5)->create();
+        factory(App\User::class, 7)->create(); //mettre 10 users pour être raccord avec le nombre de songs sinon erreur sur song.show
 
 
         DB::table('songs')->insert([
             'band_id' => 1,
             'user_id' => rand(1, 10),
             'title' => 'How Do You Think -The Brand New Heavies',
-            'reference' => 'https://www.youtube.com/watch?v=S9Wn6AvAg5s',
+            'url' => 'https://www.youtube.com/watch?v=S9Wn6AvAg5s',
             'order' => 1,
             'list' => 1,
-            'note' => 'This is a note about you can modify or delete.',
+            'comments' => 'This is a note about you can modify or delete.',
         ]);
         DB::table('songs')->insert([
             'band_id' => 1,
             'user_id' => rand(1, 10),
             'title' => 'Greyboy allstars - Soul dream',
-            'reference' => 'https://www.youtube.com/watch?v=0acjErtoqOs',
+            'url' => 'https://www.youtube.com/watch?v=0acjErtoqOs',
             'order' => 2,
             'list' => 1,
-            'note' => 'This is a note about you can delete or modify.',
+            'comments' => 'This is a note about you can delete or modify.',
         ]);
         DB::table('songs')->insert([
             'band_id' => 1,
             'user_id' => rand(1, 10),
             'title' => 'Cleopatra\'s cat - Spin Doctors',
-            'reference' => 'https://www.youtube.com/watch?v=GuDgvbpVQD4',
+            'url' => 'https://www.youtube.com/watch?v=GuDgvbpVQD4',
             'order' => 3,
             'list' => 1,
-            'note' => 'This is a note about the song.',
+            'comments' => 'This is a note about the song.',
         ]);
         DB::table('songs')->insert([
             'band_id' => 1,
             'user_id' => rand(1, 10),
             'title' => 'Just Kissed My Baby - Jon Cleary',
-            'reference' => 'https://www.youtube.com/watch?v=Jvj6xA251eg',
+            'url' => 'https://www.youtube.com/watch?v=Jvj6xA251eg',
             'order' => 4,
             'list' => 1,
-            'note' => 'Break à 1:49.',
+            'comments' => 'Break à 1:49.',
         ]);
         DB::table('songs')->insert([
             'band_id' => 1,
             'user_id' => rand(1, 10),
             'title' => 'Use me - Raw Stylus',
-            'reference' => 'https://www.youtube.com/watch?v=Q1WPVBVfoL8',
+            'url' => 'https://www.youtube.com/watch?v=Q1WPVBVfoL8',
             'order' => 5,
             'list' => 1,
-            'note' => 'Couplets - rth funk/overdr/wah',
+            'comments' => 'Couplets - rth funk/overdr/wah',
         ]);
         DB::table('songs')->insert([
             'band_id' => 1,
             'user_id' => rand(1, 10),
             'title' => 'Solsonics - Ascension',
-            'reference' => 'https://www.youtube.com/watch?v=p_E625gOito',
+            'url' => 'https://www.youtube.com/watch?v=p_E625gOito',
             'order' => 1,
             'list' => 0,
-            'note' => 'Couplets - rth funk/overdr/wah',
+            'comments' => 'Couplets - rth funk/overdr/wah',
         ]);
         DB::table('songs')->insert([
             'band_id' => 1,
             'user_id' => rand(1, 10),
             'title' => 'Dark End Street - Spice',
-            'reference' => 'https://www.youtube.com/watch?v=VmnDIcabkBU',
+            'url' => 'https://www.youtube.com/watch?v=VmnDIcabkBU',
             'order' => 2,
             'list' => 0,
-            'note' => 'cocotte en C (7 mesures)',
+            'comments' => 'cocotte en C (7 mesures)',
         ]);
         DB::table('songs')->insert([
             'band_id' => 1,
             'user_id' => rand(1, 10),
             'title' => 'Yellow Jackets - Sittin\' in It',
-            'reference' => 'https://www.youtube.com/watch?v=PPAUdqhjsXk',
+            'url' => 'https://www.youtube.com/watch?v=PPAUdqhjsXk',
             'order' => 3,
             'list' => 0,
-            'note' => 'too good',
+            'comments' => 'too good',
+        ]);
+
+
+
+
+
+        DB::table('songsubs')->insert([
+            'song_id' => 1,
+            'user_id' => 1,
+            'title' => 'Frank Zappa - Muffin Man',
+            'url' => 'https://www.youtube.com/watch?v=qwIrXOtZyvQ',
+            'comments' => '',
+        ]);
+        DB::table('songsubs')->insert([
+            'song_id' => 1,
+            'user_id' => 1,
+            'title' => 'Frank Zappa - Willie The Pimp',
+            'url' => 'https://www.youtube.com/watch?v=KHiclrHm-ig',
+            'comments' => '',
+        ]);
+        DB::table('songsubs')->insert([
+            'song_id' => 2,
+            'user_id' => 2,
+            'title' => 'Is It You - Lee Ritenour',
+            'url' => 'https://www.youtube.com/watch?v=oHXv_qTGAms',
+            'comments' => '',
+        ]);
+        DB::table('songsubs')->insert([
+            'song_id' => 2,
+            'user_id' => 2,
+            'title' => 'Mornin',
+            'url' => 'https://www.youtube.com/watch?v=WJ3JyC-QQKY',
+            'comments' => '',
         ]);
     
         
@@ -170,10 +203,10 @@ class DatabaseSeeder extends Seeder
                 'band_id' => 2,
                 'user_id' => rand(1, 10),
                 'title' => $faker->Company,
-                'reference' => $faker->url,
+                'url' => $faker->url,
                 'order' => $index,
                 'list' => 1,
-                'note' => 'This is a note'
+                'comments' => 'This is a note'
             ]);
         }
         
@@ -182,10 +215,10 @@ class DatabaseSeeder extends Seeder
                 'band_id' => 2,
                 'user_id' => rand(1, 10),
                 'title' => $faker->Company,
-                'reference' => $faker->url,
+                'url' => $faker->url,
                 'order' => $index,
                 'list' => 0,
-                'note' => 'This is a note'
+                'comments' => 'This is a note'
             ]);
         }
 
@@ -194,10 +227,10 @@ class DatabaseSeeder extends Seeder
                 'band_id' => 3,
                 'user_id' => rand(1, 10),
                 'title' => $faker->Company,
-                'reference' => $faker->url,
+                'url' => $faker->url,
                 'order' => $index,
                 'list' => 1,
-                'note' => 'This is a note'
+                'comments' => 'This is a note'
             ]);
         }
         foreach (range(1,5) as $index) {
@@ -205,10 +238,10 @@ class DatabaseSeeder extends Seeder
                 'band_id' => 3,
                 'user_id' => rand(1, 10),
                 'title' => $faker->Company,
-                'reference' => $faker->url,
+                'url' => $faker->url,
                 'order' => $index,
                 'list' => 0,
-                'note' => 'This is a note'
+                'comments' => 'This is a note'
             ]);
         }
 
@@ -217,10 +250,10 @@ class DatabaseSeeder extends Seeder
                 'band_id' => 4,
                 'user_id' => rand(1, 10),
                 'title' => $faker->Company,
-                'reference' => $faker->url,
+                'url' => $faker->url,
                 'order' => $index,
                 'list' => 1,
-                'note' => 'This is a note'
+                'comments' => 'This is a note'
             ]);
         }
         foreach (range(1,5) as $index) {
@@ -228,10 +261,10 @@ class DatabaseSeeder extends Seeder
                 'band_id' => 4,
                 'user_id' => rand(1, 10),
                 'title' => $faker->Company,
-                'reference' => $faker->url,
+                'url' => $faker->url,
                 'order' => $index,
                 'list' => 0,
-                'note' => 'This is a note'
+                'comments' => 'This is a note'
             ]);
         }
 

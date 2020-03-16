@@ -19,6 +19,7 @@ class RegisterStep2Controller extends Controller
     {
         $villes = DB::table('villes')->where('ville_departement', '=', session('departement_code'))
         ->select('id', 'ville_nom', 'ville_code_postal')
+        ->orderBy('ville_nom')
         ->get();
 
         return view('auth.register_step2', compact('villes'));

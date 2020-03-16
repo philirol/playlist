@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<h3>Page de modification</h3>
+<h3>Modification du groupe</h3>
 <br>
-<form action="{{ route('songs.update', ['song' => $song->id]) }}" method="post" enctype="multipart/form-data">
+<form action="{{ route('band.update', ['band' => $band->id]) }}" method="post" enctype="multipart/form-data">
     @method('PATCH')
-    @include('includes.formsong')
+    @include('includes.formband')
 <button type="submit" class="btn btn-primary my-4">Valider</button>
 </form>
  

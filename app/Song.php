@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Song extends Model
 {
-    protected $fillable = ['title', 'reference', 'order', 'note', 'band_id', 'list'];
+    protected $fillable = ['band_id','title','url','file','order','list','comments'];
     //laisser list dans fillable sinon il se met pas à jour en update
 
     //protected $guarded = [];
@@ -19,6 +19,11 @@ class Song extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function songsubs()
+    {
+        return $this->hasMany(Songsub::class);
     }
 
     protected $attributes = ['list' => 1]; 

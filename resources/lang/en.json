@@ -14,11 +14,19 @@
 
     "Ajouter une catégorie": "Add a category",
 
-    "Ajouter une image": "Add an image",
+    "Ajout fichier": "Add file",
+
+    "Ajouter un fichier": "Add file",
+
+    "Ajout lien": "Add link",
+
+    "Ajouter une image": "Add picture",
 
     "A l'url :": "For url:",
 
     "Albums": "Albums",
+
+    "Aller sur le lien": "Open new page to link",
 
     "A propos": "About",
 
@@ -46,6 +54,8 @@
 
     "Code postal": "Postal code",
 
+    "Commentaires": "Comments",
+
     "Confirmation du mot de passe": "Confirm Password",
 
     "Connexion": "Login",
@@ -58,6 +68,10 @@
 
     "Créer un membre": "Create user",
 
+    "Dans": "In",
+
+    "de": "of",
+
     "Date création": "Created at",
 
     "Date d'inscription :": "Registration date:",
@@ -65,6 +79,8 @@
     "Description (optionnelle)": "Description (optional)",
 
     "Déconnexion": "Logout",
+
+    "Editer": "Edit",
 
     "Email": "Email",
 
@@ -90,6 +106,8 @@
 
     "Fiche Utilisateur" : "User Card",
 
+    "Fichiers attachés" : "File(s) attached on this song",
+
     "Gestion": "Gestion",
 
     "Gestion des albums": "Albums management",
@@ -111,6 +129,8 @@
     "Groupes": "Bands",
 
     "ID : ": "ID:",
+
+    "Il n'y a pas de commentaires pour ce morceau": "No comments for this song",
 
     "Il semble y avoir une erreur sur le serveur, veuillez réessayer plus tard...": "Looks like there is a server issue, please try later...",
 
@@ -140,7 +160,11 @@
 
     "La catégorie a bien été modifiée": "Category has been updated",
 
-    "Le :": "On:",
+    "le": "on",
+
+    "Le": "On",
+
+    "Le groupe": "The Band",
 
     "Le mode a bien été actualisé.": "The mode has been updated.",
 
@@ -151,6 +175,8 @@
     "Le nouveau morceau a bien été créé!": "The new song has been created successfully!.",
 
     "Le profil a bien été mis à jour": "Profile has been updated",
+
+    "Lien": "Link",
 
     "Liste des utilisateurs" : "Users list",
 
@@ -163,6 +189,8 @@
     "Mentions légales": "Legal mentions",
 
     "Merci pour votre vote !": "Thank you for your vote!",
+
+    "Mettre dans": "Move in",
 
     "Mode maintenance": "Maintenance mode",
 
@@ -210,6 +238,8 @@
 
     "Oui": "Yes",
 
+    "Page de modification" : "Song modify ",
+
     "Pagination : ": "Pagination: ",
 
     "Photo": "Photo",
@@ -221,6 +251,8 @@
     "Photos orphelines": "Orphan photos",
 
     "Politique de confidentialité": "Privacy policy",
+
+    "Posté par": "Posted by",
 
     "Pour le site :": "For site:",
 
@@ -238,11 +270,19 @@
 
     "Renouveller": "Reset",
 
+    "Saisir un commentaire": "Insert your comment",
+
+    "Saisir un lien": "Insert your link",
+
+    "Saisir un titre": "Insert title",
+
     "\n    Sed cautela nimia in peiores haeserat plagas, ut narrabimus postea, aemulis consarcinantibus insidias graves apud Constantium, cetera medium principem sed siquid auribus eius huius modi quivis infudisset ignotus, acerbum et inplacabilem et in hoc causarum titulo dissimilem sui.": "",
     
     "Se déconnecter" : "Sign out" ,
     
     "Se souvenir": "Remember me",
+
+    "Sélectionner un fichier": "Choose file",
 
     "Service temporairement indisponible ou en maintenance": "The server is currently unavailable",
 
@@ -265,6 +305,10 @@
     "Supprimer la catégorie": "Category delete",
 
     "Supprimer mon compte": "Delete my account",
+
+    "Titre" : "Title",
+
+    "Titre (champ obligatoire)" : "Title (required)",
 
     "Tous les groupes" : "All bands",
 

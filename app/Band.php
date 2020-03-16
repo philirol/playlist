@@ -25,10 +25,10 @@ class Band extends Model
         return $this->belongsTo(Ville::class);
     }
 
-     public function getbandnameAttribute($value)
+    /* public function getbandnameAttribute($value)
     {
         return strtoupper($value);
-    }
+    } */
 
     
 }

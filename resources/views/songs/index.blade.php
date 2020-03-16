@@ -4,7 +4,7 @@
 
 <table class="table">
   <tr class="table-info">
-    <td class="align-middle"><h3>{{ __(session('listname')) }} : {{ $bandname }}<u>
+    <td class="align-middle"><h4>{{ __(session('listname')) }} @lang('de') {{ $bandname }}</h4>
     <!-- Plus utilisé à cause de la partie Admin où on passe l'id du groupe en paramètre 
     @if (Auth::check())
     {{ Auth::user()->band->bandname }}
@@ -13,37 +13,38 @@
     @endif
     -->
     </u></h3></td>
-    @if(Auth::check() and !Auth::user()->admin)
+    @if(Auth::check())
     <td class="text-right"><a href="{{ route('songs.create') }}" class="btn btn-primary my-3">@lang('Nouveau morceau')</a></td>
     @endif
   </tr>
 </table>
 
 <table class="table table-striped">
-  <thead>
-    <tr>
-      <td scope="col">AA</td>
-      <td scope="col">order</td>
-      <td scope="col">titre</td>
-      <td scope="col">list</td>
-      <td scope="col">ref</td>
-      <td scope="col">Groupe</td>
-    </tr>
-  </thead>
-  <tbody id="tablecontents">
-  @foreach($songs as $song)
-    <tr class="row1" data-id="{{ $song->id }}">
-      <th class="pl-3"><i class="fa fa-sort"></i></th>
-      <td class="text-center">{{ $song->order }}</td>
-      <td><a href="{{ route('songs.show', ['song' => $song->id]) }}">{{ $song->title  }}</a></td>
-      <td>{{ $song->list }}</td>
-      <td>{{ $song->reference }}</td>
-      <td>{{ $song->band->bandname }}</td>
-    </tr>
-    @endforeach
-  </tbody>
+  <tbody id="tablecontents"> {{-- tbody for sorting list js --}}
+    @foreach($songs as $song)
+      <tr class="row1" data-id="{{ $song->id }}">
+        <th class="pl-3"><i class="fa fa-sort"></i></th>
+        {{--<td class="text-center">{{ $song->order }}</td> --}}
+        <td><a href="{{ route('songs.show', $song->id) }}">{{ $song->title  }}</a></td>
+        {{--<td>{{ $song->list }}</td> --}}
+        @if($song->comments)
+        <td><i class="fa fa-comments" aria-hidden="true" title="@lang('Commentaires')"></i></td>
+        @else<td>&nbsp;</td>
+        @endif
+        @if($song->songsub>0)
+        <td><img src="{{asset('images/folder.png')}}" alt="files attached" title="{{ $song->songsub }} @lang('Fichiers attachés')"></td>      
+        @else<td>&nbsp;</td>
+        @endif
+        @if($song->url)
+        <td><a href="{{ $song->url }}" target="_blank"><img src="{{asset('images/ytb.png')}}" alt="logo youtube" height="22" width="33" title="@lang('Aller sur le lien')"></a></td>      
+        @else<td>&nbsp;</td>
+        @endif
+      </tr>
+      @endforeach
+    </tbody>
 </table>
-<button class="btn btn-success btn-sm" onclick="window.location.reload()">Réord.</button>
+
+{{--<button class="btn btn-success btn-sm" onclick="window.location.reload()">Réord.</button> --}}
 
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

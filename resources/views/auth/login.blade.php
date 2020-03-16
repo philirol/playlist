@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+<h3 class="text-center">Bienvenu sur Playlist, le site de Playlist des musiciens.</h3>
+<h5 class="text-center">Cliquez sur Playlist ou Projets en haut à gauche et visitez la partie démo sans vous inscrire.</h5><br>
+<h6 class="text-center">Inscrivez-vous, entrez votre groupe et ajouter ensuite vos musiciens</h6>
+<hr><br>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">

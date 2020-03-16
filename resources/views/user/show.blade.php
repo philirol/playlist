@@ -1,29 +1,32 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="col-sm-offset-4 col-sm-4">
-    	<br>
-		<div class="card text-white bg-info mb-3" style="max-width: 18rem;">
-            <div class="card-header">@lang('Fiche Utilisateur')</div>
-            <div class="card-body">
-                <h5 class="card-title">@lang('Nom') : {{ $user->name }}</h5>
-                <br>
-                <p class="card-text">@lang('Groupe') : {{ $bandname }}</p>
-                <br>
-                <p class="card-text">Email : {{ $user->email }}</p>
-                <br>
-                <p>@lang('Administrateur') : 
-                @if($user->admin == 1)
-                @lang('Oui')
-                    @else
-                    @lang('Non')
-                @endif
-                </p>
+<h5>@lang('Profil Utilisateur')</h5>
+    <div class="card mb-3" style="max-width: 550px;">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+            @if ($user->image)
+                <img src="{{ asset('storage/' . $user->image) }}" alt="user-avatar" class="rounded float-left" width="180">
+            @else
+                <img src="{{ asset('storage/avatars/avatar.png') }}" alt="user-avatar" class="rounded float-left" width="180">
+            @endif
             </div>
-        </div>			
-		<a href="javascript:history.back()" class="btn btn-primary">
-			<span class="glyphicon glyphicon-circle-arrow-left"></span> @lang('Retour')
-		</a>
-	</div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{ $user->name }}</h5>
+                    <p class="card-text">{{ $user->email }}</p>   
+                    <br><p class="text-muted">Utilisateur créé le {{ $user->created_at->format('d/m/Y') }}</p>                 
+                </div>
+            </div>
+        </div>
+    </div>
+    <p>@lang('Pour changer de mot de passe :')
+    <br> 
+        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">@lang('déconnecter-vous')</a>
+        <br> et cliquez sur "Mot de passe oublié".
+    </p>	
+    <a href="javascript:history.back()" class="btn btn-primary"><span class="glyphicon glyphicon-circle-arrow-left"></span> @lang('Retour')</a>
+    <a href="{{ route('user.edit', ['user' => $user->id]) }}" class="btn btn-secondary my-3">Modifier</a>
+    
 @endsection
 

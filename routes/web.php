@@ -1,6 +1,6 @@
 <?php
 
-Route::view('/','welcome')->name('accueil');
+Route::view('/','auth/login')->name('accueil');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::name('language')->get('language/{lang}', 'HomeController@language');
 
@@ -9,13 +9,18 @@ Route::post('song-sortable','SongController@update_order')->name('orderingPlayli
 Route::resource('songs', 'SongController');
 Route::get('playlist/{list}', 'SongController@index')->name('playlist');
 
+Route::get('songsub/{sub?}', 'SongsubController@create')->name('songsub.create');
+Route::resource('songsub', 'SongsubController')->except(['create']);
+
 Route::get('contactez-nous', 'ContactController@create')->name('contact.create');
 Route::post('contactez-nous', 'ContactController@store')->name('contact.store');
 
 Auth::routes();
-Route::get('users', 'UserController@index')->middleware('admin')->name('user.index');
-Route::get('banduser/{slug}', 'UserController@index')->middleware('admin')->name('user.band');
-Route::resource('user', 'UserController')->middleware('admin');
+Route::get('users', 'UserController@indexByAdmin')->middleware('admin')->name('user.indexByAdmin');
+Route::get('banduser/{slug}', 'UserController@indexByAdmin')->middleware('admin')->name('user.band');
+Route::get('usershow', 'UserController@show')->name('user.show');
+Route::get('deleteImage/{user}', 'UserController@deleteImage')->name('user.deleteImage');
+Route::resource('user', 'UserController');
 
 Route::get('songsband/{id}', function($id){  //coming from band/show.blade.php (admin area)
     session(['band_id' => $id]);
@@ -23,12 +28,11 @@ Route::get('songsband/{id}', function($id){  //coming from band/show.blade.php (
 })->name('band.songs');
 
 Route::resource('band', 'BandController');
+Route::get('banduser', 'BandController@showBandUser')->middleware('auth')->name('banduser');;
 
-Route::resource('profil', 'ProfilController');
+
 Route::get('newprofil', 'ProfilController@newUser')->name('newprofil');
 Route::get('geog/{slug}', 'ProfilController@geog')->name('user.ville');
-
-
 
 Route::get('ville', 'VilleController@index')->name('ville.index')->middleware('admin');
 

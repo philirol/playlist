@@ -39,10 +39,13 @@ class CreateSongsTable extends Migration
                 ->onDelete('restrict')
                 ->onUpdate('restrict');            
             $table->string('title', 70);
-            $table->string('reference', 400);           
+            $table->string('url',400)->nullable();
+            $table->tinyInteger('type')->unsigned()->default(0);
+            $table->string('file', 400)->nullable();         
             $table->integer('order')->default(0);
             $table->boolean('list')->default(true);
-            $table->text('note', 1000)->nullable();
+            $table->text('comments', 1000)->nullable();
+            $table->tinyInteger('songsub')->unsigned()->default(0);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
             

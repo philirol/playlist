@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
-class Song extends FormRequest
+class User extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,12 +24,11 @@ class Song extends FormRequest
      */
     public function rules()
     {
+        $id = Auth::user()->id;
         return [
-            'title' => ['required', 'string', 'max:100'],
-            'url' => ['nullable', 'string'],
-            'file' => 'sometimes|max:5000|file|mimes:jpeg,bmp,png,doc,docx,txt,xls,xlsx',
-            'order' => ['nullable', 'integer'],
-            'comments' => ['nullable', 'string'],
+            'name' => 'required|max:255|unique:users,name,' . $id,
+            'email' => 'required|email|max:255|unique:users,email,' . $id,
+            'image' => 'sometimes|image|max:50000'
         ];
     }
 }

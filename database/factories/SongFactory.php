@@ -10,7 +10,7 @@ $factory->define(Song::class, function (Faker $faker) {
         'band_id' => $faker->numberBetween(1,4),
         'user_id' => $faker->numberBetween(1,10),
         'title' => $faker->lastName,
-        'reference' => $faker->url,      
+        'url' => $faker->url,      
         'order' => $faker->unique()->randomNumber(2),
         'note' => $faker->realText($maxNbChars = 50, $indexSize = 2),      
         

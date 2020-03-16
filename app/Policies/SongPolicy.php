@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\{User, Band, Song};
+use App\{User, Song};
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -10,12 +10,14 @@ class SongPolicy
 {
     use HandlesAuthorization;
     
-/*     public function before(User $user, $ability)
+
+    
+    public function before(User $user, $ability)
     {
-        if ($user->isNewuser()) {
-            return false;
+        if ($user->admin) {
+            return true;
         }
-    } */
+    }
 
     /**
      * Determine whether the user can view any songs.
@@ -24,12 +26,9 @@ class SongPolicy
      * @return mixed
      */
     
-    public function viewAny(User $user = null)
+    public function viewAny()
     {
-        if (is_null($user)) {
-            return true;
-        }       
-        return !$user->band_id == 0;
+        //
     }
 
     /**
@@ -39,10 +38,9 @@ class SongPolicy
      * @param  \App\Song  $song
      * @return mixed
      */
-    public function view(User $user = null, Song $song = null)
-    {
-          
-        return !$user->band_id == 0;
+    public function view(User $user, Song $song)
+    {          
+        return $user->band_id === $song->band_id;
     }
 
     /**
@@ -77,7 +75,7 @@ class SongPolicy
      */
     public function delete(User $user, Song $song)
     {
-        return true;
+        return $user->band_id === $song->band_id;
     }
 
     /**

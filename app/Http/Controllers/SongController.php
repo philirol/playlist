@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Song;
-// use App\User;
 use App\Band;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Song as SongRequest;
@@ -107,9 +106,9 @@ class SongController extends Controller
 
     public function show(Song $song) //remplacé par le model binding ici présent
     {               
-        $band = $song->band->bandname; //utilisation de la relation band-songs
-        $user = $song->user->name;
-        return view('songs.show', compact('song','band', 'user'));        
+        $this->authorize('view', $song);
+        session(['song' => $song]); //sert pour show songsub
+        return view('songs.show', compact('song'));        
     }
 
     public function edit(Song $song)
