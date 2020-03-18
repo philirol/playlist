@@ -9,6 +9,7 @@ Route::post('song-sortable','SongController@update_order')->name('orderingPlayli
 Route::resource('songs', 'SongController');
 Route::get('playlist/{list}', 'SongController@index')->name('playlist');
 
+Route::get('dwnld/{songsub}', 'SongsubController@download')->name('songsub.dwnld');
 Route::get('songsub/{sub?}', 'SongsubController@create')->name('songsub.create');
 Route::resource('songsub', 'SongsubController')->except(['create']);
 

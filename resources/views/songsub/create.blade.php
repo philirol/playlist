@@ -29,13 +29,22 @@
         <div class="form-group">
             <label class="label">@lang('Ajouter un fichier')</label>
             <div class="custom-file">
-                <input type="file" name="songfile" class="custom-file-input @error('songfile') is-invalid @enderror">
+                <input type="hidden" name="testfile" value="testfile">
+                <input type="file" name="file" class="custom-file-input @error('file') is-invalid @enderror">
                 <label class="custom-file-label">@lang('Sélectionner un fichier')</label>
-                @error('songfile')
+                @error('file')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
-            </div>
+            </div>            
         </div>
+        <p class="text-muted">@lang('Extensions de fichiers autorisées') : 
+            @php
+            $string = "'mp3','ogg','wav','flac','mid','mp4','png','gif','jpg','jpeg','txt','xls','xlsx','ods','doc','docx','odt','pdf','gpx','gp3','gpa4','gp5'";
+            $string = str_replace ("'", " ", $string);
+            echo $string;
+            @endphp
+        </p>
+        {{--<p>Les fichiers audio d'extension wma, aiff et mid ne seront pas lus par le lecteur audio du site</p>--}} 
         @endif
         <button type="submit" class="btn btn-primary my-4">@lang('Valider')</button>
     </form>   

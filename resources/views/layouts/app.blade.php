@@ -15,9 +15,11 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> -->
 
     <script src="{{ asset('js/app.js') }}"></script>
+    
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    
 
     <!-- New Bootstrap menu déroulant marche pas si actif, à voir si on garde suite au changmenets css -->
     <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -30,7 +32,6 @@
     <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.css"/> -->
    
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
-
 </head>
 <body>
     <div id="app">

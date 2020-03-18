@@ -1,5 +1,6 @@
 //On va chercher une police Google, on importe des variables pour Bootstrap,
 // on va chercher les fichiers sass et js dans les ressources et qu’on les compile en les envoyant dans des dossiers publics.
+// voir http://laravel.sillo.org/cours-laravel-5-5-css-et-javascript/
 
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Sniglet');
@@ -28,6 +29,7 @@ body {
     //background-color: #eaeaea;
     font-family: 'Sniglet', cursive;
 }
+
 .bg-dark {
     //background-color: #b71212 !important;
   }
@@ -39,7 +41,7 @@ body {
   }
 
 .navbar {
-    background-color: #86592f88;
+    background-color: #862f6588;
 }
 
 .navbar-expand-md {

@@ -4,6 +4,7 @@
 
 @if (Auth::guard('web')->check())
 	<h5>@lang('Profil Utilisateur')</h5>
+	<br>
 	<form action="{{ route('user.update', ['user' => $user->id]) }}" method="POST" enctype="multipart/form-data">
 	@method('PATCH')
 	@csrf
@@ -11,9 +12,9 @@
 			<div class="row no-gutters">
 				<div class="col-md-4">
 				@if ($user->image)
-					<img src="{{ asset('storage/' . $user->image) }}" alt="user-avatar" class="rounded float-left" width="180">
+					<img src="{{ asset('storage/avatars/' . $user->image) }}" alt="user-avatar" class="rounded float-left">
 				@else
-					<img src="{{ asset('storage/avatars/avatar.png') }}" alt="user-avatar" class="rounded float-left" width="180">
+					<img src="{{ asset('storage/avatars/avatar.png') }}" alt="user-avatar" class="rounded float-left">
 				@endif
 				</div>
 				<div class="col-md-8">

@@ -24,23 +24,34 @@
     @foreach($songs as $song)
       <tr class="row1" data-id="{{ $song->id }}">
         <th class="pl-3"><i class="fa fa-sort"></i></th>
-        {{--<td class="text-center">{{ $song->order }}</td> --}}
-        <td><a href="{{ route('songs.show', $song->id) }}">{{ $song->title  }}</a></td>
-        {{--<td>{{ $song->list }}</td> --}}
+        <td><a href="{{ route('songs.show', $song->id) }}" title="{{ $song->songsub }} @lang('Fichier(s)/lien(s)')">{{ $song->title }}</a></td>
         @if($song->comments)
         <td><i class="fa fa-comments" aria-hidden="true" title="@lang('Commentaires')"></i></td>
-        @else<td>&nbsp;</td>
+        @else
+        <td>&nbsp;</td>
         @endif
-        @if($song->songsub>0)
-        <td><img src="{{asset('images/folder.png')}}" alt="files attached" title="{{ $song->songsub }} @lang('Fichiers attachés')"></td>      
-        @else<td>&nbsp;</td>
-        @endif
-        @if($song->url)
-        <td><a href="{{ $song->url }}" target="_blank"><img src="{{asset('images/ytb.png')}}" alt="logo youtube" height="22" width="33" title="@lang('Aller sur le lien')"></a></td>      
-        @else<td>&nbsp;</td>
-        @endif
+        <td>
+        @foreach($song->songsubs as $songsub)        
+          @if($songsub->main == 1)
+          
+          @switch($songsub->type)
+              @case(1)
+              <a href="{{ $songsub->url }}" target="_blank"><img src="{{asset('images/ytb.png')}}" alt="logo youtube" title="@lang('Aller sur le lien')"></a>
+                  @break
+
+              @case(2)
+              <audio controls src="{{ asset('storage/' . $songsub->file) }}">Your browser does not support the <code>audio</code> element.</audio>
+                  @break
+
+              @default
+              <a href="{{ route('songsub.dwnld', ['songsub' => $songsub->id]) }}" title="@lang('Télécharger le fichier')">Document</a>
+          @endswitch
+
+          @endif          
+        @endforeach
+        </td>
       </tr>
-      @endforeach
+    @endforeach
     </tbody>
 </table>
 

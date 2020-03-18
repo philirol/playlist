@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Song;
+use App\Songsub;
 use App\Band;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Song as SongRequest;
+use Illuminate\Database\Eloquent\Builder;
+
 
 class SongController extends Controller
 {
@@ -29,11 +32,6 @@ class SongController extends Controller
 /*      $songs = Song::with('user')->paginate($this->NbrParPage);
         $songs = Song::all(); 
         $songs = Song::with('users')->get(); //sans pagination  
-
-        sans utilisation des relations :
-        $bandId = Auth::user()->band_id;
-        $bandname = Band::find($bandId)->bandname;
-        $songs = Song::where('band_id', $bandId)->orderBy('order', 'ASC')->get();
 */  
         
         
@@ -42,8 +40,8 @@ class SongController extends Controller
                 $band_id = 1; //pour groupe démo
             } elseif(Auth::check() && !Auth::user()->admin) {
                 $band_id = Auth::user()->band->id;
-            } else {
-                $band_id = session('band_id', Auth::user()->band_id); // pour admin, s'il choisi pas un groupe on lui montre sa playlist par défaut. Si l'admin créé un morceau il sera toujours mis dans sa playlist à lui et pas sur laquelle il est positionné
+            } else {// pour admin, s'il choisi pas un groupe on lui montre sa playlist par défaut. Si l'admin créé un morceau il sera toujours mis dans sa playlist à lui et pas sur laquelle il est positionné
+                $band_id = session('band_id', Auth::user()->band_id); 
             }       
 /*       Utilisation de la relation
         $songs = Song::with('band')->get(); //toutes les songs
@@ -54,13 +52,13 @@ class SongController extends Controller
 
         $list == 1 ? session(['listname' => 'Playlist']) : session(['listname' => 'Projets']);
 
-        $bandname = Band::find($band_id)->bandname;
+        $bandname = Band::find($band_id)->bandname;        
      
         $songs = Song::where([
             ['band_id', $band_id],
             ['list', $list]
-            ])->orderBy('order', 'ASC')->get();       
-        
+            ])->orderBy('order', 'ASC')->get();
+            
         return view('songs.index', compact('songs', 'bandname'));  
 
     }
@@ -80,7 +78,8 @@ class SongController extends Controller
         $song->user_id = $user->id;
         //le morceau a pu être créé avant car band_id et user_id sont nullable dans la table
         $this->list($song);
-        return redirect()->route('playlist', [$songRequest->list])->with('message', __('Le nouveau morceau a bien été créé!'));
+        // return redirect()->route('playlist', [$songRequest->list])->with('message', __('Le nouveau morceau a bien été créé!'));
+        return view('songs.show', compact('song'))->with('message', __('Le nouveau morceau a bien été créé!'));
 
     }
 

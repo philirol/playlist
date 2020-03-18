@@ -102,11 +102,15 @@
 
     "Exporter mes données personnelles": "Export my personal data",
 
+    "Extension de fichier invalide" : "Invalid File Extension",
+
+    "Extensions de fichiers autorisées" : "Valid extensions file",
+
     "Fermer (Esc)": "Close (Esc)",
 
     "Fiche Utilisateur" : "User Card",
 
-    "Fichiers attachés" : "File(s) attached on this song",
+    "Fichier(s)/lien(s)" : "File(s)/link(s)",
 
     "Gestion": "Gestion",
 
@@ -177,6 +181,8 @@
     "Le profil a bien été mis à jour": "Profile has been updated",
 
     "Lien": "Link",
+
+    "Liens / Fichiers attachés": "Links / Files attached",
 
     "Liste des utilisateurs" : "Users list",
 
@@ -270,6 +276,8 @@
 
     "Renouveller": "Reset",
 
+    "Retour Playlist": "Back to Playlist",
+
     "Saisir un commentaire": "Insert your comment",
 
     "Saisir un lien": "Insert your link",
@@ -305,6 +313,12 @@
     "Supprimer la catégorie": "Category delete",
 
     "Supprimer mon compte": "Delete my account",
+    
+    "Taille des fichiers limités à 1MB": "File too large. File must be less than 1MB",
+
+    "Taille des fichiers limités à 2MB": "File too large. File must be less than 2MB",
+
+    "Télécharger le fichier" : "Download the file",
 
     "Titre" : "Title",
 

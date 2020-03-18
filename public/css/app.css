@@ -4544,7 +4544,7 @@ input[type=button].btn-block {
   padding-top: 0.3125rem;
   padding-bottom: 0.3125rem;
   margin-right: 1rem;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   line-height: inherit;
   white-space: nowrap;
 }
@@ -10911,7 +10911,7 @@ body {
 }
 
 .navbar {
-  background-color: #86592f88;
+  background-color: #862f6588;
 }
 
 .navbar-expand-md {
@@ -10921,5 +10921,24 @@ body {
 .navbar-expand {
   padding: 0;
   font-size: 0.8rem;
+}
+
+.jumbotron {
+  padding: 2rem 1rem;
+  margin-bottom: 2rem;
+  background-color: #e9ecef;
+  border-radius: 0.3rem;
+}
+
+@media (min-width: 576px) {
+  .jumbotron {
+    padding: 4rem 2rem;
+  }
+}
+
+.jumbotron-fluid {
+  padding-right: 0;
+  padding-left: 0;
+  border-radius: 0;
 }
 

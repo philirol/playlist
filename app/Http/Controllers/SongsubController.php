@@ -8,6 +8,7 @@ use App\Http\Requests\Songsub as SongsubRequest;
 use App\Songsub;
 use App\Song;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class SongsubController extends Controller
 {
@@ -16,11 +17,6 @@ class SongsubController extends Controller
         $this->middleware('auth')->except(['index','show']);              
     }
     
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $song = session('song'); //apparemment quand on change de controlleur (song à songsub, on ne récupére pas l'instance song mis en passage de paramètre à la méthode)
@@ -28,11 +24,6 @@ class SongsubController extends Controller
         return view('songsub.index', compact('songsub', 'song'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create($sub)
     {
         $songsub = new Songsub;
@@ -40,130 +31,115 @@ class SongsubController extends Controller
         return view('songsub.create', compact('song','songsub', 'sub'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(SongsubRequest $request)
-    {
-        // dd($request->songfile->getClientOriginalExtension()); //extension
-        // dd($request->songfile->getClientOriginalName()); //name
-        // dd($request->songfile->getMimeType());         
-
+    { 
         $song = session('song');        
         $songsub = new Songsub;
         $user = Auth::user();
         
-        if($request->songfile){   
+        if($request->testfile != null){   
 
-            $request->validate([ 
-                'songfile' => 'required|file|max:1000|
-                mimetypes:
-                audio/mpeg,
-                audio/x-wav,
-                audio/x-aac,
-                audio/x-flac,
-                audio/x-ms-wma,
-                audio/x-aiff,
-                application/gpx+xml,
-                text/plain,
-                video/quicktime,
-                application/mp4,
-                application/msword,
-                application/vnd.oasis.opendocument.text,
-                application/vnd.openxmlformats-officedocument.wordprocessingml.document,
-                application/vnd.oasis.opendocument.spreadsheet,
-                application/vnd.oasis.opendocument.graphics,
-                image/gif,
-                image/x-ms-bm,
-                image/jpeg,
-                image/png,
-                image/tiff,
-                application/pdf'
-                //https://svn.apache.org/repos/asf/httpd/httpd/trunk/docs/conf/mime.types
-                //https://github.com/hhsadiq/laravel-mime-type
+            $validatedData = $request->validate([
+                'file' => 'required',                
             ]);
+            //source de ce qui suit : https://makitweb.com/how-to-upload-a-file-in-laravel/
+            $file = $request->file('file');        
 
-         /*    $validator = Validator::make($request->all(), [
-                'songfile' => [
-                    'required'=> 'sélectionner un fichier',
-                    'max:1000'=> 'The song must be under 1000', //5000 = 5Mo. Voir php.ini upload_max_filesize (généralement 2M)
-                    'mimetypes:audio/mpeg,text/plain,video/quicktime',
-                    'mimes:audio/mpeg,text/plain,video/quicktime',
-                ],
-            ])->validate(); */
+            $filename = $file->getClientOriginalName();
+            $extension = $file->getClientOriginalExtension();
+            $tempPath = $file->getRealPath();
+            $fileSize = $file->getSize();
+            $mimeType = $file->getMimeType();
+            
 
-            $uploadedFile = $request->file('songfile');
-            $filename = 'user' . $user->id . 'song' . $song->id . '-' .time() . '.' . $uploadedFile->getClientOriginalExtension();
-            $paths   = $uploadedFile->storeAs('public/songsub', $filename);
-            $songsub->file = $paths;            
-            $songsub->title = $request->songfile->getClientOriginalName();
+            $valid_extension = array('mp3','ogg','wav','flac','mid','mp4','png','gif','jpg','jpeg','txt','xls','xlsx','ods','doc','docx','odt','pdf','gpx','gp3','gpa4','gp5');
+            $maxFileSize = 2000000; //2MB
+
+            // Check file extension
+        if(in_array(strtolower($extension),$valid_extension)){
+
+            // Check file size
+            if($fileSize <= $maxFileSize){
+  
+               $filenameToStorage = 'user' . $user->id . 'song' . $song->id . '-' .time() . '.' . $extension;
+                $band_folder = $user->band->slug;
+                $paths = $file->storeAs($band_folder, $filenameToStorage, 'public');
+                $songsub->file = $paths;            
+                $songsub->title = $filename;
+                //type 2 files will be treated with html5 audio player (wma, aiff, mid not supported by the player)
+                $array_audiofile = ['audio/mpeg','audio/ogg','audio/flac','audio/x-wav','audio/x-flac'];
+                in_array($mimeType, $array_audiofile) ? $songsub->type = 2 : $songsub->type = 3;
+                
+  
+                // return back()->with('message','Upload Successful.');
+            }else{
+                return back()->with('message',__('Taille des fichiers limités à 2MB'));
+            }
+  
+          }else{
+            return back()->with('message', __('Extension de fichier invalide'));
+            }
+  
         }
-        else {
+            
+        else { //si lien
             $validatedData = $request->validate([
                 'title' => ['required', 'string', 'max:50'],
                 'url' => ['url'],
             ]);
             $songsub->title = $request->title;
+            $songsub->type = 1;
             $songsub->url = $request->url;
         }
         
         $songsub->user()->associate($user);
         $songsub->song()->associate($song);
+        // $songsub->save();
+
+        //comptage des songsubs et update du nombre dans le champ songsub de la table song
+        $countsongsub = Songsub::where('song_id', $song->id)->count(); 
+        $countsongsub == null ? $songsub->main = 1 : ''; //main = 1 pour le       
+        $song->songsub = $countsongsub + 1;
         $songsub->save();
-        $countsongsub = Songsub::where('song_id', $song->id)->count();
-        
-        $song->songsub = $countsongsub;
+
         $song->save();
         $song->refresh();
-        return view('songs.show', compact('song'));
+        // return view('songs.show', compact('song'));
+        return redirect()->action('SongController@show', ['id' => $song->id]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function download(Songsub $songsub)
+    {
+        $filename = $songsub->file;
+        $path = public_path().'/storage/'.$filename;
+        // dd($path);
+        return response()->download($path);
+    }
+
     public function show(Song $song)
     {
         
         
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit($id)
     {
         //
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request, $id)
     {
         //
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    
+    public function destroy(Songsub $songsub)
     {
-        //
+        if ($songsub->type > 1){ // if > 1 this is a file, not a link
+            unlink(storage_path('app/public/'.$songsub->file));
+        }
+        $songsub->delete();
+        DB::table('songs')->where('id', $songsub->song_id)->update(['songsub' => $songsub->song->songsub - 1]); //removing 1 to the songsub number
+        
+        return back()->with('message', 'Élément supprimé.');
     }
 }

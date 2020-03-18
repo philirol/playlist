@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\{User, Band};
 use App\Http\Requests\User as UserRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
-use File;
+use Image;
 
 class UserController extends Controller
 {
@@ -56,26 +55,37 @@ class UserController extends Controller
 
     public function update(UserRequest $userRequest, User $user)
     {
-        $user->update($userRequest->all());
-        $this->storeImage($user);
-        return redirect()->route('user.index')->with('message', 'Votre profil a bien été modifié');
-    }
+        $validatedData = $userRequest->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            
+        ]);
 
-    private function storeImage(User $user)
-    {
-        if(request('image')){
-            $filename = 'userId' . $user->id . '-' .time() . '.' . request('image')->getClientOriginalExtension();
-            $user->update([
-                'image' => $filename->store('avatars', 'public') //stockage de la photo dans public/avatars
-            ]);
+        //image delete before placing the new one
+        if($user->image != null) {
+            unlink(storage_path('app/public/avatars/'.$user->image));
         }
+
+        $image = $userRequest->file('image');
+        
+        $user->update($userRequest->all());
+        $filename = 'userId' . $user->id . '-' .time() . '.' . $image->getClientOriginalExtension();
+        $paths = $image->storeAs('avatars', $filename, 'public'); //image storing
+        $user->update(['image' => $filename]); //update bdd field
+
+        $thumbnailpath = public_path('storage/avatars/'.$filename);
+        $img = Image::make($thumbnailpath)->resize(150, 150, function($constraint) {
+            $constraint->aspectRatio();
+        });
+        $img->save($thumbnailpath);
+
+        return redirect()->route('user.index')->with('message', 'Votre profil a bien été modifié');
     }
 
     public function deleteImage(User $user)
     {
         // dd($file_path);
         // Storage::delete('app/public/'.$user->image));
-        unlink(storage_path('app/public/'.$user->image));
+        unlink(storage_path('app/public/avatars/'.$user->image));
         $user->update(['image' => null]);
         return back();
     }

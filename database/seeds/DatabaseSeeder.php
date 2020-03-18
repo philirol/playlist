@@ -169,6 +169,7 @@ class DatabaseSeeder extends Seeder
             'song_id' => 1,
             'user_id' => 1,
             'title' => 'Frank Zappa - Muffin Man',
+            'type' => 1,
             'url' => 'https://www.youtube.com/watch?v=qwIrXOtZyvQ',
             'comments' => '',
         ]);
@@ -176,6 +177,7 @@ class DatabaseSeeder extends Seeder
             'song_id' => 1,
             'user_id' => 1,
             'title' => 'Frank Zappa - Willie The Pimp',
+            'type' => 1,
             'url' => 'https://www.youtube.com/watch?v=KHiclrHm-ig',
             'comments' => '',
         ]);
@@ -183,6 +185,7 @@ class DatabaseSeeder extends Seeder
             'song_id' => 2,
             'user_id' => 2,
             'title' => 'Is It You - Lee Ritenour',
+            'type' => 1,
             'url' => 'https://www.youtube.com/watch?v=oHXv_qTGAms',
             'comments' => '',
         ]);
@@ -190,6 +193,7 @@ class DatabaseSeeder extends Seeder
             'song_id' => 2,
             'user_id' => 2,
             'title' => 'Mornin',
+            'type' => 1,
             'url' => 'https://www.youtube.com/watch?v=WJ3JyC-QQKY',
             'comments' => '',
         ]);

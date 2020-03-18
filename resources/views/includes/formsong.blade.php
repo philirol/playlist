@@ -10,7 +10,7 @@
 </div>
 {{-- 
 <div class="jumbotron">
-    @if($sub=='lk')
+   
         <div class="form-group">
             <label class="label">@lang('Ajouter un lien')</label>
             <input type="text" class="form-control @error('url') is-invalid @enderror" name="url" placeholder="@lang('Saisir un lien')" value=""> 
@@ -20,20 +20,19 @@
             </div>
             @enderror
         </div>
-        @elseif($sub=='fl')
+
         <div class="form-group">
             <label class="label">@lang('Ajouter un fichier')</label>
             <div class="custom-file">
-                <input type="file" name="songfile" class="custom-file-input @error('songfile') is-invalid @enderror">
+                <input type="hidden" name="testfile" value="testfile">
+                <input type="file" name="file" class="custom-file-input @error('file') is-invalid @enderror">
                 <label class="custom-file-label">@lang('Sélectionner un fichier')</label>
-                @error('songfile')
-                    <div class="invalid-feedback">
-                        {{ $errors->first('songfile') }}
-                    </div>
+                @error('file')
+                    <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
-            </div>
+            </div>            
         </div>
-    @endif
+   
 </div>
 --}}
 <div class="form-group">
