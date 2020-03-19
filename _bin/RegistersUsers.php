@@ -19,9 +19,7 @@ trait RegistersUsers
      */
     public function showRegistrationForm()
     {
-        /* $departement = DB::table('departements')->select('departement_id','departement_code','departement_nom')->get();
-        return view('auth.register', compact('departement')); */
-        $departement = Departement::all();
+        // $departement = Departement::all();
         return view('auth.register', compact('departement'));
     }
 

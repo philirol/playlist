@@ -36,11 +36,14 @@
           
           @switch($songsub->type)
               @case(1)
-              <a href="{{ $songsub->url }}" target="_blank"><img src="{{asset('images/ytb.png')}}" alt="logo youtube" title="@lang('Aller sur le lien')"></a>
+              <a href="{{ $songsub->url }}" target="_blank"><img src="{{asset('images/ytb.png')}}" alt="logo youtube" title="{{ $songsub->title }}"></a>
                   @break
 
               @case(2)
+              <figure>
+              <figcaption>Listen to the {{ $songsub->title }}:</figcaption>
               <audio controls src="{{ asset('storage/' . $songsub->file) }}">Your browser does not support the <code>audio</code> element.</audio>
+              </figure>
                   @break
 
               @default

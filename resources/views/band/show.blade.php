@@ -13,7 +13,7 @@
     </div>
 </div>
 <hr>
-<p class="text-muted font-italic">Créé le {{ $band->created_at->format('d/m/Y') }} - {{ $band->ville->ville_nom }} ({{ $band->ville->ville_code_postal }})</p>
+<p class="text-muted font-italic">Créé le {{ $band->created_at->format('d/m/Y') }} {{-- - {{ $band->ville->ville_nom }} ({{ $band->ville->ville_code_postal }}) --}}</p>
 <p><a href="{{ route('band.edit', ['band' => $band->id]) }}">Modification du groupe</a></p>
 <h3>Les membres :</h3>
 

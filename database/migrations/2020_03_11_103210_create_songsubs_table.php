@@ -20,8 +20,8 @@ class CreateSongsubsTable extends Migration
             $table->foreign('song_id')
                 ->references('id')
                 ->on('songs')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->unsignedBigInteger('user_id')->nullable();    
             $table->foreign('user_id')
                 ->references('id')

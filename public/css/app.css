@@ -10942,3 +10942,10 @@ body {
   border-radius: 0;
 }
 
+figure {
+  width: 30%;
+  text-align: left;
+  font-style: italic;
+  font-size: smaller;
+}
+

@@ -31,7 +31,8 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/register-step2';
+    // protected $redirectTo = '/register-step2';
+    protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -69,7 +70,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {             
-        session(['departement_code' => $data['departement_code']]);
+        //session(['departement_code' => $data['departement_code']]);
         
         $id = DB::table('bands')->insertGetId([
             'bandname' => $data['bandname'],
@@ -81,7 +82,8 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'leader' => 1,
             'email' => $data['email'],
-            'password' => $data['password'],
+            // 'password' => $data['password'], (je sais plus pourquoi je n'avais pas crypté le mdp)
+            'password' => Hash::make($data['password']),
         ]);
     }
 }

@@ -42,8 +42,8 @@ Route::get('bandtest', function(){
     dd($band->ville);
 });
 
-Route::get('register-step2', 'Auth\RegisterStep2Controller@showForm');
-Route::post('register-step2', 'Auth\RegisterStep2Controller@postForm')->name('register.step2');
+// Route::get('register-step2', 'Auth\RegisterStep2Controller@showForm');
+// Route::post('register-step2', 'Auth\RegisterStep2Controller@postForm')->name('register.step2');
 
 
 

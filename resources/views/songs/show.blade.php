@@ -6,9 +6,7 @@
     <a href="{{ route('songs.edit', $song->id) }}" class="btn btn-secondary my-3">@lang('Editer')</a>
     <form action="{{ route('songs.destroy', ['song' => $song->id]) }}" method="POST" style="display: inline;">
         @csrf
-        @method('DELETE')        
-        <a href="{{ route('songsub.create','lk') }}" class="btn btn-info">@lang('Ajout lien')</a>
-        <a href="{{ route('songsub.create','fl') }}" class="btn btn-info">@lang('Ajout fichier')</a>
+        @method('DELETE')
         <button type="submit" class="btn btn-danger">@lang('Supprimer')</button>
     </form>
     <hr>
@@ -53,5 +51,8 @@
          @endforeach
     </table>
 @endif    
+        
+<a href="{{ route('songsub.create','lk') }}" class="btn btn-info">@lang('Ajout lien')</a>
+<a href="{{ route('songsub.create','fl') }}" class="btn btn-info">@lang('Ajout fichier')</a>
 <a href="{{ action('SongController@index', '1') }}" class="btn btn-primary">@lang('Retour Playlist')</a>
 @endsection

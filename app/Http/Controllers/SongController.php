@@ -93,7 +93,8 @@ class SongController extends Controller
             $songRequest['order'] = 0 ;
         }      
         $song->update($songRequest->all()); 
-        return redirect()->route('playlist', [$songRequest->list])->with('message', __('Le morceau a bien été mis à jour!'));
+        // return redirect()->route('playlist', [$songRequest->list])->with('message', __('Le morceau a bien été mis à jour!'));
+        return view('songs.show', compact('song'))->with('message', __('Le morceau a bien été mis à jour!'));
     }
 
     private function list(Song $song)
@@ -131,8 +132,13 @@ class SongController extends Controller
 
     public function destroy(Song $song)
     {      
-        $song->delete();
+        foreach ($song->songsubs as $songsub){ 
+            if( $songsub->file != null ) {
+            unlink(storage_path('app/public/'.$songsub->file));            
+            }
+            $songsub->delete();
+        }
+        $song->delete();        
         return redirect()->route('playlist', [array_search($song->list, $song->getListOptions())])->with('message', __('Le morceau a bien été supprimé!'));
-
     }
 }
