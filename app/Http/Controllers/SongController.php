@@ -93,8 +93,8 @@ class SongController extends Controller
             $songRequest['order'] = 0 ;
         }      
         $song->update($songRequest->all()); 
-        // return redirect()->route('playlist', [$songRequest->list])->with('message', __('Le morceau a bien été mis à jour!'));
-        return view('songs.show', compact('song'))->with('message', __('Le morceau a bien été mis à jour!'));
+        return redirect()->route('playlist', [$songRequest->list])->with('message', __('Le morceau a bien été mis à jour!'));
+        // return view('songs.show', compact('song'))->with('message', __('Le morceau a bien été mis à jour!'));
     }
 
     private function list(Song $song)

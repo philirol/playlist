@@ -4,7 +4,7 @@
 
 <table class="table">
   <tr class="table-info">
-    <td class="align-middle"><h4>{{ __(session('listname')) }} @lang('de') {{ $bandname }}</h4>
+    <td class="align-middle"><h4>{{ $bandname }}</h4> <h6>({{ __(session('listname')) }})</h6>
     <!-- Plus utilisé à cause de la partie Admin où on passe l'id du groupe en paramètre 
     @if (Auth::check())
     {{ Auth::user()->band->bandname }}
@@ -23,10 +23,10 @@
   <tbody id="tablecontents"> {{-- tbody for sorting list js --}}
     @foreach($songs as $song)
       <tr class="row1" data-id="{{ $song->id }}">
-        <th class="pl-3"><i class="fa fa-sort"></i></th>
+        <th><img src="{{asset('images/updownarrow.png')}}"></th>
         <td><a href="{{ route('songs.show', $song->id) }}" title="{{ $song->songsub }} @lang('Fichier(s)/lien(s)')">{{ $song->title }}</a></td>
         @if($song->comments)
-        <td><i class="fa fa-comments" aria-hidden="true" title="@lang('Commentaires')"></i></td>
+        <td><img src="{{asset('images/comment.png')}}" title="@lang('Commentaires')"></td>
         @else
         <td>&nbsp;</td>
         @endif
@@ -41,13 +41,13 @@
 
               @case(2)
               <figure>
-              <figcaption>Listen to the {{ $songsub->title }}:</figcaption>
+              <figcaption>{{ $songsub->title }}:</figcaption>
               <audio controls src="{{ asset('storage/' . $songsub->file) }}">Your browser does not support the <code>audio</code> element.</audio>
               </figure>
                   @break
 
               @default
-              <a href="{{ route('songsub.dwnld', ['songsub' => $songsub->id]) }}" title="@lang('Télécharger le fichier')">Document</a>
+              <a href="{{ route('songsub.dwnld', ['songsub' => $songsub->id]) }}" title="@lang('Télécharger le fichier')">{{ $songsub->title }}</a>
           @endswitch
 
           @endif          

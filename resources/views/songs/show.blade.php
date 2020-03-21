@@ -17,7 +17,9 @@
         @foreach($song->songsubs as $songsub)
             {{--@if($songsub->main == 0)--}}
                 <tr class="row1" data-id="{{ $songsub->id }}">
-                    <td>{{ $songsub->title  }}</td>
+                    <td>
+                        <a href="{{ route('songsub.edit', $songsub->id) }}">{{ $songsub->title  }} (id {{ $songsub->id  }})</a> @if($songsub->main == 1) * @endif                        
+                    </td>
                     @if($songsub->type == 2)
                     <td>
                     {{-- <img src="{{asset('images/folder.png')}}" alt="files attached" title=""> --}}

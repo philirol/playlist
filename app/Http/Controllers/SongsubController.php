@@ -14,7 +14,7 @@ class SongsubController extends Controller
 {
     public function __construct()
     {   
-        $this->middleware('auth')->except(['index','show']);              
+        $this->middleware('auth')->except(['index']);              
     }
     
     public function index()
@@ -31,70 +31,24 @@ class SongsubController extends Controller
         return view('songsub.create', compact('song','songsub', 'sub'));
     }
 
-    public function store(SongsubRequest $request)
+    public function store(Request $request)
     { 
         $song = session('song');        
         $songsub = new Songsub;
-        $user = Auth::user();
         
-        if($request->testfile != null){   
-
-            $validatedData = $request->validate([
-                'file' => 'required',                
-            ]);
-            //source de ce qui suit : https://makitweb.com/how-to-upload-a-file-in-laravel/
-            $file = $request->file('file');        
-
-            $filename = $file->getClientOriginalName();
-            $extension = $file->getClientOriginalExtension();
-            $tempPath = $file->getRealPath();
-            $fileSize = $file->getSize();
-            $mimeType = $file->getMimeType();
+        if(request()->testfile != null){ 
+        $this->storeFile($songsub);  
+        }            
             
-
-            $valid_extension = array('mp3','ogg','wav','flac','mid','mp4','png','gif','jpg','jpeg','txt','xls','xlsx','ods','doc','docx','odt','pdf','gpx','gp3','gpa4','gp5');
-            $maxFileSize = 2000000; //2MB
-
-            // Check file extension
-        if(in_array(strtolower($extension),$valid_extension)){
-
-            // Check file size
-            if($fileSize <= $maxFileSize){
-  
-               $filenameToStorage = 'user' . $user->id . 'song' . $song->id . '-' .time() . '.' . $extension;
-                $band_folder = $user->band->slug;
-                $paths = $file->storeAs($band_folder, $filenameToStorage, 'public');
-                $songsub->file = $paths;            
-                $songsub->title = $filename;
-                //type 2 files will be treated with html5 audio player (wma, aiff, mid not supported by the player)
-                $array_audiofile = ['audio/mpeg','audio/ogg','audio/flac','audio/x-wav','audio/x-flac'];
-                in_array($mimeType, $array_audiofile) ? $songsub->type = 2 : $songsub->type = 3;
-                
-  
-                // return back()->with('message','Upload Successful.');
-            }else{
-                return back()->with('message',__('Taille des fichiers limités à 2MB'));
-            }
-  
-          }else{
-            return back()->with('message', __('Extension de fichier invalide'));
-            }
-  
-        }
-            
-        else { //si lien
-            $validatedData = $request->validate([
-                'title' => ['required', 'string', 'max:50'],
-                'url' => ['url'],
-            ]);
+        if($request->testfile == null) { //si lien
+            $this->validatorLink();
             $songsub->title = $request->title;
             $songsub->type = 1;
             $songsub->url = $request->url;
         }
         
-        $songsub->user()->associate($user);
+        $songsub->user()->associate(Auth::user());
         $songsub->song()->associate($song);
-        // $songsub->save();
 
         //comptage des songsubs et update du nombre dans le champ songsub de la table song
         $countsongsub = Songsub::where('song_id', $song->id)->count(); 
@@ -108,6 +62,57 @@ class SongsubController extends Controller
         return redirect()->action('SongController@show', ['id' => $song->id]);
     }
 
+    private function storeFile($songsub){
+
+        $user = Auth::user();        
+        // dd($songsub);
+        $this->validatorFile();
+
+        //source de ce qui suit : https://makitweb.com/how-to-upload-a-file-in-laravel/
+        $file = request()->file('file');               
+        // dd($file);
+        $filename = $file->getClientOriginalName();
+        $extension = $file->getClientOriginalExtension();
+        $tempPath = $file->getRealPath(); //if needed
+        $fileSize = $file->getSize();
+        $mimeType = $file->getMimeType();
+        
+        $valid_extension = array('mp3','ogg','wav','flac','mid','mp4','png','gif','jpg','jpeg','txt','xls','xlsx','ods','doc','docx','odt','pdf','gpx','gp3','gpa4','gp5');
+        $maxFileSize = 2000000; //2MB
+
+        if(in_array(strtolower($extension),$valid_extension)){
+
+            if($fileSize <= $maxFileSize){
+
+                /* file name : an important thing is that the user see the name file when downloading. So the file name must be not too strange for him at that moment
+                $filenameToStorage = 'user' . $user->id . 'song' . $song->id . '-' .time() . '.' . $extension; //too hacky.
+                https://stackoverflow.com/questions/2021624/string-sanitizer-for-filename */                
+                $filename = preg_replace('/[^a-zA-Z0-9\-\._]/','', $filename);
+                $withoutExt = pathinfo($filename, PATHINFO_FILENAME); //suppression de l'extension for that final formatting : file name-time.ext
+                $filenameToStorage = $withoutExt . '-' .time() . '.' . $extension;
+                
+                $band_folder = $user->band->slug;
+                $paths = $file->storeAs($band_folder, $filenameToStorage, 'public');
+                // dd($paths);
+                $songsub->file = $paths;            
+                $songsub->title = $filename;
+                //type 2 files will be treated with html5 audio player (wma, aiff, mid not supported by the player)
+                $array_audiofile = ['audio/mpeg','audio/ogg','audio/flac','audio/x-wav','audio/x-flac'];
+                in_array($mimeType, $array_audiofile) ? $songsub->type = 2 : $songsub->type = 3;
+                
+
+                // return back()->with('message','Upload Successful.');
+            } else{
+                return back()->with('message',__('Taille des fichiers limités à 2MB'));
+            }
+
+        } else {
+        return back()->with('message', __('Extension de fichier invalide'));
+        }
+  
+        
+    }
+
     public function download(Songsub $songsub)
     {
         $filename = $songsub->file;
@@ -116,26 +121,70 @@ class SongsubController extends Controller
         return response()->download($path);
     }
 
-    public function show(Song $song)
-    {
-        
-        
+    public function show(Songsub $songsub)
+    {        
+        dd('show function');
     }
     
-    public function edit($id)
+    public function edit(Songsub $songsub)
     {
-        //
+        $song = session('song');
+        return view('songsub.edit', compact('songsub','song'));
+    }
+
+    private function validatorFile()
+    {
+           return request()->validate([
+            'file' => 'required',
+        ]);
     }
     
-    public function update(Request $request, $id)
+    private function validatorLink()
     {
-        //
+           return request()->validate([
+            'title' => ['required', 'string', 'max:30'],
+            'url' => ['url'],
+        ]);
+    }
+    
+    public function update(Request $request, Songsub $songsub)
+    {
+        // cas 1 : pas de changement du fichier / cas 2 : changement du fichier
+        /* dd($request->file); //idem à dd(request()->file('file'));
+        dd(request()->file('file')); //null si on change pas le fichier
+        dd($request->testfile); //testfile dans les 2 cas
+        dd($songsub); //ancien fichier dans les 2 cas */
+        if($request->input('main') == null){
+            $songsub->main = 0;
+        } else {
+            Songsub::where('song_id', session('band_id', session()->get('song')['id']))
+                        ->where('main', 1)
+                        ->update(['main' => 0]);
+            $songsub->main = 1;
+        }        
+
+        if($request->testfile != null){                        
+            if($request->file){
+                $this->destroyFile($songsub);
+                $this->storeFile($songsub);
+            }
+            $songsub->update();
+        }
+        else{
+            $songsub->update($this->validatorLink());
+        }
+        $song = session('song');
+        return redirect()->action('SongController@show', ['id' => $song->id]);
+    }
+
+    private function destroyFile(Songsub $songsub){
+            unlink(storage_path('app/public/'.$songsub->file));
     }
     
     public function destroy(Songsub $songsub)
     {
         if ($songsub->type > 1){ // if > 1 this is a file, not a link
-            unlink(storage_path('app/public/'.$songsub->file));
+            $this->destroyFile($songsub);
         }
         $songsub->delete();
         DB::table('songs')->where('id', $songsub->song_id)->update(['songsub' => $songsub->song->songsub - 1]); //removing 1 to the songsub number

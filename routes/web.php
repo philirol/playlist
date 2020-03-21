@@ -29,11 +29,7 @@ Route::get('songsband/{id}', function($id){  //coming from band/show.blade.php (
 })->name('band.songs');
 
 Route::resource('band', 'BandController');
-Route::get('banduser', 'BandController@showBandUser')->middleware('auth')->name('banduser');;
-
-
-Route::get('newprofil', 'ProfilController@newUser')->name('newprofil');
-Route::get('geog/{slug}', 'ProfilController@geog')->name('user.ville');
+Route::get('banduser', 'BandController@showBandUser')->middleware('auth')->name('banduser');
 
 Route::get('ville', 'VilleController@index')->name('ville.index')->middleware('admin');
 

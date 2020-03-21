@@ -24,11 +24,13 @@
 
     "A l'url :": "For url:",
 
+    "A propos": "About",
+
     "Albums": "Albums",
 
     "Aller sur le lien": "Open new page to link",
 
-    "A propos": "About",
+    "Annuler": "Cancel",
 
     "Autoriser mon IP ": "Allow my IP ",
 
@@ -54,7 +56,7 @@
 
     "Code postal": "Postal code",
 
-    "Commentaires": "Comments",
+    "Commentaires sur le morceau": "Comments on this song",
 
     "Confirmation du mot de passe": "Confirm Password",
 
@@ -196,6 +198,10 @@
 
     "Merci pour votre vote !": "Thank you for your vote!",
 
+    "Mettre à jour le fichier": "Update your file",
+
+    "Mettre à jour le lien": "Update link",
+
     "Mettre dans": "Move in",
 
     "Mode maintenance": "Maintenance mode",
@@ -284,6 +290,8 @@
 
     "Saisir un titre": "Insert title",
 
+    "Saisir un titre pour le lien": "Insert a title for the link",
+
     "\n    Sed cautela nimia in peiores haeserat plagas, ut narrabimus postea, aemulis consarcinantibus insidias graves apud Constantium, cetera medium principem sed siquid auribus eius huius modi quivis infudisset ignotus, acerbum et inplacabilem et in hoc causarum titulo dissimilem sui.": "",
     
     "Se déconnecter" : "Sign out" ,
@@ -323,6 +331,8 @@
     "Titre" : "Title",
 
     "Titre (champ obligatoire)" : "Title (required)",
+
+    "Titre pour le lien" : "Title for the link",
 
     "Tous les groupes" : "All bands",
 

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Songsub extends Model
 {
-    protected $fillable = ['song_id','user_id','title','url','file','comments'];
+    protected $fillable = ['song_id','user_id','main','title','url','file','comments'];
 
     public function user()
     {

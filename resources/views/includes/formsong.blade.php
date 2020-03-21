@@ -13,7 +13,7 @@
    
         <div class="form-group">
             <label class="label">@lang('Ajouter un lien')</label>
-            <input type="text" class="form-control @error('url') is-invalid @enderror" name="url" placeholder="@lang('Saisir un lien')" value=""> 
+            <input type="text" class="form-control @error('url') is-invalid @enderror" name="url" placeholder="@lang('Saisir un lien')" value="{{ old('url') ?? $song->url }}"> 
             @error('url')
             <div class="invalid-feedback">
                 {{ $errors->first('url') }}
