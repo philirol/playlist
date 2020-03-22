@@ -53,6 +53,9 @@ class Handler extends ExceptionHandler
             }
             return redirect('songs')->with('message', 'Action non autorisée !');
         }
+        if ($exception instanceof \Illuminate\Http\Exceptions\PostTooLargeException) 
+            return response()->view('errors.post_too_large');
+        
         return parent::render($request, $exception);        
     }
 }

@@ -155,6 +155,8 @@
     "L'album a bien été enregistré": "Album has been saved",
 
     "L'album a bien été modifié": "Album updated successfully !",
+    
+    "L'élément a bien été supprimé": "Item deleted ok.",
 
     "L'image a bien été enregistrée": "Image has been saved",
 
@@ -165,6 +167,8 @@
     "La catégorie a bien été enregistrée": "Category has been saved",
 
     "La catégorie a bien été modifiée": "Category has been updated",
+
+    "La taille des fichiers est limitée à ": "Limit file upload : ",
 
     "le": "on",
 

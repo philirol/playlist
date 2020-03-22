@@ -37,6 +37,7 @@ class SongsubController extends Controller
         $songsub = new Songsub;
         
         if(request()->testfile != null){ 
+        $this->validatorFile();
         $this->storeFile($songsub);  
         }            
             
@@ -64,9 +65,7 @@ class SongsubController extends Controller
 
     private function storeFile($songsub){
 
-        $user = Auth::user();        
-        // dd($songsub);
-        $this->validatorFile();
+        $user = Auth::user();               
 
         //source de ce qui suit : https://makitweb.com/how-to-upload-a-file-in-laravel/
         $file = request()->file('file');               
@@ -135,7 +134,7 @@ class SongsubController extends Controller
     private function validatorFile()
     {
            return request()->validate([
-            'file' => 'required',
+            'file' => 'required|max:2000', //ne pas utiliser size
         ]);
     }
     
@@ -165,6 +164,8 @@ class SongsubController extends Controller
 
         if($request->testfile != null){                        
             if($request->file){
+                // dd($songsub);
+                $this->validatorFile();
                 $this->destroyFile($songsub);
                 $this->storeFile($songsub);
             }
@@ -189,6 +190,6 @@ class SongsubController extends Controller
         $songsub->delete();
         DB::table('songs')->where('id', $songsub->song_id)->update(['songsub' => $songsub->song->songsub - 1]); //removing 1 to the songsub number
         
-        return back()->with('message', 'Élément supprimé.');
+        return back()->with('message', __('L\'élément a bien été supprimé'));
     }
 }

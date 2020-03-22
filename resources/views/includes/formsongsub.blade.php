@@ -33,15 +33,12 @@
             <div class="custom-file">
                 <input type="hidden" name="testfile" value="testfile">
                 <input type="file" name="file" class="custom-file-input @error('file') is-invalid @enderror" value="">
-                <label class="custom-file-label">
-                    
+                <label class="custom-file-label">                    
                 @if(isset($songsub->type))
                     @lang('Mettre à jour le fichier') "{{ $songsub->title }}"
                 @else  
                     @lang('Ajouter un fichier')
                 @endif
-
-
                 </label>
                 @error('file')
                     <div class="alert alert-danger">{{ $message }}</div>

@@ -57,4 +57,5 @@
 <a href="{{ route('songsub.create','lk') }}" class="btn btn-info">@lang('Ajout lien')</a>
 <a href="{{ route('songsub.create','fl') }}" class="btn btn-info">@lang('Ajout fichier')</a>
 <a href="{{ action('SongController@index', '1') }}" class="btn btn-primary">@lang('Retour Playlist')</a>
+{{--<a href="{{ action('SongController@index', ['playlist' => session('listname')]) }}" class="btn btn-primary">@lang('Retour Playlist')</a>--}}
 @endsection
