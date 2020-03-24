@@ -1,4 +1,6 @@
 <?php
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 Route::view('/','auth/login')->name('accueil');
 Route::get('/home', 'HomeController@index')->name('home');
@@ -28,8 +30,9 @@ Route::get('songsband/{id}', function($id){  //coming from band/show.blade.php (
     return redirect('songs');
 })->name('band.songs');
 
-Route::resource('band', 'BandController');
-Route::get('banduser', 'BandController@showBandUser')->middleware('auth')->name('banduser');
+Route::get('band/{band}', 'BandController@showByAdmin')->middleware('admin')->name('bandByAdmin');
+Route::get('Uband', 'BandController@show')->name('band.show'); //method show sans paramètre
+Route::resource('band', 'BandController', ['except' => ['show']]);
 
 Route::get('ville', 'VilleController@index')->name('ville.index')->middleware('admin');
 

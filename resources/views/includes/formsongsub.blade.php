@@ -27,33 +27,43 @@
         </div>
         @endif
 
-        @if((isset($sub) && $sub=='fl')|| $songsub->type>1)
-        <div class="form-group">
-            
-            <div class="custom-file">
-                <input type="hidden" name="testfile" value="testfile">
-                <input type="file" name="file" class="custom-file-input @error('file') is-invalid @enderror" value="">
-                <label class="custom-file-label">                    
-                @if(isset($songsub->type))
-                    @lang('Mettre à jour le fichier') "{{ $songsub->title }}"
-                @else  
-                    @lang('Ajouter un fichier')
-                @endif
-                </label>
-                @error('file')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div> 
-            &nbsp;&nbsp;&nbsp;<span class="note">@lang('Extensions de fichiers autorisées') : 
-            @php
-            $string = "'mp3','ogg','wav','flac','mid','mp4','png','gif','jpg','jpeg','txt','xls','xlsx','ods','doc','docx','odt','pdf','gpx','gp3','gpa4','gp5'";
-            $string = str_replace ("'", " ", $string);
-            echo $string;
-            @endphp
-            </span>           
-        </div>
+        @if((isset($sub) && $sub=='fl')|| $songsub->type>1)        
+            @if(isset($songsub->type))
+                @lang('Browse pour changer')
+            @endif
+            <div class="form-group">                
+                <div class="custom-file">
+                    <input type="hidden" name="testfile" value="testfile">
+                    <input type="file" name="file" class="custom-file-input @error('file') is-invalid @enderror" value="">
+                    <label class="custom-file-label">
+                    @if(isset($songsub->type))
+                        {{ $songsub->title }}
+                    @else  
+                        @lang('Sélectionner un fichier')
+                    @endif
+                    </label>
+                    @error('file')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                &nbsp;&nbsp;&nbsp;<span class="note">@lang('Extensions de fichiers autorisées') : 
+                @php
+                $string = "'mp3','ogg','wav','flac','mid','mp4','png','gif','jpg','jpeg','txt','xls','xlsx','ods','doc','docx','odt','pdf','gpx','gp3','gpa4','gp5'";
+                $string = str_replace ("'", " ", $string);
+                echo $string;
+                @endphp
+                </span>           
+            </div>
         @endif         
             <br>
-          <div class="form-group">
-              <input type="checkbox" name="main" value="{{$songsub->id}}" {{ $songsub->main == 1 ? 'checked' : '' }}>&nbsp;&nbsp;&nbsp; @lang('Cocher pour passer en liste principale ')
+          <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="customSwitch1" name="main" value="{{$songsub->id}}" {{ $songsub->main == 1 ? 'checked' : '' }}>
+                <label class="custom-control-label" for="customSwitch1">
+                @if($songsub->main == 1 )
+                    @lang('En liste principale, désactivez pour modifier')
+                @else
+                    @lang('Activer pour passer en liste principale')
+                @endif    
+                
+                </label>              
           </div>

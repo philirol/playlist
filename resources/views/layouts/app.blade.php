@@ -48,7 +48,10 @@
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
                             <a class="nav-link" href="{{ url('/') }}">@lang('Imprimer Playlist')<span class="sr-only">(current)</span></a>
-                        </li>            
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('band.show')}}">@lang('Le groupe')</a>
+                        </li>          
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('user.index') }}">Profil</a>
                         </li>
@@ -57,9 +60,6 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/') }}">@lang('Aide')</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('banduser')}}">@lang('Le groupe')</a>
                         </li>
                         @if(Auth::check() and Auth::user()->admin)
                         <li class="nav-item">

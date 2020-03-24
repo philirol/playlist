@@ -4,15 +4,7 @@
 
 <table class="table">
   <tr class="table-info">
-    <td class="align-middle"><h4>{{ $bandname }}</h4> <h6>({{ __(session('listname')) }})</h6>
-    <!-- Plus utilisé à cause de la partie Admin où on passe l'id du groupe en paramètre 
-    @if (Auth::check())
-    {{ Auth::user()->band->bandname }}
-    @else
-    Démo
-    @endif
-    -->
-    </u></h3></td>
+    <td class="align-middle"><h4>{{ $bandname }}</h4> <h6>({{ __(session('listname')) }})</h6></td>
     @if(Auth::check())
     <td class="text-right"><a href="{{ route('songs.create') }}" class="btn btn-primary my-3">@lang('Nouveau morceau')</a></td>
     @endif
@@ -26,7 +18,7 @@
         <th><img src="{{asset('images/updownarrow.png')}}"></th>
         <td><a href="{{ route('songs.show', $song->id) }}" title="{{ $song->songsub }} @lang('Fichier(s)/lien(s)')">{{ $song->title }}</a></td>
         @if($song->comments)
-        <td><img src="{{asset('images/comment.png')}}" title="@lang('Commentaires')"></td>
+        <td><img src="{{asset('images/comment.png')}}" title="{{ substr($song->comments, 0, 30) }}..."></td>
         @else
         <td>&nbsp;</td>
         @endif
@@ -55,6 +47,9 @@
         </td>
       </tr>
     @endforeach
+      <tr>
+        <td colspan="4"><img src="{{asset('images/uparrow.png')}}"><span class="align-bottom">&nbsp;&nbsp;<span class="note">@lang('Ordonner les lignes avec')</span>&nbsp;&nbsp;<img src="{{asset('images/updownarrow.png')}}"></span></td>
+      </tr>
     </tbody>
 </table>
 

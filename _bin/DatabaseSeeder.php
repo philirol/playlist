@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         DB::table('bands')->insert([
             'id' => 1,
-            'bandname' => 'The Demo Band',
+            'bandname' => 'Démo Band',
             'slug' => 'demo-band',
             'ville_id' => '30000',
         ]);
@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
 
         DB::table('bands')->insert([
             'id' => 4,
-            'bandname' => 'Arthur and the Minigirls',
+            'bandname' => 'Arthur et le Minigirls',
             'slug' => 'arthur_minigirls',
             'ville_id' => '28546',
         ]);
@@ -66,81 +66,45 @@ class DatabaseSeeder extends Seeder
             'email' => 'philirol@hotmail.com',
             'password' => Hash::make('password'),
         ]);
-        
+
         DB::table('users')->insert([
-            'band_id' => 1,
-            'name' => 'Clarence',
+            'band_id' => 2,
+            'name' => 'leader1',
             'admin' => false,
-            'leader' => false,
-            'email' => 'Clarence@toppy.net',
+            'leader' => true,
+            'email' => 'leader1@free.fr',
             'password' => Hash::make('password'),
         ]);
 
         DB::table('users')->insert([
-            'band_id' => 1,
-            'name' => 'Franck',
+            'band_id' => 3,
+            'name' => 'leader2',
             'admin' => false,
             'leader' => true,
             'email' => 'leader2@outlook.fr',
             'password' => Hash::make('password'),
         ]);
 
-        DB::table('users')->insert([
-            'band_id' => 1,
-            'name' => 'Bob',
-            'admin' => false,
-            'leader' => false,
-            'email' => 'bob@online.com',
-            'password' => Hash::make('password'),
-        ]);
-
-        DB::table('users')->insert([
-            'band_id' => 1,
-            'name' => 'Janice',
-            'admin' => false,
-            'leader' => false,
-            'email' => 'j2356@outty.org',
-            'password' => Hash::make('password'),
-        ]);
-
-        DB::table('users')->insert([
-            'band_id' => 1,
-            'name' => 'Pat',
-            'admin' => false,
-            'leader' => false,
-            'email' => 'patboum@orange.net',
-            'password' => Hash::make('password'),
-        ]);
-
-        DB::table('users')->insert([
-            'band_id' => 2,
-            'name' => 'Héloise',
-            'admin' => false,
-            'leader' => false,
-            'email' => 'hdou@trybe.de',
-            'password' => Hash::make('password'),
-        ]);
-
-        factory(App\User::class, 3)->create(); //mettre 10 users pour être raccord avec le nombre de songs sinon erreur sur song.show
+        factory(App\User::class, 7)->create(); //mettre 10 users pour être raccord avec le nombre de songs sinon erreur sur song.show
 
 
         DB::table('songs')->insert([
             'band_id' => 1,
-            'user_id' => rand(2, 6),
-            'title' => 'David Bowie – Life On Mars',
-            'url' => 'https://www.youtube.com/watch?v=AZKcl4-tcuo',
+            'user_id' => rand(1, 10),
+            'title' => 'How Do You Think -The Brand New Heavies',
+            'url' => 'https://www.youtube.com/watch?v=S9Wn6AvAg5s',
             'order' => 1,
             'list' => 1,
-            'comments' => 'Franck : Let\'s sing all together, guys.',
+            'comments' => 'This is a note about you can modify or delete.',
         ]);
         DB::table('songs')->insert([
             'band_id' => 1,
-            'user_id' => rand(2, 6),
-            'title' => 'Radiohead - No Surprises',
-            'url' => 'https://www.youtube.com/watch?v=u5CVsCnxyXg',
+            'user_id' => rand(1, 10),
+            'title' => 'Greyboy allstars - Soul dream',
+            'url' => 'https://www.youtube.com/watch?v=0acjErtoqOs',
             'order' => 2,
             'list' => 1,
-            'comments' => 'Clarence : I would like to change the tonality in Am.',
+            'comments' => 'This is a note about you can delete or modify.',
         ]);
         DB::table('songs')->insert([
             'band_id' => 1,
@@ -149,62 +113,64 @@ class DatabaseSeeder extends Seeder
             'url' => 'https://www.youtube.com/watch?v=GuDgvbpVQD4',
             'order' => 3,
             'list' => 1,
-            'comments' => 'Pat : my bloody favorit song ever.. 20 years ago,  but still sexy indeed',
+            'comments' => 'This is a note about the song.',
         ]);
         DB::table('songs')->insert([
             'band_id' => 1,
             'user_id' => rand(1, 10),
-            'title' => 'U2 - I Still Haven\'t Found',
-            'url' => 'https://www.youtube.com/watch?v=e3-5YC_oHjE',
+            'title' => 'Just Kissed My Baby - Jon Cleary',
+            'url' => 'https://www.youtube.com/watch?v=Jvj6xA251eg',
             'order' => 4,
             'list' => 1,
-            'comments' => 'Jany : If someone says that Bono is a bad vocalist send them this song',
+            'comments' => 'Break à 1:49.',
         ]);
         DB::table('songs')->insert([
             'band_id' => 1,
             'user_id' => rand(1, 10),
-            'title' => 'The White Stripes-Jolene',
-            'url' => 'https://www.youtube.com/watch?v=yXlULkwhgrc',
+            'title' => 'Use me - Raw Stylus',
+            'url' => 'https://www.youtube.com/watch?v=Q1WPVBVfoL8',
             'order' => 5,
             'list' => 1,
-            'comments' => 'Clarence : Thanks john but I prefer the M.Cyrus vs',
+            'comments' => 'Couplets - rth funk/overdr/wah',
         ]);
         DB::table('songs')->insert([
             'band_id' => 1,
             'user_id' => rand(1, 10),
-            'title' => 'Coldplay - Yellow',
-            'url' => 'https://www.youtube.com/watch?v=yKNxeF4KMsY',
+            'title' => 'Solsonics - Ascension',
+            'url' => 'https://www.youtube.com/watch?v=p_E625gOito',
             'order' => 1,
             'list' => 0,
-            'comments' => 'Use your chimes for that Bob please Franck!',
+            'comments' => 'Couplets - rth funk/overdr/wah',
         ]);
         DB::table('songs')->insert([
             'band_id' => 1,
             'user_id' => rand(1, 10),
-            'title' => 'Tracy Chapman - Fast car',
+            'title' => 'Dark End Street - Spice',
             'url' => 'https://www.youtube.com/watch?v=VmnDIcabkBU',
             'order' => 2,
             'list' => 0,
-            'comments' => 'Jany : doesn\'t even sound like an 80s song I like it',
+            'comments' => 'cocotte en C (7 mesures)',
         ]);
         DB::table('songs')->insert([
             'band_id' => 1,
             'user_id' => rand(1, 10),
-            'title' => 'Wonderwal',
+            'title' => 'Yellow Jackets - Sittin\' in It',
+            'url' => 'https://www.youtube.com/watch?v=PPAUdqhjsXk',
             'order' => 3,
             'list' => 0,
-            'comments' => 'Pat : We start with it for next live, itwldbnice',
+            'comments' => 'too good',
         ]);
 
-//songsubs
+
+
+
 
         DB::table('songsubs')->insert([
             'song_id' => 1,
-            'user_id' => rand(1, 10),
-            'main' =>
-            'title' => 'Oasis - Wonderwal VO',
+            'user_id' => 1,
+            'title' => 'Frank Zappa - Muffin Man',
             'type' => 1,
-            'url' => 'https://www.youtube.com/watch?v=bx1Bh8ZvH84',
+            'url' => 'https://www.youtube.com/watch?v=qwIrXOtZyvQ',
             'comments' => '',
         ]);
         DB::table('songsubs')->insert([

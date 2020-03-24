@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<h5>@lang('Profil Utilisateur')</h5>
+<h3>@lang('Vos données personnelles')</h3>
 <br>
     <div class="card mb-3" style="max-width: 550px;">
         <div class="row no-gutters">
@@ -21,11 +21,10 @@
             </div>
         </div>
     </div>
-    <p class="text-muted">Utilisateur créé le {{ $user->created_at->format('d/m/Y') }}</p>
-    <p>@lang('Pour changer de mot de passe :')
-    <br> 
+    <p class="text-muted">@lang('Créé le') {{ $user->created_at->format('d/m/Y') }}</p>
+    <p>@lang('Pour changer de mot de passe, ') 
         <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">@lang('déconnecter-vous')</a>
-        <br> et cliquez sur "Mot de passe oublié".
+        @lang('et cliquez sur "Mot de passe oublié".')
     </p>	
     {{--<a href="javascript:history.back()" class="btn btn-primary"><span class="glyphicon glyphicon-circle-arrow-left"></span> @lang('Retour')</a>--}} 
      {{--<a href="{{ route('user.show', ['user' => $user->id]) }}" class="btn btn-primary">Retour</a>--}}

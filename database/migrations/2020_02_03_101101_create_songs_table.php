@@ -13,16 +13,6 @@ class CreateSongsTable extends Migration
      */
     public function up()
     {
-        /*pour test de départ :
-        Schema::create('songs', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('title');
-            $table->text('content');
-            $table->unsignedBigInteger('band_id');
-            $table->timestamps();
-        });
-        */
-
         Schema::disableForeignKeyConstraints();
         Schema::create('songs', function (Blueprint $table) {
             $table->bigIncrements('id');
@@ -38,10 +28,7 @@ class CreateSongsTable extends Migration
                 ->on('users')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');            
-            $table->string('title', 70);
-            $table->string('url',400)->nullable();
-            $table->tinyInteger('type')->unsigned()->default(0);
-            $table->string('file', 400)->nullable();         
+            $table->string('title', 70);         
             $table->integer('order')->default(0);
             $table->boolean('list')->default(true);
             $table->text('comments', 1000)->nullable();

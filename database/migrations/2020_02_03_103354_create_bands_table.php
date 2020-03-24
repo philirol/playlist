@@ -24,13 +24,8 @@ class CreateBandsTable extends Migration
             $table->bigIncrements('id'); 
             $table->string('bandname');
             $table->string('slug');
-            $table->string('deposit_file')->nullable($value=true);
-            $table->unsignedBigInteger('ville_id')->nullable();
-            $table->foreign('ville_id')
-                ->references('id')
-                ->on('villes')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+            $table->tinyInteger('id_department')->nullable();
+            $table->string('city')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
         });

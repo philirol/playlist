@@ -31,8 +31,7 @@ class CreateSongsubsTable extends Migration
             $table->string('title', 70);
             $table->tinyInteger('type')->unsigned()->default(0);
             $table->string('url',400)->nullable();
-            $table->string('file', 400)->nullable(); 
-            $table->text('comments', 1000)->nullable();    
+            $table->string('file', 400)->nullable();  
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
         });

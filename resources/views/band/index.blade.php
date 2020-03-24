@@ -25,7 +25,7 @@
     @foreach($bands as $band)
     <div class="row">
         <div class ="col-sm-1 bg-light"><p style="margin-top:15px;"><p>{{ $band->id }}</p></div>
-        <div class ="col-sm-3 bg-light"><p style="margin-top:15px;"><a href="{{ route('band.show', ['band' => $band->id])}}">{{ $band->bandname }}</a></p></div>
+        <div class ="col-sm-3 bg-light"><p style="margin-top:15px;"><a href="{{ route('bandByAdmin', $band->id)}}">{{ $band->bandname }}</a></p></div>
         <div class ="col-sm-1 bg-light"><p style="margin-top:15px;">{{ $band->users_count }}</p></div>
         <div class ="col-sm-1 bg-light"><p style="margin-top:15px;">{{ $band->songs_count }}</p></div>
         <div class ="col-sm-4 bg-light"><p style="margin-top:15px;">{{ $band->ville_nom }}</p></div>

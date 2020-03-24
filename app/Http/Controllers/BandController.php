@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
-use App\{Band, Ville};
+use App\{Band, Departement};
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Band as BandRequest;
 
@@ -12,8 +12,8 @@ class BandController extends Controller
 {
     public function construct()
     {
-        $this->middleware('admin'); //permet ces fonctions à l'user non authentifié
-        $this->middleware('leader')->only(['showBandUser','edit','update']);
+        $this->middleware('admin')->only(['showByAdmin']); //permet ces fonctions à l'user non authentifié
+        $this->middleware('leader')->only(['edit','update']);
     }
 
     public function index()
@@ -60,12 +60,14 @@ class BandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Band $band) //pour l'admin avec choix du groupe, provenant de band.index
+    public function showByAdmin(Band $band) //pour l'admin avec choix du groupe, provenant de band.index
     {
+        
+        // dd($band->bandname);
         return view('band.show', compact('band'));
     }
 
-    public function showBandUser() //pour les users
+    public function show() //pour les users
     {
         Auth::check() ? $band = Auth::user()->band : $band = Band::find(1);
         return view('band.show', compact('band'));
@@ -77,10 +79,11 @@ class BandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Band $band, $departement_slug = null)
+    public function edit(Band $band)
     {        
-        $ville = Ville::where('id', $band->ville_id)->get();
-        return view('band.edit', compact('band', 'ville'));
+        // $departement = Departement::all();
+        // $ville = Ville::where('id', $band->ville_id)->get(); //Villes en suspens
+        return view('band.edit', compact('band'));
     }
 
     /**
@@ -93,7 +96,7 @@ class BandController extends Controller
     public function update(BandRequest $BandRequest, Band $band)
     {
         $band->update($BandRequest->all());
-        return redirect()->route('banduser')->with('message', 'Le groupe a bien été modifié');
+        return redirect()->route('band.show')->with('message', 'Le groupe a bien été modifié');
     }
 
     /**

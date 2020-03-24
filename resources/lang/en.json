@@ -1,5 +1,6 @@
 {
-
+    "Activer pour passer en liste principale": "check to put item in main list",
+    
     "Aide" : "Help" ,
     
     "Administration": "Administration",
@@ -34,6 +35,8 @@
 
     "Autoriser mon IP ": "Allow my IP ",
 
+    "Browse pour changer": "Browse for change",
+
     "Avant d'utiliser ce site veuillez trouver le lien de vérification dans vos emails": "Before proceeding, please check your email for a verification link.",
 
     "Catégorie": "Category",
@@ -64,6 +67,10 @@
 
     "Contenu adulte": "Adult content",
 
+    "Création du groupe le": "Band created on",
+
+    "Créé le": "Created on",
+
     "Créer": "Create",
 
     "Créer un groupe": "Create band",
@@ -80,15 +87,21 @@
 
     "Description (optionnelle)": "Description (optional)",
 
+    "déconnecter-vous": "please logout",
+
     "Déconnexion": "Logout",
 
     "Editer": "Edit",
+
+    "élément en liste principale": "item in main list (Playlist or Projects) - click on items to change it",
 
     "Email": "Email",
 
     "Email :": "Email:",
 
     "Email : ": "Email: ",
+
+    "En liste principale, désactivez pour modifier": "In main list, uncheck to change",
 
     "Envoi de la demande": "Send demand",
 
@@ -99,6 +112,8 @@
     "Erreur 404": "Error 404",
 
     "Erreur 503": "Error 503",
+
+    "et cliquez sur \"Mot de passe oublié\"." : "and click on \"Forgot your password\".", 
 
     "Export des données personnelles": "Personal data export",
 
@@ -252,6 +267,8 @@
 
     "Nouvel utilisateur": "New user",
 
+    "Ordonner les lignes avec": "Order lines with",
+
     "Oui": "Yes",
 
     "Page de modification" : "Song modify ",
@@ -270,6 +287,8 @@
 
     "Posté par": "Posted by",
 
+    "Pour changer de mot de passe, ": "To change your password, ",
+
     "Pour le site :": "For site:",
 
     "Profil": "Profile",
@@ -285,6 +304,8 @@
     "Renouvellement du mot de passe": "Password reset",
 
     "Renouveller": "Reset",
+
+    "Retour ": "Back to ",
 
     "Retour Playlist": "Back to Playlist",
 
@@ -328,7 +349,7 @@
     
     "Taille des fichiers limités à 1MB": "File too large. File must be less than 1MB",
 
-    "Taille des fichiers limités à 2MB": "File too large. File must be less than 2MB",
+    "Taille des fichiers limités à 32MB": "File too large. File must be less than 32MB",
 
     "Télécharger le fichier" : "Download the file",
 
@@ -361,6 +382,8 @@
     "Vos droits d'accès ne vous permettent pas d'accéder à cette ressource": "You might not have the necessary permissions for this resource",
 
     "Votre vote a été modifié !": "Your vote has been changed!",
+
+    "Vos données personnelles": "Personnal datas",
 
     "Vous avez déjà donné cette note !": "You already gave this rating!",
 

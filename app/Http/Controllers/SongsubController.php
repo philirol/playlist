@@ -9,6 +9,8 @@ use App\Songsub;
 use App\Song;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
 
 class SongsubController extends Controller
 {
@@ -36,12 +38,17 @@ class SongsubController extends Controller
         $song = session('song');        
         $songsub = new Songsub;
         
-        if(request()->testfile != null){ 
+        if($request->testfile != null){ 
         $this->validatorFile();
-        $this->storeFile($songsub);  
-        }            
-            
-        if($request->testfile == null) { //si lien
+        $this->storeFile($songsub);
+        /* 
+        si je met que "$this->validatorFile();" ca fonctionne mais un fichier d'extension non permise provoque une erreur 
+        si je met que "return $this->validatorFile();" le controle des extension fonctionne mais cela fait juste un retour json avec un fichier ok 
+        RESOLU avec ->send() ... https://stackoverflow.com/questions/27991837/laravel-return-redirect-inside-function    
+        */
+        }
+
+        if($request->testfile == null){
             $this->validatorLink();
             $songsub->title = $request->title;
             $songsub->type = 1;
@@ -64,52 +71,40 @@ class SongsubController extends Controller
     }
 
     private function storeFile($songsub){
-
-        $user = Auth::user();               
-
+        $user = Auth::user();          
+        $song = session('song');           
         //source de ce qui suit : https://makitweb.com/how-to-upload-a-file-in-laravel/
-        $file = request()->file('file');               
-        // dd($file);
+        $file = request()->file('file');         
         $filename = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
         $tempPath = $file->getRealPath(); //if needed
         $fileSize = $file->getSize();
         $mimeType = $file->getMimeType();
+        $valid_extension = array('mpga','mp3','ogg','wav','flac','mid','mp4','png','gif','jpg','jpeg','txt','xls','xlsx','ods','doc','docx','odt','pdf','gpx','gp3','gpa4','gp5','mov');
+        $maxFileSize = 32000000; //32MB
         
-        $valid_extension = array('mp3','ogg','wav','flac','mid','mp4','png','gif','jpg','jpeg','txt','xls','xlsx','ods','doc','docx','odt','pdf','gpx','gp3','gpa4','gp5');
-        $maxFileSize = 2000000; //2MB
-
-        if(in_array(strtolower($extension),$valid_extension)){
-
-            if($fileSize <= $maxFileSize){
-
-                /* file name : an important thing is that the user see the name file when downloading. So the file name must be not too strange for him at that moment
-                $filenameToStorage = 'user' . $user->id . 'song' . $song->id . '-' .time() . '.' . $extension; //too hacky.
-                https://stackoverflow.com/questions/2021624/string-sanitizer-for-filename */                
-                $filename = preg_replace('/[^a-zA-Z0-9\-\._]/','', $filename);
-                $withoutExt = pathinfo($filename, PATHINFO_FILENAME); //suppression de l'extension for that final formatting : file name-time.ext
-                $filenameToStorage = $withoutExt . '-' .time() . '.' . $extension;
-                
+        if(in_array(strtolower($extension),$valid_extension)){            
+            if($fileSize <= $maxFileSize){               
+                $filename = preg_replace('/[^a-zA-Z0-9\-\._]/','', $filename); 
+                               
+                $withoutExt = pathinfo($filename, PATHINFO_FILENAME); //suppression de l'extension for that final formatting : filename-time.ext
+                $filenameToStorage = $withoutExt . '-' .time() . '.' . $extension;                
                 $band_folder = $user->band->slug;
                 $paths = $file->storeAs($band_folder, $filenameToStorage, 'public');
-                // dd($paths);
-                $songsub->file = $paths;            
+                $songsub->file = $paths;   
+                         
                 $songsub->title = $filename;
                 //type 2 files will be treated with html5 audio player (wma, aiff, mid not supported by the player)
                 $array_audiofile = ['audio/mpeg','audio/ogg','audio/flac','audio/x-wav','audio/x-flac'];
-                in_array($mimeType, $array_audiofile) ? $songsub->type = 2 : $songsub->type = 3;
+                in_array($mimeType, $array_audiofile) ? $songsub->type = 2 : $songsub->type = 3;  
+                return $songsub;
                 
-
-                // return back()->with('message','Upload Successful.');
-            } else{
-                return back()->with('message',__('Taille des fichiers limités à 2MB'));
+            } else {
+                return redirect()->action('SongController@show', ['id' => $song->id])->with('message', __('Taille des fichiers limités à 32MB'))->send();
             }
-
         } else {
-        return back()->with('message', __('Extension de fichier invalide'));
-        }
-  
-        
+            return redirect()->action('SongController@show', ['id' => $song->id])->with('message', __('Extension de fichier invalide'))->send();
+        }        
     }
 
     public function download(Songsub $songsub)
@@ -134,7 +129,7 @@ class SongsubController extends Controller
     private function validatorFile()
     {
            return request()->validate([
-            'file' => 'required|max:2000', //ne pas utiliser size
+            'file' => 'required|max:32000', //ne pas utiliser size. Mettre pour max la valeur de config php post_max_size Sinon entre les 2 valeurs il met un msg trop générique
         ]);
     }
     
@@ -164,7 +159,6 @@ class SongsubController extends Controller
 
         if($request->testfile != null){                        
             if($request->file){
-                // dd($songsub);
                 $this->validatorFile();
                 $this->destroyFile($songsub);
                 $this->storeFile($songsub);
