@@ -15,8 +15,7 @@ class CreateSongsubsTable extends Migration
     {
         Schema::create('songsubs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('song_id')->nullable();  
-            $table->boolean('main')->default(false);  
+            $table->unsignedBigInteger('song_id')->nullable();   
             $table->foreign('song_id')
                 ->references('id')
                 ->on('songs')
@@ -28,6 +27,7 @@ class CreateSongsubsTable extends Migration
                 ->on('users')
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
+            $table->boolean('main')->default(false); 
             $table->string('title', 70);
             $table->tinyInteger('type')->unsigned()->default(0);
             $table->string('url',400)->nullable();

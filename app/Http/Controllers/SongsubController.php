@@ -66,7 +66,8 @@ class SongsubController extends Controller
 
         $song->save();
         $song->refresh();
-        // return view('songs.show', compact('song'));
+        // $bandStorage = $song->band->sizedir;
+        // dd($bandStorage);
         return redirect()->action('SongController@show', ['id' => $song->id]);
     }
 

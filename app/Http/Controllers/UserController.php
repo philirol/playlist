@@ -56,7 +56,7 @@ class UserController extends Controller
     public function update(UserRequest $userRequest, User $user)
     {
         $validatedData = $userRequest->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048,dimensions:min_width=300,min_height=300',
             
         ]);
 

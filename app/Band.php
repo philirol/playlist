@@ -3,12 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 
 class Band extends Model
 {
-    protected $fillable = ['bandname']; 
+    protected $fillable = ['bandname', 'slug']; 
     public $incrementing = false;
+    protected $appends = array('sizedir');
     
     public function songs()
     {
@@ -19,5 +21,27 @@ class Band extends Model
     {
         return $this->hasMany(User::class);
     }
-    
+
+    public function getSizedirAttribute()
+    {
+        return $this->getSizedir();  
+    }
+
+    private function getSizedir()
+    {
+        $dir = Storage::disk('public')->getAdapter()->getPathPrefix().$this->slug;
+        $size = $this->folderSize($dir);
+        return $size;
+    }
+
+    private function folderSize($dir)
+    {
+        $size = 0;
+        foreach (glob(rtrim($dir, '/').'/*', GLOB_NOSORT) as $each) {
+            $size += is_file($each) ? filesize($each) : folderSize($each);
+        }
+        return $size;
+    }
+
+  
 }

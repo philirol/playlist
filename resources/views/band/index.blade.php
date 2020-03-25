@@ -13,24 +13,30 @@
     </div>
 </div>
 <br>
-<div class="container-fluid">
-  <div class="row" style="font-weight:bold;">
-        <div class="rounded-left col-sm-1 bg-secondary" style="padding-top:15px"><p>id</p></div>
-        <div class="col-sm-3 bg-secondary" style="padding-top:15px"><p>@lang('Groupe')</p></div>
-        <div class="col-sm-1 bg-secondary" style="padding-top:15px"><p>@lang('Utilisateurs')</p></div>
-        <div class="col-sm-1 bg-secondary" style="padding-top:15px"><p>@lang('Morceaux')</p></div>
-        <div class="col-sm-4 bg-secondary" style="padding-top:15px"><p>@lang('Ville')</p></div>
-        <div class="rounded-right col-sm-2 bg-secondary" style="padding-top:15px"><p>@lang('Date création')</p></div>  
-    </div>
-    @foreach($bands as $band)
-    <div class="row">
-        <div class ="col-sm-1 bg-light"><p style="margin-top:15px;"><p>{{ $band->id }}</p></div>
-        <div class ="col-sm-3 bg-light"><p style="margin-top:15px;"><a href="{{ route('bandByAdmin', $band->id)}}">{{ $band->bandname }}</a></p></div>
-        <div class ="col-sm-1 bg-light"><p style="margin-top:15px;">{{ $band->users_count }}</p></div>
-        <div class ="col-sm-1 bg-light"><p style="margin-top:15px;">{{ $band->songs_count }}</p></div>
-        <div class ="col-sm-4 bg-light"><p style="margin-top:15px;">{{ $band->ville_nom }}</p></div>
-        <div class ="col-sm-2 bg-light"><p style="margin-top:15px;">{{ $band->created_at->format('d/m/Y') }}</p></div>  
-    </div>
-    @endforeach  
-</div>
+<table class="table table-striped">
+<caption>Liste des groupes</caption>
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">@lang('Groupe')</th>
+            <th scope="col">Stock</th>
+            <th scope="col">Users</th>
+            <th scope="col">Songs</th>
+            <th scope="col">@lang('Date création')</th>  
+        </tr>
+    </thead> 
+    <tbody>
+        @foreach($bands as $band)
+        <tr>
+            <th scope="row">{{ $band->id }}</td>
+            <td><a href="{{ route('bandByAdmin', $band->id)}}">{{ $band->bandname }}</td>
+            <td>{{ $band->sizedir }} ({{ bcdiv($band->sizedir, 1048576, 0) }}Mo)</td>
+            <td>{{ $band->users_count }}</td>
+            <td>{{ $band->songs_count }}</td>
+            <td>{{ $band->created_at->format('d/m/Y') }}</td> 
+        </tr>
+        @endforeach 
+    <tbody> 
+</table>
+
 @endsection

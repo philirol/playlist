@@ -34,7 +34,7 @@ Route::get('band/{band}', 'BandController@showByAdmin')->middleware('admin')->na
 Route::get('Uband', 'BandController@show')->name('band.show'); //method show sans paramètre
 Route::resource('band', 'BandController', ['except' => ['show']]);
 
-Route::get('ville', 'VilleController@index')->name('ville.index')->middleware('admin');
+// Route::get('ville', 'VilleController@index')->name('ville.index')->middleware('admin');
 
 Route::get('bandtest', function(){
     $band = App\Band::find(3);

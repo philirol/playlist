@@ -67,10 +67,12 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('band.index') }}">@lang('Groupes')</a>
-                        </li>  
+                        </li>
+                        {{--   
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('ville.index') }}">@lang('Villes')</a>
-                        </li>                      
+                        </li>
+                        --}}                      
                         @endif
                     </ul>
 

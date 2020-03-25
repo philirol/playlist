@@ -5,6 +5,10 @@ use Illuminate\Support\Facades\DB;
 use App\{Band, Departement};
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Band as BandRequest;
+use Illuminate\Support\Facades\Storage;
+use League\Flysystem\Util;
+use League\Flysystem\Adapter\Local;
+use League\Flysystem\Filesystem;
 
 use Illuminate\Http\Request;
 
@@ -18,12 +22,7 @@ class BandController extends Controller
 
     public function index()
     {
-        /*$bands = DB::table('bands')
-        ->orderBy('bandname')
-        ->get();*/
-        // dd(Gate::allows('index-band'));
-        
-        $bands = Band::with('ville')->withCount(['songs','users'])->get();        
+        $bands = Band::withCount(['songs','users'])->get(); 
         return view('band.index', compact('bands'));               
     }
 

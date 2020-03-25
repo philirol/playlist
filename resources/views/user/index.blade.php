@@ -18,14 +18,26 @@
                 <td class="text-right"><a href="{{ route('user.create') }}" class="btn btn-primary my-3">@lang('Créer un membre')</a></td>
             </tr>
         </table>
-        <table class="table table-striped table-sm">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">Pseudo</th>
+                    <th scope="col">@lang('Email')</th> 
+                </tr>
+            </thead>
             <tbody>
             @foreach($users as $user)
                 <tr>
-                    <td><strong>{{ $user->name }}</strong></td>
+                    <th scope="row">{{ $user->id }}</td>
+                    <td>
+                    {{ $user->name }}
+                    @if($user->leader)
+                        <strong>(leader)</strong>
+                    @endif
+                    </td>
                     <!-- <td><strong>{{ $user->email }}</strong></td> -->
                     <td>{{ $user->email }}</td>
-                    <td>{{ $user->leader }}</td>
                 </tr>
             @endforeach
             </tbody>

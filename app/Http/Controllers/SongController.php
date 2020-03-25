@@ -78,8 +78,8 @@ class SongController extends Controller
         $song->user_id = $user->id;
         //le morceau a pu être créé avant car band_id et user_id sont nullable dans la table
         $this->list($song);
-        // return redirect()->route('playlist', [$songRequest->list])->with('message', __('Le nouveau morceau a bien été créé!'));
-        return view('songs.show', compact('song'))->with('message', __('Le nouveau morceau a bien été créé!'));
+        return redirect()->route('playlist', [$songRequest->list])->with('message', __('Le nouveau morceau a bien été créé!'));
+        // return view('songs.show', compact('song'))->with('message', __('Le nouveau morceau a bien été créé!'));
 
     }
 
