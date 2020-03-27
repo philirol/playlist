@@ -179,6 +179,7 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         'Intervention\Image\ImageServiceProvider',
+        'Cohensive\Embed\EmbedServiceProvider',
 
     ],
 
@@ -232,6 +233,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Image' => 'Intervention\Image\Facades\Image',
+        'Embed' => 'Cohensive\Embed\Facades\Embed',
 
     ],
 
