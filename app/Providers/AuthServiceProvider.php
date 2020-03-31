@@ -28,6 +28,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //Gate::forUser(Auth::user() ?? new User)->allows('index-song');
+        Gate::define('upload', function (User $user, $fileSize) {
+            $bandStorage = $user->band->sizedir;
+            return $bandStorage + $fileSize < 20000000 ;
+        });
     }
 }

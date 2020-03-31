@@ -162,6 +162,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
         
 
         /*
@@ -234,6 +235,7 @@ return [
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Image' => 'Intervention\Image\Facades\Image',
         'Embed' => 'Cohensive\Embed\Facades\Embed',
+        'PDF' => Barryvdh\DomPDF\Facade::class,
 
     ],
 

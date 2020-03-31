@@ -12,44 +12,56 @@
     <hr>
 
 @if($song->songsubs) 
-    <p>@lang('Liens / Fichiers attachés') :</p> 
+    @lang('Liens / Fichiers attachés')&nbsp;&nbsp;&nbsp; (*): <span class="note">@lang('élément en liste principale')</span>
     <table class="table table-striped">
         @foreach($song->songsubs as $songsub)
-            {{--@if($songsub->main == 0)--}}
                 <tr class="row1" data-id="{{ $songsub->id }}">
                     <td>
                         <a href="{{ route('songsub.edit', $songsub->id) }}">{{ $songsub->title  }}</a> @if($songsub->main == 1) * @endif                        
                     </td>
-                    @if($songsub->type == 2)
-                    <td>
-                    {{-- <img src="{{asset('images/folder.png')}}" alt="files attached" title=""> --}}
-                    <audio controls src="{{ asset('storage/' . $songsub->file) }}">Your browser does not support the <code>audio</code> element.</audio>
-                    </td>      
-                    @elseif($songsub->type == 1)
-                    <td>
-                    <a href="{{ $songsub->url }}" target="_blank"><img src="{{asset('images/ytb.png')}}" alt="logo youtube" title="@lang('Aller sur le lien')"></a>
-                    </td>
-                    @elseif($songsub->type == 3)
-                    <td>
-                    <a href="{{ route('songsub.dwnld', ['songsub' => $songsub->id]) }}" title="@lang('Télécharger le fichier')">Document</a>
-                    </td>
-                    @endif
-                    <td>
-                    <form action="{{ route('songsub.destroy', ['songsub' => $songsub->id]) }}" method="POST" style="display: inline;">
-                        @csrf
-                        @method('DELETE')
-                        <div class="col-md-4">
-                    <div class="login-go-div">
-                        <input type="image" src="{{asset('images/trash2a.png')}}" class="login-go"
-                            onmouseover="this.src='{{asset('images/trash2b.png')}}'"
-                            onmouseout="this.src='{{asset('images/trash2a.png')}}'"/>
-                    </div>
-                </div>           
-                    </form>
-                    
-                    </td>
+                        @switch($songsub->type)
+                            @case(1)
+                            @if( preg_match('/(vimeo)/', $songsub->url ) || preg_match('/(yout)/', $songsub->url ))
+                            <td>
+                            <a href="{{ route('playin', ['songsub' => $songsub , 'song' => $song->id]) }}"><img src="{{asset('images/ytb.png')}}" alt="Ouvrir dans le lecteur" title="@lang('Ouvrir dans le lecteur')"></a>
+                            </td>
+                            @else
+                            <td>&nbsp;</td>
+                            @endif
+                            <td>
+                                <a href="{{ $songsub->url }}" target="_blank"><img src="{{asset('images/www.png')}}" width="22" height="22" alt="@lang('Ouvrir dans site web')" title="@lang('Ouvrir dans site web')"></a>
+                            </td>
+                            @break
+
+                            @case(2)
+                            <td>
+                            <a href="#" onClick="javascript:vidSwap('{{ asset('storage/' . $songsub->file) }}'); return false;"><img src="{{asset('images/file2.png')}}" alt="Play"></a>
+                            </td> 
+                            <td>
+                                <a href="{{ route('songsub.dwnld', ['songsub' => $songsub->id]) }}"><img src="{{asset('images/dwnld.png')}}" width="22" height="22" alt="@lang('Télécharger')" title="@lang('Télécharger')"></a>
+                            </td>
+                            @break
+
+                            @default
+                            <td>&nbsp;</td>
+                            <td>
+                                <a href="{{ route('songsub.dwnld', ['songsub' => $songsub->id]) }}"><img src="{{asset('images/dwnld.png')}}" width="22" height="22" alt="@lang('Télécharger')" title="@lang('Télécharger')"></a>
+                            </td>
+                        @endswitch
+                        <td>
+                            <form action="{{ route('songsub.destroy', ['songsub' => $songsub->id]) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <div class="col-md-4">
+                                <div class="login-go-div">
+                                    <input type="image" src="{{asset('images/trash2a.png')}}" class="login-go"
+                                        onmouseover="this.src='{{asset('images/trash2b.png')}}'"
+                                        onmouseout="this.src='{{asset('images/trash2a.png')}}'" title="@lang('Supprimer')"/>
+                                    </div>
+                                </div>           
+                            </form>                    
+                        </td>
                 </tr> 
-            {{--@endif --}}
          @endforeach
     </table>
 @endif    
@@ -57,10 +69,6 @@
 <a href="{{ route('songsub.create','lk') }}" class="btn btn-info">@lang('Ajout lien')</a>
 <a href="{{ route('songsub.create','fl') }}" class="btn btn-info">@lang('Ajout fichier')</a>
 {{--<a href="{{ action('SongController@index', '1') }}" class="btn btn-primary">@lang('Retour Playlist')</a>--}}
-@php
-session('listname') == 'Playlist' ? $list = 1 : $list = 0 ;
-@endphp
-<a href="{{ action('SongController@index', $list) }}" class="btn btn-primary">@lang('Retour '){{ __(session('listname')) }}</a>
+<a href="{{ action('SongController@index', session('list')) }}" class="btn btn-primary">@lang('Retour '){{ __(session('listname')) }}</a>
 <br><br>
-(*) <span class="note">@lang('élément en liste principale')</span>
 @endsection

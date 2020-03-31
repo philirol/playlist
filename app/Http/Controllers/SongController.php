@@ -9,6 +9,7 @@ use App\Band;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Song as SongRequest;
 use Illuminate\Database\Eloquent\Builder;
+use PDF;
 
 
 class SongController extends Controller
@@ -27,40 +28,43 @@ class SongController extends Controller
         
     }  
     
-    public function index(Request $request, $list = null){
-        
-/*      $songs = Song::with('user')->paginate($this->NbrParPage);
-        $songs = Song::all(); 
-        $songs = Song::with('users')->get(); //sans pagination  
-*/  
-        
-        
-            // Auth::user()->can('viewAny', Song::class);
+    public function index($list = null){
+
             if(!Auth::check()){
                 $band_id = 1; //pour groupe démo
-            } elseif(Auth::check() && !Auth::user()->admin) {
+            } elseif (Auth::check() && !Auth::user()->admin) {
                 $band_id = Auth::user()->band->id;
-            } else {// pour admin, s'il choisi pas un groupe on lui montre sa playlist par défaut. Si l'admin créé un morceau il sera toujours mis dans sa playlist à lui et pas sur laquelle il est positionné
-                $band_id = session('band_id', Auth::user()->band_id); 
+            } else {
+                // for the admin, we show the playlist of his own banf if he doesn't choose another band playlist in admin area.
+                // We take de value of session(band_id). If it doesn't exist we pass the band_id of the admin as default value
+                $band_id = session('band_id', Auth::user()->band_id);
             }       
-/*       Utilisation de la relation
-        $songs = Song::with('band')->get(); //toutes les songs
-        $songs = Song::select('*')->where('band_id', '=', $band_id)->get(); //ok
-        //$songs = Band::find($user->band->id)->songs; //marche pas avec orderBy
-*/
-        $list == null ? $list = '1': $list = $list; 
+
+        // list = null at the welcome, we show the playlist by default, if not we take the value of the choice in nav bar and we store it the session for 
+        if($list == null && !session()->exists('list')) { // coming from welcome
+            session(['list' => 1]);
+            $list = 1;
+        } elseif ($list == null && session()->exists('list')) {  //coming from route play
+            $list = session('list');
+        } else {
+            session(['list' => $list]); //coming from choice nav bar ($list not null)
+        }
 
         $list == 1 ? session(['listname' => 'Playlist']) : session(['listname' => 'Projets']);
-
+        
         $bandname = Band::find($band_id)->bandname;        
      
         $songs = Song::where([
             ['band_id', $band_id],
-            ['list', $list]
+            ['list', $list ]
             ])->orderBy('order', 'ASC')->get();
+        
+        /* $urlDefault = $songs::find(1)->songsubs()->find(1)->get('url');
+        dd($urlDefault); */
             
-        return view('songs.index', compact('songs', 'bandname'));  
+        session()->exists('filetoplay') ? $url = session('filetoplay')->url : $url = 'https://www.youtube.com/watch?v=6Zv6M2WMY2s';
 
+        return view('songs.index', compact('songs', 'bandname', 'url'));
     }
 
     public function create()
@@ -104,11 +108,13 @@ class SongController extends Controller
         } else { $song->update(['list' => true]); }
     }
 
-    public function show(Song $song) //remplacé par le model binding ici présent
+    public function show(Song $song)
     {               
-        $this->authorize('view', $song);
+        // $this->authorize('view', $song);
         session(['song' => $song]); //sert pour show songsub
-        return view('songs.show', compact('song'));        
+        
+        session()->exists('filetoplay') ? $url = session('filetoplay')->url : $url = 'https://www.youtube.com/watch?v=GuDgvbpVQD4';
+        return view('songs.show', compact('song', 'url'));        
     }
 
     public function edit(Song $song)
@@ -141,4 +147,13 @@ class SongController extends Controller
         $song->delete();        
         return redirect()->route('playlist', [array_search($song->list, $song->getListOptions())])->with('message', __('Le morceau a bien été supprimé!'));
     }
+
+    public function orderPdf($id)
+    {
+        $order= ORDER::findOrFail($id);
+        $pdf = PDF::loadView('order_pdf', compact('order'));
+        $name = "commandeNo-".$order->id.".pdf";
+        return $pdf->download($name);
+    }
+    
 }

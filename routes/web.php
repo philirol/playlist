@@ -1,11 +1,13 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Songsub;
 
 Route::view('/','auth/login')->name('accueil');
+Route::view('abon','band/proposAbon')->name('proposAbon');
 Route::get('/home', 'HomeController@index')->name('home');
-Route::name('language')->get('language/{lang}', 'HomeController@language');
-
+Route::get('language/{lang}', 'HomeController@language')->name('language');
+Route::get('/pdf/{song}', ['as' => 'playlist.pdf', 'uses' => 'SongController@orderPdf']);
 
 Route::post('song-sortable','SongController@update_order')->name('orderingPlaylist');
 Route::resource('songs', 'SongController');
@@ -29,6 +31,16 @@ Route::get('songsband/{id}', function($id){  //coming from band/show.blade.php (
     session(['band_id' => $id]);
     return redirect('songs');
 })->name('band.songs');
+
+Route::get('play/{songsub}', function(Songsub $songsub){
+    session(['filetoplay' => $songsub]);
+    return redirect('songs');
+})->name('player');
+
+Route::get('playin/{songsub}/{id}', function(Songsub $songsub, $id){
+    session(['filetoplay' => $songsub]);
+    return redirect('songs/' . $id);
+})->name('playin');
 
 Route::get('band/{band}', 'BandController@showByAdmin')->middleware('admin')->name('bandByAdmin');
 Route::get('Uband', 'BandController@show')->name('band.show'); //method show sans paramètre

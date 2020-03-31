@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Gate;
 
 class SongsubController extends Controller
 {
@@ -33,14 +34,36 @@ class SongsubController extends Controller
         return view('songsub.create', compact('song','songsub', 'sub'));
     }
 
+    public function mainSongsub($main, Songsub $songsub){
+        if($main == null){
+            $songsub->main = 0;
+        } else {
+            Songsub::where('song_id', session('band_id', session()->get('song')['id']))
+                        ->where('main', 1)
+                        ->update(['main' => 0]);
+            $songsub->main = 1;
+        }
+        return $songsub;
+    }
+
+    public function stockBandControl($fileSize){
+        $bandStorage = Auth::user()->band->sizedir;
+        if($bandStorage + $fileSize > 20000000){
+            dd($bandStorage + $fileSize);
+            return view('band.proposAbon');
+        }
+    }
+    
     public function store(Request $request)
     { 
         $song = session('song');        
         $songsub = new Songsub;
+        $this->mainSongsub($request->main, $songsub);
         
         if($request->testfile != null){ 
-        $this->validatorFile();
-        $this->storeFile($songsub);
+            
+            $this->validatorFile();
+            $this->storeFile($songsub);
         /* 
         si je met que "$this->validatorFile();" ca fonctionne mais un fichier d'extension non permise provoque une erreur 
         si je met que "return $this->validatorFile();" le controle des extension fonctionne mais cela fait juste un retour json avec un fichier ok 
@@ -50,9 +73,9 @@ class SongsubController extends Controller
 
         if($request->testfile == null){
             $this->validatorLink();
+            $songsub->url = $request->url;
             $songsub->title = $request->title;
             $songsub->type = 1;
-            $songsub->url = $request->url;
         }
         
         $songsub->user()->associate(Auth::user());
@@ -80,32 +103,35 @@ class SongsubController extends Controller
         $extension = $file->getClientOriginalExtension();
         $tempPath = $file->getRealPath(); //if needed
         $fileSize = $file->getSize();
-        $mimeType = $file->getMimeType();
-        $valid_extension = array('mpga','mp3','ogg','wav','flac','mid','mp4','png','gif','jpg','jpeg','txt','xls','xlsx','ods','doc','docx','odt','pdf','gpx','gp3','gpa4','gp5','mov');
-        $maxFileSize = 32000000; //32MB
-        
-        if(in_array(strtolower($extension),$valid_extension)){            
-            if($fileSize <= $maxFileSize){               
-                $filename = preg_replace('/[^a-zA-Z0-9\-\._]/','', $filename); 
-                               
-                $withoutExt = pathinfo($filename, PATHINFO_FILENAME); //suppression de l'extension for that final formatting : filename-time.ext
-                $filenameToStorage = $withoutExt . '-' .time() . '.' . $extension;                
-                $band_folder = $user->band->slug;
-                $paths = $file->storeAs($band_folder, $filenameToStorage, 'public');
-                $songsub->file = $paths;   
-                         
-                $songsub->title = $filename;
-                //type 2 files will be treated with html5 audio player (wma, aiff, mid not supported by the player)
-                $array_audiofile = ['audio/mpeg','audio/ogg','audio/flac','audio/x-wav','audio/x-flac'];
-                in_array($mimeType, $array_audiofile) ? $songsub->type = 2 : $songsub->type = 3;  
-                return $songsub;
-                
+        if(Gate::allows('upload', $fileSize)){ //see AuthServiceProvider for storage limit                    
+            $mimeType = $file->getMimeType();
+            $valid_extension = array('mpga','mp3','ogg','wav','flac','mid','mp4','png','gif','jpg','jpeg','txt','xls','xlsx','ods','doc','docx','odt','pdf','gpx','gp3','gpa4','gp5','mov');
+            $maxFileSize = 32000000; //32MB
+            
+            if(in_array(strtolower($extension),$valid_extension)){            
+                if($fileSize <= $maxFileSize){               
+                    $filename = preg_replace('/[^a-zA-Z0-9\-\._]/','', $filename); 
+                                
+                    $withoutExt = pathinfo($filename, PATHINFO_FILENAME); //suppression de l'extension for that final formatting : filename-time.ext
+                    $filenameToStorage = $withoutExt . '-' .time() . '.' . $extension;                
+                    $band_folder = $user->band->slug;
+                    $paths = $file->storeAs($band_folder, $filenameToStorage, 'public');
+                    $songsub->file = $paths;         
+                    $songsub->title = $filename;
+                    //type 2 files will be treated with html5 audio player (wma, aiff, mid not supported by the player)
+                    $array_audiofile = ['audio/mpeg','audio/ogg','audio/flac','audio/x-wav','audio/x-flac','video/quicktime'];
+                    in_array($mimeType, $array_audiofile) ? $songsub->type = 2 : $songsub->type = 3;  
+                    return $songsub;
+                    
+                } else {
+                    return redirect()->action('SongController@show', ['id' => $song->id])->with('message', __('Taille des fichiers limités à 32MB'))->send();
+                }
             } else {
-                return redirect()->action('SongController@show', ['id' => $song->id])->with('message', __('Taille des fichiers limités à 32MB'))->send();
-            }
+                return redirect()->action('SongController@show', ['id' => $song->id])->with('message', __('Extension de fichier invalide'))->send();
+            } 
         } else {
-            return redirect()->action('SongController@show', ['id' => $song->id])->with('message', __('Extension de fichier invalide'))->send();
-        }        
+            return redirect()->route('proposAbon')->send();
+        } 
     }
 
     public function download(Songsub $songsub)
@@ -131,6 +157,7 @@ class SongsubController extends Controller
     {
            return request()->validate([
             'file' => 'required|max:32000', //ne pas utiliser size. Mettre pour max la valeur de config php post_max_size Sinon entre les 2 valeurs il met un msg trop générique
+            // 'main' => 'required'
         ]);
     }
     
@@ -139,24 +166,13 @@ class SongsubController extends Controller
            return request()->validate([
             'title' => ['required', 'string', 'max:30'],
             'url' => ['url'],
+            // 'main' => 'required'
         ]);
     }
     
     public function update(Request $request, Songsub $songsub)
     {
-        // cas 1 : pas de changement du fichier / cas 2 : changement du fichier
-        /* dd($request->file); //idem à dd(request()->file('file'));
-        dd(request()->file('file')); //null si on change pas le fichier
-        dd($request->testfile); //testfile dans les 2 cas
-        dd($songsub); //ancien fichier dans les 2 cas */
-        if($request->input('main') == null){
-            $songsub->main = 0;
-        } else {
-            Songsub::where('song_id', session('band_id', session()->get('song')['id']))
-                        ->where('main', 1)
-                        ->update(['main' => 0]);
-            $songsub->main = 1;
-        }        
+        $this->mainSongsub($request->main, $songsub);       
 
         if($request->testfile != null){                        
             if($request->file){
@@ -187,4 +203,5 @@ class SongsubController extends Controller
         
         return back()->with('message', __('L\'élément a bien été supprimé'));
     }
+    
 }

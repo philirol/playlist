@@ -1,4 +1,6 @@
 {
+    "Abonnement" : "Subscription to more..." ,
+    
     "Activer pour passer en liste principale": "check to put item in main list",
     
     "Aide" : "Help" ,
@@ -20,6 +22,8 @@
     "Ajouter un fichier": "Add file",
 
     "Ajout lien": "Add link",
+
+    "Ajouter un lien": "Add link",
 
     "Ajouter une image": "Add picture",
 
@@ -271,6 +275,10 @@
 
     "Oui": "Yes",
 
+    "Ouvrir dans le lecteur": "Open in player",
+
+    "Ouvrir dans site web": "Open in website",
+
     "Page de modification" : "Song modify ",
 
     "Pagination : ": "Pagination: ",
@@ -351,7 +359,9 @@
 
     "Taille des fichiers limités à 32MB": "File too large. File must be less than 32MB",
 
-    "Télécharger le fichier" : "Download the file",
+    "Télécharger" : "Download",
+
+    "Télécharger le fichier" : "Download file",
 
     "Titre" : "Title",
 

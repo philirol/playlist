@@ -15,7 +15,16 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> -->
 
     <script src="{{ asset('js/app.js') }}"></script>
-    
+    <script>
+        function vidSwap(vidURL) {
+        var myVideo = document.getElementsByTagName('video')[0];
+        myVideo.src = vidURL;
+        myVideo.load();
+        myVideo.play();        
+        // return myVideo.src;
+        }
+        // window.route = 'coucou';
+    </script>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -61,19 +70,6 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/') }}">@lang('Aide')</a>
                         </li>
-                        @if(Auth::check() and Auth::user()->admin)
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('user.indexByAdmin') }}">@lang('Utilisateurs')</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('band.index') }}">@lang('Groupes')</a>
-                        </li>
-                        {{--   
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('ville.index') }}">@lang('Villes')</a>
-                        </li>
-                        --}}                      
-                        @endif
                     </ul>
 
                     <!-- Right Side (ml) Of Navbar -->              
@@ -127,13 +123,66 @@
                 </div>
             </div>
         </nav>
-        <main class="py-4 container">
+        @if(Auth::check() and Auth::user()->admin)
+        <nav class="navbar navbar-expand-lg navbar-light shadow-sm" style="background-color: #ddd78f;">
+            <div class="container">
+                <span class="navbar-brand">Admin</span>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent2" aria-controls="navbarSupportedContent2" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent2">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="navbar-nav mr-auto">                   
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('user.indexByAdmin') }}">@lang('Utilisateurs')</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('band.index') }}">@lang('Groupes')</a>
+                        </li>
+                        {{--   
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('ville.index') }}">@lang('Villes')</a>
+                        </li>
+                        --}} 
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        @endif
+
+        <main class="py-3 container">
             @if (session()->has('message'))
                 <div class="alert alert-success" role="alert">
                     {{ session()->get(__('message')) }}
                 </div>
             @endif
-            @yield('content')
+            <div class="row">
+                <div class="col-md-8">
+                    @yield('content')
+                </div>
+                <aside class="col-md-4">
+                        @php    
+                        if(isset($url)){ 
+                                
+                            $embed = Embed::make($url)->parseUrl();
+                            if ($embed) {
+                                $embed->setAttribute([
+                                    'width' => 320,
+                                    'id' => 'video'
+                                    ]);
+                                echo $embed->getHtml();  
+                            }
+                        }
+                        @endphp
+                        {{-- substr(strrchr($songsub->file, '/'), 1) --}}
+                        <!-- <span class="note">ouvrir dans youtube</span> -->
+                    <div class="py-4">
+                        <video id='video' width="320" height="200" controls preload poster="{{asset('images/woman3.jpg')}}" autoplay></video>
+                    <!-- <script>document.write(vidURL)</script> -->
+                    </div>
+                </aside> 
+
+            </div>
         </main>
     </div>
 </body>
