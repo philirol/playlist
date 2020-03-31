@@ -148,12 +148,18 @@ class SongController extends Controller
         return redirect()->route('playlist', [array_search($song->list, $song->getListOptions())])->with('message', __('Le morceau a bien été supprimé!'));
     }
 
-    public function orderPdf($id)
+    public function printPlaylist()
     {
-        $order= ORDER::findOrFail($id);
-        $pdf = PDF::loadView('order_pdf', compact('order'));
-        $name = "commandeNo-".$order->id.".pdf";
-        return $pdf->download($name);
+        $data = Song::where([
+            ['band_id', Auth::user()->band->id],
+            ['list', 1 ]
+            ])->orderBy('order', 'ASC')->get();
+
+            $bandname = Band::find(Auth::user()->band->id)->bandname;
+
+        $pdf = PDF::loadView('songs.print_playlist', compact('data', 'bandname'));  
+        
+        return $pdf->download('medium.pdf');
     }
     
 }

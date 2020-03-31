@@ -7,7 +7,7 @@ Route::view('/','auth/login')->name('accueil');
 Route::view('abon','band/proposAbon')->name('proposAbon');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('language/{lang}', 'HomeController@language')->name('language');
-Route::get('/pdf/{song}', ['as' => 'playlist.pdf', 'uses' => 'SongController@orderPdf']);
+Route::get('/songs/pdf', 'SongController@printPlaylist');
 
 Route::post('song-sortable','SongController@update_order')->name('orderingPlaylist');
 Route::resource('songs', 'SongController');

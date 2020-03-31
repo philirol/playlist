@@ -1,0 +1,20 @@
+
+html { margin-top: 40px}
+
+h3 { text-decoration: underline; }
+
+table, td {
+    /* border-collapse: collapse;
+    border: 1px solid black; */
+    /* width: 20%; */
+    text-align: left;
+    }
+th, td {
+    height: 20px;
+    }
+body {
+    font-family:arial, sans-serif;
+    font-size: 1.3em;
+    }
+
+    

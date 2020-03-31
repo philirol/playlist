@@ -33,10 +33,11 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('bands')->insert([
-            'bandname' => 'Arthur and the Minigirls',
-            'slug' => 'arthur_minigirls',
+            'bandname' => 'Justicks',
+            'slug' => 'justicks',
             'city' => '28546',
         ]);
+
              
         
         /*
@@ -123,6 +124,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         factory(App\User::class, 3)->create(); //mettre 10 users pour être raccord avec le nombre de songs sinon erreur sur song.show
+
 
 //SONGS & SONGSUBS
 // Life on Mars
@@ -344,7 +346,7 @@ class DatabaseSeeder extends Seeder
 
      
 
-//30 autre morceaux pour les autres groupes et user
+        //30 autre morceaux pour les autres groupes et user
 
         $faker = Faker::create();
         
@@ -412,14 +414,17 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-
         
-
-/*         $ids = range(1, 10);
-        factory(App\Song::class, 40)->create()->each(function ($song) use($ids) {
-            shuffle($ids);
-        });
-        */
-
+        // for print test
+        foreach (range(1,50) as $index) {
+            DB::table('songs')->insert([
+                'band_id' => 4, //justicks
+                'user_id' => 7, //Heloise
+                'title' => $faker->citySuffix,
+                'order' => $index,
+                'list' => 1,
+                'comments' => $faker->realText($maxNbChars = 50, $indexSize = 2), 
+            ]);
+        }
     }
 }

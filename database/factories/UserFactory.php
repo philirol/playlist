@@ -19,7 +19,7 @@ use Faker\Generator as Faker;
 $factory->define(User::class, function (Faker $faker) {
     return [
         'band_id' => $faker->numberBetween(2,4),
-        'name' => $faker->first_name,
+        'name' => $faker->firstName,
         'leader' => 1,
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),

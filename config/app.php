@@ -162,7 +162,6 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        Barryvdh\DomPDF\ServiceProvider::class,
         
 
         /*
@@ -181,6 +180,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         'Intervention\Image\ImageServiceProvider',
         'Cohensive\Embed\EmbedServiceProvider',
+        Barryvdh\DomPDF\ServiceProvider::class,
 
     ],
 

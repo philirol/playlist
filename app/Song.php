@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Song extends Model
 {
+    public $table = 'songs';
     protected $fillable = ['band_id','title','url','file','order','list','comments'];
     //laisser list dans fillable sinon il se met pas à jour en update
 
