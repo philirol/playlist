@@ -149,9 +149,9 @@ class DatabaseSeeder extends Seeder
             'song_id' => 1,
             'user_id' => 3,
             'main' => 0,
-            'title' => 'NYLive201807.jpg',
+            'title' => 'NYLiveLifeOnMars.jpg',
             'type' => 3,
-            'file' => 'demo-band/NYLive201807-1585125456.jpg',
+            'file' => 'demo-band/NYLiveLifeOnMars-1585125456.jpg',
         ]);
 
 //Wonderwall        
@@ -346,7 +346,7 @@ class DatabaseSeeder extends Seeder
 
      
 
-        //30 autre morceaux pour les autres groupes et user
+        //30 autre morceaux pour les autres groupes et user SANS SONGSUBS
 
         $faker = Faker::create();
         

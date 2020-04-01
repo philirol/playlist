@@ -3,6 +3,11 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Songsub;
 
+/* Route::fallback(function(){
+    return response()->json([
+        'message' => 'Page Not Found. If error persists, contact info@website.com'], 404);
+}); */
+
 Route::view('/','auth/login')->name('accueil');
 Route::view('abon','band/proposAbon')->name('proposAbon');
 Route::get('/home', 'HomeController@index')->name('home');

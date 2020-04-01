@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Exceptions;
-
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMailable;
 
 class Handler extends ExceptionHandler
 {
@@ -33,9 +34,30 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $exception
      * @return void
      */
-    public function report(Exception $exception)
+    public function report(\Exception $e)
     {
-        parent::report($exception);
+        if ($e instanceof \Exception) {
+
+            $error['file']    = $e->getFile();
+            $error['code']    = $e->getCode();
+            $error['line']    = $e->getLine();
+            $error['message'] = $e->getMessage();
+            $error['trace']   = $e->getTrace();
+
+            if(ENV('APP_ENV') == "local"){
+                #1. Queue email for sending on "exceptions_emails" queue
+                #2. Use the emails.exception_notif view shown below
+                #3. Pass the error array to the view as variable $e
+                /* $email = 'philirol@hotmail.com';
+                $subject = 'erreur';
+                 Mail::to('errors.error', ["e" => $error], function ($m) use($email, $subject){
+                       $m->to($email)->subject($subject);
+                });  */
+                $test = 'phil';
+                Mail::to('philirol@hotmail.com')->send(new SendMailable($test));
+            }
+        }
+        return parent::report($e);
     }
 
     /**
