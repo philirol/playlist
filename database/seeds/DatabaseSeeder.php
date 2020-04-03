@@ -135,12 +135,12 @@ class DatabaseSeeder extends Seeder
             'title' => 'Life On Mars (cover)',
             'order' => 1,
             'list' => 1,
-            'comments' => 'Franck : Starman on back.',
+            'comments' => 'Franck : Hi Are yu ok with that intro?.',
         ]);
         DB::table('songsubs')->insert([
             'song_id' => 1,
             'user_id' => 3,
-            'main' => 1,
+            'main' => 0,
             'title' => 'Cover R.Coleman',
             'type' => 1,
             'url' => 'https://www.youtube.com/watch?v=3GrnljG9fyM&start_radio=1&list=RD3GrnljG9fyM',
@@ -152,6 +152,14 @@ class DatabaseSeeder extends Seeder
             'title' => 'NYLiveLifeOnMars.jpg',
             'type' => 3,
             'file' => 'demo-band/NYLiveLifeOnMars-1585125456.jpg',
+        ]);
+        DB::table('songsubs')->insert([
+            'song_id' => 1,
+            'user_id' => 3,
+            'main' => 1,
+            'title' => 'Life on Mars Intro',
+            'type' => 2,
+            'file' => 'demo-band/LifeonMarsintro-1585843256.mp3',
         ]);
 
 //Wonderwall        
@@ -253,7 +261,7 @@ class DatabaseSeeder extends Seeder
         DB::table('songsubs')->insert([
             'song_id' => 6,
             'user_id' => 4,
-            'main' => 1,
+            'main' => 0,
             'title' => 'Original Clip',
             'type' => 1,
             'url' => 'https://www.youtube.com/watch?v=yXlULkwhgrc',
@@ -265,6 +273,14 @@ class DatabaseSeeder extends Seeder
             'title' => 'Miley C version',
             'type' => 1,
             'url' => 'https://www.youtube.com/watch?v=wOwblaKmyVw',
+        ]);
+        DB::table('songsubs')->insert([
+            'song_id' => 6,
+            'user_id' => 1,
+            'main' => 1,
+            'title' => 'Demo acoustic',
+            'type' => 2,
+            'file' => 'demo-band/JoleneTest-1585845075.mp3',
         ]);
 
 //Liste Projets
@@ -293,7 +309,7 @@ class DatabaseSeeder extends Seeder
             'band_id' => 1,
             'user_id' => 3,
             'title' => 'Beat it',
-            'order' => 3,
+            'order' => 2,
             'list' => 0,
             'comments' => 'Back track attached',
         ]);
@@ -312,7 +328,7 @@ class DatabaseSeeder extends Seeder
             'band_id' => 1,
             'user_id' => 5,
             'title' => 'Tracy Chapman - Fast car',
-            'order' => 2,
+            'order' => 3,
             'list' => 0,
             'comments' => 'Jany : doesn\'t even sound like an 80s song I like it',
         ]);
@@ -320,9 +336,9 @@ class DatabaseSeeder extends Seeder
             'song_id' => 9,
             'user_id' => 5,
             'main' => 1,
-            'title' => 'Yellow - Original',
+            'title' => 'Youtube link',
             'type' => 1,
-            'url' => 'https://www.youtube.com/watch?v=yKNxeF4KMsY',
+            'url' => 'https://www.youtube.com/watch?v=DwrHwZyFN7M',
         ]);
 
 //Nina Simone - Backlash Blues
@@ -331,7 +347,7 @@ class DatabaseSeeder extends Seeder
             'band_id' => 1,
             'user_id' => 3,
             'title' => 'Nina Simone - Backlash Blues',
-            'order' => 3,
+            'order' => 4,
             'list' => 0,
             'comments' => 'Clarence, let it in Bb',
         ]);
@@ -344,6 +360,24 @@ class DatabaseSeeder extends Seeder
             'url' => 'https://www.youtube.com/watch?v=2Pj9AucSc9Y',
         ]);
 
+//Dream on
+        DB::table('songs')->insert([
+            'id' => 11,
+            'band_id' => 1,
+            'user_id' => 2,
+            'title' => 'Dream on',
+            'order' => 5,
+            'list' => 0,
+            'comments' => 'Should be better with a 12 strings guitar',
+        ]);
+        DB::table('songsubs')->insert([
+            'song_id' => 11,
+            'user_id' => 2,
+            'main' => 1,
+            'title' => 'Dream On Acoustic',
+            'type' => 2,
+            'file' => 'demo-band/Dreamonintro-1585844017.mp3',
+        ]);
      
 
         //30 autre morceaux pour les autres groupes et user SANS SONGSUBS

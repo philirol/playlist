@@ -19,7 +19,8 @@ Route::resource('songs', 'SongController');
 Route::get('playlist/{list}', 'SongController@index')->name('playlist');
 
 Route::get('dwnld/{songsub}', 'SongsubController@download')->name('songsub.dwnld');
-Route::get('songsub/{sub?}', 'SongsubController@create')->name('songsub.create');
+Route::get('songsub/{sub?}', 'SongsubController@create')->middleware('members')->name('songsub.create');
+// Route::get('songsub/{song}/edit', 'SongsubController@edit')->middleware('members');
 Route::resource('songsub', 'SongsubController')->except(['create']);
 
 Route::get('contactez-nous', 'ContactController@create')->name('contact.create');
@@ -49,7 +50,9 @@ Route::get('playin/{songsub}/{id}', function(Songsub $songsub, $id){
 
 Route::get('band/{band}', 'BandController@showByAdmin')->middleware('admin')->name('bandByAdmin');
 Route::get('Uband', 'BandController@show')->name('band.show'); //method show sans paramètre
-Route::resource('band', 'BandController', ['except' => ['show']]);
+Route::get('band/{id}/edit', 'BandController@edit')->middleware('leader');
+Route::resource('band', 'BandController', ['except' => ['show']]);//except show car pas besoin de paramètre pour cette méthode, non CRUD
+ 
 
 // Route::get('ville', 'VilleController@index')->name('ville.index')->middleware('admin');
 

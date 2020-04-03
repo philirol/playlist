@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Sniglet);@charset "UTF-8";
+@charset "UTF-8";
 
 /*!
  * Bootstrap v4.4.1 (https://getbootstrap.com/)
@@ -6990,7 +6990,7 @@ button.bg-success:focus {
 }
 
 .bg-info {
-  background-color: #6cb2eb !important;
+  background-color: #488594 !important;
 }
 
 a.bg-info:hover,
@@ -10884,6 +10884,10 @@ a.text-dark:focus {
   }
 }
 
+:root {
+  --info: #333d46;
+}
+
 html {
   font-size: 0.8rem;
 }
@@ -10901,7 +10905,7 @@ html {
 }
 
 body {
-  font-family: "Sniglet", cursive;
+  font-family: Verdana, Tahoma, sans-serif;
 }
 
 .table-info,

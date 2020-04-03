@@ -1,7 +1,25 @@
-There was an error in your Laravel App<br />
+@component('mail::message')
+# Envoi d'erreur depuis le site Playlist
 
+**Fichier :**
+{{ $data['file'] }}
 
-<table>
-    <tr><th >Message:</th><td>{{ $man}}</td></tr>
-    <tr><th >Code:</th><td>{{ $woman }}</td></tr>
-</table>
+**Code :**
+{{ $data['code'] }}
+
+**Ligne :**
+{{ $data['line'] }}
+
+**Message :**
+{{ $data['message'] }}
+
+**Trace format :**
+*{{ $data['traceAsString'] }}*
+
+@component('mail::button', ['url' => 'https://playlistband.net'])
+Aller sur le site
+@endcomponent
+
+Merci,<br>
+{{ config('app.name') }}
+@endcomponent

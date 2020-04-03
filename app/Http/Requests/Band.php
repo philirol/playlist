@@ -20,7 +20,7 @@ class Band extends FormRequest
     public function rules()
     {
         return [
-            'bandname' => ['required', 'string', 'max:100'],
+            'bandname' => ['required', 'string', 'max:30'],
         ];
     }
 }

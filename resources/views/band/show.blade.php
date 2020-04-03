@@ -14,9 +14,10 @@
 </div>
 <hr>
 <p class="text-muted font-italic">@lang('Création du groupe le') {{ Carbon\Carbon::parse($band->created_at)->format('d m Y') }} {{-- - {{ $band->ville->ville_nom }} ({{ $band->ville->ville_code_postal }}) --}}</p>
-<p><a href="{{ route('band.edit', ['band' => $band->id]) }}">Modification du groupe</a></p>
-
-
+<ul class="list-inline">
+  <li class="list-inline-item"><a href="{{ route('band.edit', ['band' => $band->id]) }}">Modification du groupe</a></li>
+  <li class="list-inline-item"><a href="{{ route('band.edit', ['band' => $band->id]) }}">Inviter des membres</a></li>
+</ul>
     {{-- With cards
     @foreach($band->users as $user)
     <div class="card border-info mb-3" style="max-width: 20rem;">
@@ -50,10 +51,7 @@
     </div>
     @endforeach
 
-
-<a href="javascript:history.back()" class="btn btn-primary">
-<span class="glyphicon glyphicon-circle-arrow-left"></span> @lang('Retour')
-</a><br>
+<a href="{{ action('SongController@index', '1') }}" class="btn btn-primary">@lang('Retour Playlist')</a>
 
 @endsection
 

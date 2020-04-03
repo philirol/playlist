@@ -76,21 +76,7 @@
                         </div>
 
                         {{-- 
-                        <div class="form-group">
-                            <select class="custom-select form-control @error('entreprise_id') is-invalid @enderror" name="entreprise_id">
-                                @foreach($entreprises as $entr)
-                                <option value="{{ $entr->id }}" {{ $client->entreprise_id == $entr->id ? 'selected' : ''}}>{{  $entr->name }}</option>
-                                @endforeach
-                            </select>
-                            @error('entreprise_id')
-                            <div class="invalid-feedback">
-                                {{ $errors->first('entreprise_id') }}
-                            </div>
-                            @enderror
-                        </div>
-                        --}}
-
-
+                        
                         <div class="form-group row">
                         <label for="departement" class="col-md-4 col-form-label text-md-right">@lang('Votre département')</label>
                             <div class="col-md-6">
@@ -102,6 +88,8 @@
                                 </select>
                             </div>
                         </div> 
+                        
+                        --}}
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">

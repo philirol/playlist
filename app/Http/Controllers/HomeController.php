@@ -24,6 +24,8 @@ class HomeController extends Controller
      */
     public function index()
     {
+        Auth::user()->nconnex ++;
+        Auth::user()->update();
         if(Auth::user()->admin) {
             return redirect('band');
         }
@@ -38,5 +40,4 @@ class HomeController extends Controller
 
         return back();
     }
-
 }

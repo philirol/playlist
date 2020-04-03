@@ -7,6 +7,9 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMailable;
 
+use Illuminate\Http\Response;
+
+
 class Handler extends ExceptionHandler
 {
     /**
@@ -36,25 +39,22 @@ class Handler extends ExceptionHandler
      */
     public function report(\Exception $e)
     {
-        if ($e instanceof \Exception) {
+        if ($e instanceof \Exception && !$e instanceof \Illuminate\Validation\ValidationException) {
 
-            $error['file']    = $e->getFile();
-            $error['code']    = $e->getCode();
-            $error['line']    = $e->getLine();
-            $error['message'] = $e->getMessage();
-            $error['trace']   = $e->getTrace();
+            //  if ($e instanceof \Symfony\Component\HttpKernel\Exception\HttpException){                
+            //     $data['httpcode'] = $e->getStatusCode();
+            // }    MARCHE PAS
+                    
+            //Methodes of the Exception class :
+            $data['file']    = $e->getFile();
+            $data['code']    = $e->getCode(); // User-defined Exception code
+            $data['line']    = $e->getLine();
+            $data['message'] = $e->getMessage();
+            $data['trace']   = $e->getTrace(); // An array of the backtrace()
+            $data['traceAsString'] = $e->getTraceAsString(); // Formated string of trace
 
             if(ENV('APP_ENV') == "local"){
-                #1. Queue email for sending on "exceptions_emails" queue
-                #2. Use the emails.exception_notif view shown below
-                #3. Pass the error array to the view as variable $e
-                /* $email = 'philirol@hotmail.com';
-                $subject = 'erreur';
-                 Mail::to('errors.error', ["e" => $error], function ($m) use($email, $subject){
-                       $m->to($email)->subject($subject);
-                });  */
-                $test = 'phil';
-                Mail::to('philirol@hotmail.com')->send(new SendMailable($test));
+                Mail::to('philirol@hotmail.com')->send(new SendMailable($data));
             }
         }
         return parent::report($e);

@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\Gate;
 
 class SongsubController extends Controller
 {
-    public function __construct()
+    public function __construct() 
     {   
-        $this->middleware('auth')->except(['index']);              
+        $this->middleware('members')->except(['index']);              
     }
     
     public function index()

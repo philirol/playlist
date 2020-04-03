@@ -20,25 +20,29 @@ class SongController extends Controller
     public function __construct()
     {
     
-        $this->middleware('auth')->except(['index','update_order','show']); 
+        $this->middleware('auth')->except(['index','update_order','show','printPlaylist']); 
         //permet ces fonctions à l'user non authentifié
         // $this->middleware('admin');
-        //only : fonctions qui seront non permises aux users non admin
-        
+        //only : fonctions qui seront non permises aux users non admin       
         
     }  
+
+    private function chechBandId(){
+        if(!Auth::check()){
+            $band_id = 1; //pour groupe démo
+        } elseif (Auth::check() && !Auth::user()->admin) {
+            $band_id = Auth::user()->band->id;
+        } else {
+            // for the admin, we show the playlist of his own banf if he doesn't choose another band playlist in admin area.
+            // We take de value of session(band_id). If it doesn't exist we pass the band_id of the admin as default value
+            $band_id = session('band_id', Auth::user()->band_id);
+        }
+        return $band_id;
+    }
     
     public function index($list = null){
 
-            if(!Auth::check()){
-                $band_id = 1; //pour groupe démo
-            } elseif (Auth::check() && !Auth::user()->admin) {
-                $band_id = Auth::user()->band->id;
-            } else {
-                // for the admin, we show the playlist of his own banf if he doesn't choose another band playlist in admin area.
-                // We take de value of session(band_id). If it doesn't exist we pass the band_id of the admin as default value
-                $band_id = session('band_id', Auth::user()->band_id);
-            }       
+        $band_id = $this->chechBandId();           
 
         // list = null at the welcome, we show the playlist by default, if not we take the value of the choice in nav bar and we store it the session for 
         if($list == null && !session()->exists('list')) { // coming from welcome
@@ -150,12 +154,14 @@ class SongController extends Controller
 
     public function printPlaylist()
     {
+        $band_id = $this->chechBandId();
+        
         $data = Song::where([
-            ['band_id', Auth::user()->band->id],
+            ['band_id', $band_id],
             ['list', 1 ]
             ])->orderBy('order', 'ASC')->get();
 
-            $bandname = Band::find(Auth::user()->band->id)->bandname;
+            $bandname = Band::find($band_id)->bandname;
 
         $pdf = PDF::loadView('songs.print_playlist', compact('data', 'bandname'));  
         

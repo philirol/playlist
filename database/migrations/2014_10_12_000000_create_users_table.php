@@ -32,6 +32,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
             $table->string('image')->nullable();
+            $table->Integer('nconnex')->nullable()->unsigned()->default(0);
         });
     }
 

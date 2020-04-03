@@ -1,16 +1,16 @@
-@extends('layouts.app')
+@extends('layouts.appmedia')
 
 @section('content')
-
-<table class="table">
-  <tr class="table-info">
+<div class="bg-info rounded-lg">
+<table class="table text-white">
+  <tr>
     <td class="align-middle"><h4>{{ $bandname }}</h4> <h6>({{ __(session('listname')) }})</h6></td>
     @if(Auth::check())
     <td class="text-right"><a href="{{ route('songs.create') }}" class="btn btn-primary my-3">@lang('Nouveau morceau')</a></td>
     @endif
   </tr>
 </table>
-
+</div>
 <table class="table table-striped">
   <tbody id="tablecontents"> {{-- tbody for sorting list js --}}
     @foreach($songs as $song)
@@ -18,7 +18,7 @@
         <th><img src="{{asset('images/updownarrow.png')}}"></th>
         <td><a href="{{ route('songs.show', $song->id) }}" title="{{ $song->songsub }} @lang('Fichier(s)/lien(s)')">{{ $song->title }}</a></td>
         @if($song->comments)
-        <td><img src="{{asset('images/comment.png')}}" title="{{ substr($song->comments, 0, 30) }}..."></td>
+        <td><img src="{{asset('images/comment.png')}}" title="{{ substr($song->comments, 0, 50) }}..."></td>
         @else
         <td>&nbsp;</td>
         @endif

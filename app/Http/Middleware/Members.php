@@ -2,10 +2,10 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Support\Facades\Auth;
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
-class Leader
+class Members
 {
     /**
      * Handle an incoming request.
@@ -16,7 +16,7 @@ class Leader
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::check() && $request->user()->leader){ //boolean
+        if (Auth::check()){
             return $next($request);
         }
         return redirect('songs')->with('messageDanger', __('Vous n\'avez pas accès à la page demandée'));

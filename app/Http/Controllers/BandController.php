@@ -2,23 +2,14 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
-use App\{Band, Departement};
+use App\Band;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Band as BandRequest;
-use Illuminate\Support\Facades\Storage;
-use League\Flysystem\Util;
-use League\Flysystem\Adapter\Local;
-use League\Flysystem\Filesystem;
 
 use Illuminate\Http\Request;
 
 class BandController extends Controller
 {
-    public function construct()
-    {
-        $this->middleware('admin')->only(['showByAdmin']); //permet ces fonctions à l'user non authentifié
-        $this->middleware('leader')->only(['edit','update']);
-    }
 
     public function index()
     {

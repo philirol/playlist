@@ -16,6 +16,9 @@
                                 <button type="submit" class="btn btn-primary">
                                 @lang('Valider')
                                 </button>
+                                <a href="javascript:history.back()" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-circle-arrow-left"></span> @lang('Retour')
+                                </a><br>
                             </div>
                         </div>
                     </form>

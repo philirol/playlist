@@ -22,7 +22,8 @@
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">id</th>
-                    <th scope="col">Pseudo</th>
+                    <th scope="col">Pseudo</th>                    
+                    <th scope="col">ncon</th>
                     <th scope="col">@lang('Email')</th> 
                 </tr>
             </thead>
@@ -36,7 +37,7 @@
                         <strong>(leader)</strong>
                     @endif
                     </td>
-                    <!-- <td><strong>{{ $user->email }}</strong></td> -->
+                    <td>{{ $user->nconnex }}</td>
                     <td>{{ $user->email }}</td>
                 </tr>
             @endforeach

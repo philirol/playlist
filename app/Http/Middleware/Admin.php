@@ -19,7 +19,7 @@ class Admin
         if (Auth::check() && $request->user()->admin){ //admin boolean
             return $next($request);
         }
-        return redirect('songs')->with('message', 'Vous n\'avez pas accès à la page demandée, et avez été redirigé sur cette page :'); 
+        return redirect('songs')->with('messageDanger', __('Vous n\'avez pas accès à la page demandée')); 
         // return new RedirectResponse(url('songs'));
     }
 }
