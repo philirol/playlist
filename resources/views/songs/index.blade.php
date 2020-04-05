@@ -4,7 +4,7 @@
 <div class="bg-info rounded-lg">
 <table class="table text-white">
   <tr>
-    <td class="align-middle"><h4>{{ $bandname }}</h4> <h6>({{ __(session('listname')) }})</h6></td>
+    <td class="align-middle"><h4>{{ $bandname }}</h4> <h6>{{ __(session('listname')) }}</h6></td>
     @if(Auth::check())
     <td class="text-right"><a href="{{ route('songs.create') }}" class="btn btn-primary my-3">@lang('Nouveau morceau')</a></td>
     @endif

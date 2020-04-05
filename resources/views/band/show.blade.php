@@ -1,22 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
-
-<div class="container">
-    <div class="row">
-        <div class="col-auto mr-auto"><h3>{{ $band->bandname }} - Membres</h3></div>
-        @if(Auth::check() and Auth::user()->admin)
-        <div class="col-auto">
-        <a href="{{ route('band.songs', ['band' => $band->id]) }}" class="btn btn btn-primary">@lang('Voir Playlist')</a>
-        </div>
-        @endif
-    </div>
+<div class="bg-info rounded-lg">
+<table class="table text-white">
+  <tr>
+    <td class="align-middle"><h4>{{ $band->bandname }}</h4> <h6>@lang('Membres')</h6></td>
+    @if(Auth::check() and Auth::user()->admin)
+    <td class="text-right"><a href="{{ route('band.songs', ['band' => $band->id]) }}" class="btn btn-primary my-3">@lang('Voir Playlist')</a></td>
+    @endif
+  </tr>
+</table>
 </div>
-<hr>
+
 <p class="text-muted font-italic">@lang('Création du groupe le') {{ Carbon\Carbon::parse($band->created_at)->format('d m Y') }} {{-- - {{ $band->ville->ville_nom }} ({{ $band->ville->ville_code_postal }}) --}}</p>
 <ul class="list-inline">
-  <li class="list-inline-item"><a href="{{ route('band.edit', ['band' => $band->id]) }}">Modification du groupe</a></li>
-  <li class="list-inline-item"><a href="{{ route('band.edit', ['band' => $band->id]) }}">Inviter des membres</a></li>
+  <li class="list-inline-item"><a href="{{ route('band.edit', ['band' => $band->id]) }}">@lang('Modif nom du groupe')</a></li>
+  <li class="list-inline-item"><a href="{{ route('invit.addmember') }}">@lang('Ajouter des musiciens')</a></li>
 </ul>
     {{-- With cards
     @foreach($band->users as $user)

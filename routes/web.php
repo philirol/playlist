@@ -3,10 +3,9 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Songsub;
 
-/* Route::fallback(function(){
-    return response()->json([
-        'message' => 'Page Not Found. If error persists, contact info@website.com'], 404);
-}); */
+Route::fallback(function(){
+    return view('errors/fallback');
+});
 
 Route::view('/','auth/login')->name('accueil');
 Route::view('abon','band/proposAbon')->name('proposAbon');
@@ -19,7 +18,7 @@ Route::resource('songs', 'SongController');
 Route::get('playlist/{list}', 'SongController@index')->name('playlist');
 
 Route::get('dwnld/{songsub}', 'SongsubController@download')->name('songsub.dwnld');
-Route::get('songsub/{sub?}', 'SongsubController@create')->middleware('members')->name('songsub.create');
+Route::get('songsub/{sub?}', 'SongsubController@create')->name('songsub.create');
 // Route::get('songsub/{song}/edit', 'SongsubController@edit')->middleware('members');
 Route::resource('songsub', 'SongsubController')->except(['create']);
 
@@ -48,10 +47,13 @@ Route::get('playin/{songsub}/{id}', function(Songsub $songsub, $id){
     return redirect('songs/' . $id);
 })->name('playin');
 
-Route::get('band/{band}', 'BandController@showByAdmin')->middleware('admin')->name('bandByAdmin');
+Route::get('band/{band}', 'BandController@showByAdmin')->name('bandByAdmin');
 Route::get('Uband', 'BandController@show')->name('band.show'); //method show sans paramètre
-Route::get('band/{id}/edit', 'BandController@edit')->middleware('leader');
 Route::resource('band', 'BandController', ['except' => ['show']]);//except show car pas besoin de paramètre pour cette méthode, non CRUD
+
+Route::get('addmember', 'InvitationController@addmember')->name('invit.addmember');
+Route::post('mailtomember', 'InvitationController@mailtomember')->name('invit.mailtomember');
+Route::get('inv/{uid}','InvitationController@store');
  
 
 // Route::get('ville', 'VilleController@index')->name('ville.index')->middleware('admin');

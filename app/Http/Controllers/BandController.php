@@ -5,12 +5,18 @@ use Illuminate\Support\Facades\DB;
 use App\Band;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Band as BandRequest;
-
 use Illuminate\Http\Request;
 
 class BandController extends Controller
 {
 
+    public function __construct()
+    {    
+        $this->middleware('members')->except(['show','edit']); 
+        $this->middleware('leader')->only(['create','update']);
+        $this->middleware('admin')->only(['showByAdmin']);    
+    }
+    
     public function index()
     {
         $bands = Band::withCount(['songs','users'])->get(); 
@@ -99,4 +105,6 @@ class BandController extends Controller
     {
         //
     }
+
+
 }

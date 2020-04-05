@@ -19,7 +19,7 @@ trait RegistersUsers
      */
     public function showRegistrationForm()
     {
-        // $departement = Departement::all();
+        //$departement = Departement::all();
         return view('auth.register', compact('departement'));
     }
 

@@ -3,7 +3,7 @@
 <div class="form-group row">
     <label for="name" class="col-md-4 col-form-label text-md-right">@lang('Nom du groupe')</label>
     <div class="col-md-6">
-        <input type="text" class="form-control @error('bandname') is-invalid @enderror" name="bandname" placeholder="Saisir un titre" value="{{ old('bandname') ?? $band->bandname }}" maxlength="30">     
+        <input type="text" class="form-control @error('bandname') is-invalid @enderror" name="bandname" value="{{ old('bandname') ?? $band->bandname }}" maxlength="30">     
         @error('bandname')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('bandname') }}</strong>

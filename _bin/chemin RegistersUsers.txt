@@ -1,0 +1,1 @@
+D:\wamp64\www\playlist_laravel58\vendor\laravel\framework\src\Illuminate\Foundation\Auth

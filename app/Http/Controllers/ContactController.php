@@ -25,7 +25,4 @@ class ContactController extends Controller
 
         return back()->with('message', 'Votre message a bien été envoyé !');
     }
-
-
-
 }

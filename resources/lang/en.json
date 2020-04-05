@@ -13,17 +13,19 @@
 
     "Adulte": "Adult",
 
-    "Ajouter un album": "Add an album",
-
-    "Ajouter une catégorie": "Add a category",
+    "Ajouter des musiciens": "Add musicians",
 
     "Ajout fichier": "Add file",
 
-    "Ajouter un fichier": "Add file",
-
     "Ajout lien": "Add link",
 
+    "Ajouter un album": "Add an album",
+
+    "Ajouter un fichier": "Add file",
+
     "Ajouter un lien": "Add link",
+
+    "Ajouter une catégorie": "Add a category",
 
     "Ajouter une image": "Add picture",
 
@@ -63,13 +65,13 @@
 
     "Code postal": "Postal code",
 
-    "Commentaires sur le morceau": "Comments on this song",
-
     "Confirmation du mot de passe": "Confirm Password",
 
     "Connexion": "Login",
 
     "Contenu adulte": "Adult content",
+
+    "Création du groupe": "Creation of the band",
 
     "Création du groupe le": "Band created on",
 
@@ -98,6 +100,8 @@
     "Editer": "Edit",
 
     "élément en liste principale": "item in main list (Playlist or Projects) - click on items to change it",
+
+    "Éléments joints au morceau": "Items attached at song",
 
     "Email": "Email",
 
@@ -167,6 +171,8 @@
 
     "Inscription": "Register",
 
+    "Inscription au groupe ": "Subscription to ",
+
     "Je déclare être adulte": "I declare to be an adult",
 
     "J'accepte les termes et conditions de la politique de confidentialité.": "I accept the terms and conditions of the privacy policy.",
@@ -207,8 +213,6 @@
 
     "Lien": "Link",
 
-    "Liens / Fichiers attachés": "Links / Files attached",
-
     "Liste des utilisateurs" : "Users list",
 
     "Liste des groupes" : "Bands list",
@@ -216,6 +220,8 @@
     "Marquer comme lu": "Mark as read",
 
     "Medias": "Medias",
+
+    "Membres": "Members",
 
     "Mentions légales": "Legal mentions",
 
@@ -226,6 +232,10 @@
     "Mettre à jour le lien": "Update link",
 
     "Mettre dans": "Move in",
+
+    "Modif nom du groupe": "Change band name",
+
+    "Modification du nom": "Name modification",
 
     "Mode maintenance": "Maintenance mode",
 
@@ -251,9 +261,11 @@
 
     "Nom": "Name",
 
-    "Nom du groupe : ": "Band name: ",
+    "Nom du groupe": "Band name",
 
     "Nom de connexion : ": "Login name:",
+
+    "Nom/pseudo du leader": "Leader name/pseudo",
 
     "Nombre de membres" : "Members",
 
@@ -262,6 +274,8 @@
     "Notation de vos photos": "Rating of your photos",
 
     "Note": "Mark",
+
+    "Notes des membres": "Comments of members",
 
     "Nouveau": "New",
 
@@ -382,6 +396,8 @@
     "Utilisez le bouton ci-dessous pour renouveler votre mot de passe.": "Click the button below to reset your password.",
 
     "Valider": "Send",
+
+    "Votre nom ou pseudo": "Your name or pseudo",
 
     "Ville": "Town",
 

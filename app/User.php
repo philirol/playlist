@@ -14,9 +14,7 @@ class User extends Authenticatable
 
     protected $hidden = ['password', 'remember_token'];
 
-
     protected $casts = ['email_verified_at' => 'datetime'];
-
 
     public function songs()
     {
@@ -33,12 +31,10 @@ class User extends Authenticatable
         return $this->belongsTo(Band::class);
     }
 
-    /* public function isNewuser(){
-        return $this->band_id == 0;
-    } */
+    public function invitations()
+    {               
+        return $this->hasMany(Invitation::class);
+    }
 
-    /* public function isAdmin(){
-        return $this->admin;
-    } */
 
  }

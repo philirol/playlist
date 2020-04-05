@@ -17,7 +17,7 @@ class SongsubController extends Controller
 {
     public function __construct() 
     {   
-        $this->middleware('members')->except(['index']);              
+        $this->middleware('members')->except(['index','create']);              
     }
     
     public function index()
@@ -124,10 +124,10 @@ class SongsubController extends Controller
                     return $songsub;
                     
                 } else {
-                    return redirect()->action('SongController@show', ['id' => $song->id])->with('message', __('Taille des fichiers limités à 32MB'))->send();
+                    return redirect()->action('SongController@show', ['id' => $song->id])->with('messageDanger', __('Taille des fichiers limités à 32MB'))->send();
                 }
             } else {
-                return redirect()->action('SongController@show', ['id' => $song->id])->with('message', __('Extension de fichier invalide'))->send();
+                return redirect()->action('SongController@show', ['id' => $song->id])->with('messageDanger', __('Extension de fichier invalide'))->send();
             } 
         } else {
             return redirect()->route('proposAbon')->send();

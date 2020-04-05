@@ -12,7 +12,7 @@
     <hr>
 
 @if($song->songsubs) 
-    @lang('Liens / Fichiers attachés')&nbsp;&nbsp;&nbsp; (*): <span class="note">@lang('élément en liste principale')</span>
+    @lang('Éléments joints au morceau'):
     <table class="table table-striped">
         @foreach($song->songsubs as $songsub)
                 <tr class="row1" data-id="{{ $songsub->id }}">
@@ -64,11 +64,12 @@
                 </tr> 
          @endforeach
     </table>
+    <span class="note">(*)@lang('élément en liste principale')</span>
 @endif    
-        
+<div class="py-4">    
 <a href="{{ route('songsub.create','lk') }}" class="btn btn-info">@lang('Ajout lien')</a>
 <a href="{{ route('songsub.create','fl') }}" class="btn btn-info">@lang('Ajout fichier')</a>
 {{--<a href="{{ action('SongController@index', '1') }}" class="btn btn-primary">@lang('Retour Playlist')</a>--}}
 <a href="{{ action('SongController@index', session('list')) }}" class="btn btn-primary">@lang('Retour '){{ __(session('listname')) }}</a>
-<br><br>
+</div> 
 @endsection

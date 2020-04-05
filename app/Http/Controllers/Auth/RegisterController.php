@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\{User,Invitation};
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 
 class RegisterController extends Controller
@@ -50,7 +51,7 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
+    protected function validatorLead(array $data)
     {
         return Validator::make($data, [
             // 'band_id' => ['required', 'integer'],
@@ -62,13 +63,22 @@ class RegisterController extends Controller
         ]);
     }
 
+    protected function validatorMember(array $data)
+    {
+        return Validator::make($data, [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+    }
+
     /**
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
+    protected function createLead(array $data)
     {             
         //session(['departement_code' => $data['departement_code']]);
         
@@ -83,6 +93,21 @@ class RegisterController extends Controller
             'leader' => 1,
             'email' => $data['email'],
             // 'password' => $data['password'], (je sais plus pourquoi je n'avais pas crypté le mdp)
+            'password' => Hash::make($data['password']),
+        ]);
+    }
+
+    protected function createMember(array $data) //test http://localhost/playlist_laravel58/public/inv/9d5b629f-2428-423a-8f9e-4b2f05a0ed62
+    {             
+        $uid = $data['inv'];
+        $invit = Invitation::where('uid', $uid)->get();  //the goal is getting the leader_id in invitations table
+        $user = User::find($invit->first()->user_id); //the final goal is finding the band_id with the user_id
+                
+        return User::create([
+            'band_id' => $user->band_id,
+            'name' => $data['name'],
+            'leader' => 0,
+            'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
     }

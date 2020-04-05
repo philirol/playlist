@@ -20,7 +20,7 @@ class SongController extends Controller
     public function __construct()
     {
     
-        $this->middleware('auth')->except(['index','update_order','show','printPlaylist']); 
+        $this->middleware('members')->except(['index','update_order','show','printPlaylist']); 
         //permet ces fonctions à l'user non authentifié
         // $this->middleware('admin');
         //only : fonctions qui seront non permises aux users non admin       
