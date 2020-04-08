@@ -32,12 +32,12 @@ class UserController extends Controller
     
     public function show(User $user)
     {
-
         return view('user.show', compact('user'));
     }
     
     public function edit(User $user)
     {
+        $this->authorize('update', $user);
         return view('user.edit', compact('user'));
     }
 
@@ -55,30 +55,32 @@ class UserController extends Controller
 
     public function update(UserRequest $userRequest, User $user)
     {
+        $this->authorize('update', $user);
+
         $validatedData = $userRequest->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048,dimensions:min_width=300,min_height=300',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048,dimensions:min_width=300,min_height=300',
             
         ]);
 
         //image delete before placing the new one
-        if($user->image != null) {
+        if(isset($userRequest->image)) {
+            if($user->image !== null){
             unlink(storage_path('app/public/avatars/'.$user->image));
-        }
-
-        $image = $userRequest->file('image');
+            }
+            $image = $userRequest->file('image');
+            $filename = 'userId' . $user->id . '-' .time() . '.' . $image->getClientOriginalExtension();
+            $paths = $image->storeAs('avatars', $filename, 'public'); //image storing
+            $user->update(['image' => $filename]); //update bdd field
+            $thumbnailpath = public_path('storage/avatars/'.$filename);
+            $img = Image::make($thumbnailpath)->resize(150, 150, function($constraint) {
+                $constraint->aspectRatio();
+            });
+            $img->save($thumbnailpath);
+        }       
         
-        $user->update($userRequest->all());
-        $filename = 'userId' . $user->id . '-' .time() . '.' . $image->getClientOriginalExtension();
-        $paths = $image->storeAs('avatars', $filename, 'public'); //image storing
-        $user->update(['image' => $filename]); //update bdd field
+        $user->update($userRequest->except('image'));
 
-        $thumbnailpath = public_path('storage/avatars/'.$filename);
-        $img = Image::make($thumbnailpath)->resize(150, 150, function($constraint) {
-            $constraint->aspectRatio();
-        });
-        $img->save($thumbnailpath);
-
-        return redirect()->route('user.index')->with('message', 'Votre profil a bien été modifié');
+        return redirect()->route('user.index')->with('message', __('Votre profil a été modifié'));
     }
 
     public function deleteImage(User $user)
@@ -87,6 +89,6 @@ class UserController extends Controller
         // Storage::delete('app/public/'.$user->image));
         unlink(storage_path('app/public/avatars/'.$user->image));
         $user->update(['image' => null]);
-        return back();
+        return redirect()->route('user.index')->with('message', __('Votre profil a été modifié'));
     }
 }

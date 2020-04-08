@@ -6,7 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Invitation extends Model
 {
-    protected $fillable = ['uid','user_id','email'];
+    protected $fillable = ['email'];
+
+    protected $primaryKey = 'uid';
+    public $incrementing = false;
+    protected $keyType = 'string';
     
     public function user()
     {

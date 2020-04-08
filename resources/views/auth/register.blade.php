@@ -4,12 +4,20 @@
 <div class="py-4 container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-        <p>Bonjour et bienvenu à toi,</p>
+        <p>Bonjour et bienvenu(e) à toi,</p>        
+        @empty($item)
         <p>
         Ceci est le formulaire de création d'un groupe et de son "leader" sur Playlist.<br>
-        Une fois le groupe créé, le leader pourra inviter les autres membres.<br>
-        <u>Si le groupe est déja créé</u>, vous devez attendre le mail d'invitation du leader.
-        </p><br>
+        Une fois le groupe créé, le leader pourra inviter les autres membres depuis cette <a href="{{ route('band.show') }}">page.</a><br>
+        <u>Si le groupe est déja créé</u>, vous devez attendre de recevoir le mail d'invitation du leader.
+        </p>
+        @else
+        <p>
+        Suite à l'invitation de {{ $item->user->name }}, merci de saisir vos identifiants.<br>
+        Vous pouvez indiquer une autre adresse mail si besoin.
+        </p>
+        @endempty    
+        <br>
         <form method="POST" action="{{ route('register') }}">            
         @csrf
             <div class="card">
@@ -50,7 +58,8 @@
 
                     <div class="form-group row">
                         <label for="name" class="col-md-4 col-form-label text-md-right">
-                            {{ __('Nom/pseudo du leader') }}</label>
+                        @isset($item) @lang('Nom/pseudo') @else @lang('Nom/pseudo du leader') @endisset
+                        </label>
 
                         <div class="col-md-6">
                             <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>

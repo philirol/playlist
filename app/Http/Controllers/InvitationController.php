@@ -47,14 +47,13 @@ class InvitationController extends Controller
 
         if( $item = Invitation::where('uid', $uid)->where('confirmed', 0)->first() ){
             $email = $item->email;
-            // $bandname = $item->user->band->bandname;
-            // dd($item,$email,$bandname);
-            // $item->confirmed = 1;
-            // $item->update();
             return view('auth.register', compact('item'));
         }
-        else {
-            return route('login'); //if confirmed == 1, we take the user to the login page because he's normally known with a password
+        elseif( $item = Invitation::where('uid', $uid)->where('confirmed', 1)->first() ) {
+            return redirect()->route('login')->with('messageDanger', __('Vous avez déjà confirmé votre inscription !')); //if confirmed == 1, we take the user to the login page because he's normally known with a password
+        }
+        else{
+            return redirect()->route('register');
         }
 
         

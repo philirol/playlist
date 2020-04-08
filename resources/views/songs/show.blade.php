@@ -1,4 +1,4 @@
-@extends('layouts.appmedia')
+@extends('layouts.app')
 
 @section('content')
 @include('includes.songhead')
@@ -10,7 +10,8 @@
         <button type="submit" class="btn btn-danger">@lang('Supprimer')</button>
     </form>
     <hr>
-
+@section('media')
+@endsection
 @if($song->songsubs) 
     @lang('Éléments joints au morceau'):
     <table class="table table-striped">
@@ -35,7 +36,7 @@
 
                             @case(2)
                             <td>
-                            <a href="#" onClick="javascript:vidSwap('{{ asset('storage/' . $songsub->file) }}'); return false;"><img src="{{asset('images/file2.png')}}" alt="Play"></a>
+                            <a href="#" onClick="javascript:vidSwap('{{ asset('storage/' . $songsub->file) }}'); return false;"><img src="{{asset('images/file2.png')}}" alt="Play" title="@lang('Jouer dans le lecteur')"></a>
                             </td> 
                             <td>
                                 <a href="{{ route('songsub.dwnld', ['songsub' => $songsub->id]) }}"><img src="{{asset('images/dwnld.png')}}" width="22" height="22" alt="@lang('Télécharger')" title="@lang('Télécharger')"></a>
@@ -53,10 +54,10 @@
                                 @csrf
                                 @method('DELETE')
                                 <div class="col-md-4">
-                                <div class="login-go-div">
-                                    <input type="image" src="{{asset('images/trash2a.png')}}" class="login-go"
-                                        onmouseover="this.src='{{asset('images/trash2b.png')}}'"
-                                        onmouseout="this.src='{{asset('images/trash2a.png')}}'" title="@lang('Supprimer')"/>
+                                    <div class="login-go-div">
+                                        <input type="image" src="{{asset('images/trash2a.png')}}" class="login-go"
+                                            onmouseover="this.src='{{asset('images/trash2b.png')}}'"
+                                            onmouseout="this.src='{{asset('images/trash2a.png')}}'" title="@lang('Supprimer')"/>
                                     </div>
                                 </div>           
                             </form>                    

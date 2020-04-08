@@ -1,4 +1,4 @@
-@extends('layouts.appmedia')
+@extends('layouts.app')
 
 @section('content')
 <div class="bg-info rounded-lg">
@@ -6,11 +6,13 @@
   <tr>
     <td class="align-middle"><h4>{{ $bandname }}</h4> <h6>{{ __(session('listname')) }}</h6></td>
     @if(Auth::check())
-    <td class="text-right"><a href="{{ route('songs.create') }}" class="btn btn-primary my-3">@lang('Nouveau morceau')</a></td>
+    <td class="text-right"><a href="{{ route('songs.create') }}" class="btn btn-primary my-1">@lang('Nouveau morceau')</a></td>
     @endif
   </tr>
 </table>
 </div>
+@section('media')
+@endsection
 <table class="table table-striped">
   <tbody id="tablecontents"> {{-- tbody for sorting list js --}}
     @foreach($songs as $song)
@@ -29,14 +31,14 @@
           @switch($songsub->type)
               @case(1)
               @if( preg_match('/(vimeo)/', $songsub->url ) || preg_match('/(yout)/', $songsub->url ))
-              <a href="{{ route('player',  $songsub) }}"><img src="{{asset('images/ytb.png')}}" alt="@lang('Ouvrir dans le lecteur')" title="@lang('Ouvrir dans le lecteur')"></a>
+              <a href="{{ route('player',  $songsub) }}"><img src="{{asset('images/ytb.png')}}" alt="@lang('Jouer dans le lecteur')" title="@lang('Jouer dans le lecteur')"></a>
               @else
               <a href="{{ $songsub->url }}" target="_blank"><img src="{{asset('images/www.png')}}" width="22" height="22" alt="@lang('Ouvrir dans site web')" title="@lang('Ouvrir dans site web')"></a>
               @endif
                   @break
 
               @case(2)
-              <a href="#" onClick="javascript:vidSwap('{{ asset('storage/' . $songsub->file) }}'); return false;"><img src="{{asset('images/file2.png')}}" alt="@lang('Ouvrir dans le lecteur')" title="@lang('Ouvrir dans le lecteur')"></a>
+              <a href="#" onClick="javascript:vidSwap('{{ asset('storage/' . $songsub->file) }}'); return false;"><img src="{{asset('images/file2.png')}}" alt="@lang('Jouer dans le lecteur')" title="@lang('Jouer dans le lecteur')"></a>
           {{-- 
               <a href="{{ action('SongController@index', ['player' =>$songsub]) }}"><img src="{{asset('images/file.png')}}" alt="Go Youtube"></a>
           
@@ -61,7 +63,6 @@
       </tr>
     </tbody>
 </table>
-
 {{--<button class="btn btn-success btn-sm" onclick="window.location.reload()">Réord.</button> --}}
 
 

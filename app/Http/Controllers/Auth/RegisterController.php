@@ -100,8 +100,10 @@ class RegisterController extends Controller
     protected function createMember(array $data) //test http://localhost/playlist_laravel58/public/inv/9d5b629f-2428-423a-8f9e-4b2f05a0ed62
     {             
         $uid = $data['inv'];
-        $invit = Invitation::where('uid', $uid)->get();  //the goal is getting the leader_id in invitations table
-        $user = User::find($invit->first()->user_id); //the final goal is finding the band_id with the user_id
+        $invit = Invitation::find($uid);  //the goal is getting the leader_id in invitations table. uid is defined as the primary key in the model so "find($uid)" is possible
+        $user = User::find($invit->user_id); //the final goal is finding the band_id with the user_id
+        $invit->confirmed = 1;
+        $invit->update();
                 
         return User::create([
             'band_id' => $user->band_id,

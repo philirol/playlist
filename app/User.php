@@ -5,10 +5,12 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Cashier\Billable;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use Billable;
 
     protected $fillable = ['band_id', 'name', 'leader', 'admin', 'email', 'password', 'image'];
 
@@ -34,6 +36,10 @@ class User extends Authenticatable
     public function invitations()
     {               
         return $this->hasMany(Invitation::class);
+    }
+
+    public function isAdmin(){
+        return $this->admin == '1';
     }
 
 

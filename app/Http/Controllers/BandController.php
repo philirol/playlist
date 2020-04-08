@@ -79,6 +79,7 @@ class BandController extends Controller
     {        
         // $departement = Departement::all();
         // $ville = Ville::where('id', $band->ville_id)->get(); //Villes en suspens
+        $this->authorize('update', $band);
         return view('band.edit', compact('band'));
     }
 
@@ -91,8 +92,13 @@ class BandController extends Controller
      */
     public function update(BandRequest $BandRequest, Band $band)
     {
-        $band->update($BandRequest->all());
-        return redirect()->route('band.show')->with('message', 'Le groupe a bien été modifié');
+        $this->authorize('update', $band);
+        $band->update($this->params($BandRequest));
+        return redirect()->route('band.show')->with('message', __('Le groupe a bien été modifié'));
+    }
+
+    private function params(Request $request){
+        return $request->all();
     }
 
     /**

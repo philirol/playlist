@@ -29,7 +29,7 @@ class HomeController extends Controller
         if(Auth::user()->admin) {
             return redirect('band');
         }
-        return redirect('songs')->with('message', __('Bienvenu sur Playlist !'));
+        return redirect('songs')->with('message', __('Bienvenue sur Playlist ').Auth::user()->name.' !');
     }
 
     public function language(String $locale)

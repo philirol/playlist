@@ -158,6 +158,8 @@ class SongsubController extends Controller
            return request()->validate([
             'file' => 'required|max:32000', //ne pas utiliser size. Mettre pour max la valeur de config php post_max_size Sinon entre les 2 valeurs il met un msg trop générique
             // 'main' => 'required'
+            'user_id' => 'exists:users,id',
+            'song_id' => 'exists:songs,id'
         ]);
     }
     
@@ -166,6 +168,8 @@ class SongsubController extends Controller
            return request()->validate([
             'title' => ['required', 'string', 'max:30'],
             'url' => ['url'],
+            'user_id' => 'exists:users,id',
+            'song_id' => 'exists:songs,id'
             // 'main' => 'required'
         ]);
     }

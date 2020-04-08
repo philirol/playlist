@@ -14,18 +14,8 @@
     <!-- <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> -->
 
-    <script src="{{ asset('js/app.js') }}"></script>
-    <script>
-        function vidSwap(vidURL) {
-        var myVideo = document.getElementsByTagName('video')[0];
-        myVideo.src = vidURL;
-        myVideo.load();
-        myVideo.play();        
-        // return myVideo.src;
-        }
-        // window.route = 'coucou';
-    </script>
-
+    <script src="{{ asset('js/app.js') }}"></script> 
+    
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     
@@ -69,6 +59,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/') }}">@lang('Aide')</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('plans.index') }}">@lang('Paiement')</a>
                         </li>
                     </ul>
 
@@ -151,8 +144,6 @@
         @endif
 
         <main class="py-3 container">
-            <div class="row">                
-                <div class="col-md-8">                    
                 @if (session()->has('message'))
                     <div class="alert alert-success" role="alert">
                         {{ session()->get(__('message')) }}
@@ -163,35 +154,10 @@
                         {{ session()->get(__('messageDanger')) }}
                     </div>
                 @endif
-                @yield('content')
-                </div>
-                <aside class="col-md-4">
-                    <div>
-                        <video id='video' width="320" height="200" controls preload poster="{{asset('images/woman3.jpg')}}" autoplay></video>
-                    <!-- <script>document.write(vidURL)</script> -->
-                    </div>
-                    <div class="py-4">
-                        @php    
-                        if(isset($url)){ 
-                                
-                            $embed = Embed::make($url)->parseUrl();
-                            if ($embed) {
-                                $embed->setAttribute([
-                                    'width' => 320,
-                                    'id' => 'video'
-                                    ]);
-                                echo $embed->getHtml();  
-                            }
-                        }
-                        @endphp
-                        {{-- substr(strrchr($songsub->file, '/'), 1) --}}
-                        <!-- <span class="note">ouvrir dans youtube</span> -->
-                    </div>
-                </aside> 
-
-            </div>
+            @yield('content')
         </main>
-    </div>
+    </div>       
+    @yield('scripts')
 </body>
 </html>
 

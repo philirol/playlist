@@ -41,6 +41,8 @@
 
     "Autoriser mon IP ": "Allow my IP ",
 
+    "Bienvenue sur Playlist ": "Welcome on Playlist ",
+
     "Browse pour changer": "Browse for change",
 
     "Avant d'utiliser ce site veuillez trouver le lien de vérification dans vos emails": "Before proceeding, please check your email for a verification link.",
@@ -177,6 +179,8 @@
 
     "J'accepte les termes et conditions de la politique de confidentialité.": "I accept the terms and conditions of the privacy policy.",
 
+    "Jouer dans le lecteur": "Play in audio player",
+
     "L'album a bien été enregistré": "Album has been saved",
 
     "L'album a bien été modifié": "Album updated successfully !",
@@ -200,6 +204,8 @@
     "Le": "On",
 
     "Le groupe": "The Band",
+
+    "Le groupe a bien été modifié": "The Band has been updated",
 
     "Le mode a bien été actualisé.": "The mode has been updated.",
 
@@ -267,6 +273,8 @@
 
     "Nom/pseudo du leader": "Leader name/pseudo",
 
+    "Nom/pseudo": "Name/pseudo",
+
     "Nombre de membres" : "Members",
 
     "Non": "No",
@@ -288,8 +296,6 @@
     "Ordonner les lignes avec": "Order lines with",
 
     "Oui": "Yes",
-
-    "Ouvrir dans le lecteur": "Open in player",
 
     "Ouvrir dans site web": "Open in website",
 
@@ -397,17 +403,17 @@
 
     "Valider": "Send",
 
-    "Votre nom ou pseudo": "Your name or pseudo",
-
-    "Ville": "Town",
-
     "Veuillez utiliser le bouton ci-dessous pour vérifier votre adresse email.": "Please click the button below to verify your email address.",
+
+    "Ville": "City",
 
     "Voir les photos de ": "Show photos from ",
 
     "Vos droits d'accès ne vous permettent pas d'accéder à cette ressource": "You might not have the necessary permissions for this resource",
 
-    "Votre vote a été modifié !": "Your vote has been changed!",
+    "Votre nom ou pseudo": "Your name or pseudo",
+
+    "Votre profil a été modifié !": "Your profil has been changed!",
 
     "Vos données personnelles": "Personnal datas",
 
@@ -417,7 +423,7 @@
 
     "Vous n'avez aucun album pour le moment": "You have no album yet.",
 
-    "Vous n'avez pas accès à la page demandée": "Page forbidden.",
+    "Vous n'avez pas accès à la page demandée": "Page forbidden or unauthorized action.",
 
     "Vous ne pouvez pas voter pour vos photos !": "You cannot vote for your photos!",
 

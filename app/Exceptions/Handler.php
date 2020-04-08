@@ -73,7 +73,7 @@ class Handler extends ExceptionHandler
             if ($request->expectsJson()) {
                 return response()->json(['error' => 'Unauthorized.'], 403);
             }
-            return redirect('songs')->with('message', 'Action non autorisée !');
+            return redirect('songs')->with('messageDanger', 'Action non autorisée !');
         }
         if ($exception instanceof \Illuminate\Http\Exceptions\PostTooLargeException) 
             return response()->view('errors.post_too_large');

@@ -29,6 +29,8 @@ class Song extends FormRequest
             'file' => 'sometimes|max:5000|file|mimes:jpeg,bmp,png,doc,docx,txt,xls,xlsx',
             'order' => ['nullable', 'integer'],
             'comments' => ['nullable', 'string'],
+            'user_id' => ['exists:users,id'],
+            'band_id' => ['exists:bands,id'],
         ];
     }
 }

@@ -3,15 +3,11 @@
 // voir http://laravel.sillo.org/cours-laravel-5-5-css-et-javascript/
 
 // Fonts
-@import "variables";
+// @import "variables";
 // @import url('https://fonts.googleapis.com/css?family=Sniglet');      PROD
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
-
-:root {
-  --info: #333d46;
-} 
 
 html {
     font-size: 0.8rem;
@@ -19,13 +15,13 @@ html {
 
 @include media-breakpoint-up(sm) {
     html {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 }
 
 @include media-breakpoint-up(lg) {
     html {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 }
 
@@ -60,16 +56,17 @@ body {
 
 .jumbotron {
   padding: 2rem 1rem;
+  margin-top: 1rem;
   margin-bottom: 2rem;
   background-color: #e9ecef;
   border-radius: 0.3rem;
 }
 
-@media (min-width: 576px) {
+/* @media (min-width: 576px) {
   .jumbotron {
     padding: 4rem 2rem;
   }
-}
+} */
 
 .jumbotron-fluid {
   padding-right: 0;
