@@ -3,21 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Plan;
 
 class SubscriptionController extends Controller
 {
     public function create(Request $request, Plan $plan)
     {
-            if($request->user()->subscribedToPlan($plan->stripe_plan, 'main')) {
-                return redirect()->route('home')->with('success', 'You have already subscribed the plan');
-            }
-            $plan = Plan::findOrFail($request->get('plan'));
+        $plan = Plan::findOrFail($request->get('plan'));
+        $user = $request->user();
+        $paymentMethod = $request->paymentMethod;
+
+        $user->createOrGetStripeCustomer();
+        $user->updateDefaultPaymentMethod($paymentMethod);
+        $user
+            ->newSubscription('main', $plan->stripe_plan)
+            ->create($paymentMethod, [
+                'email' => $user->email,
+        ]);
             
-            $request->user()
-                ->newSubscription('main', $plan->stripe_plan)
-                ->create($request->stripeToken);
-            
-            return redirect()->route('home')->with('success', 'Your plan subscribed successfully');
+        return redirect('songs')->with('message', __('Merci pour votre abonnement'));
+        // return back()->with('message', __('Merci pour votre abonnement'));
     }
 }

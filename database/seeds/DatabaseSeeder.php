@@ -126,8 +126,8 @@ class DatabaseSeeder extends Seeder
         factory(App\User::class, 3)->create(); //mettre 10 users pour être raccord avec le nombre de songs sinon erreur sur song.show
 
 
-//SONGS & SONGSUBS
-// Life on Mars
+        //SONGS & SONGSUBS
+        // Life on Mars
         DB::table('songs')->insert([
             'id' => 1,
             'band_id' => 1,
@@ -162,7 +162,7 @@ class DatabaseSeeder extends Seeder
             'file' => 'demo-band/LifeonMarsintro-1585843256.mp3',
         ]);
 
-//Wonderwall        
+        //Wonderwall        
         DB::table('songs')->insert([
             'id' => 2,
             'band_id' => 1,
@@ -181,7 +181,7 @@ class DatabaseSeeder extends Seeder
             'url' => 'https://www.youtube.com/watch?v=bx1Bh8ZvH84',
         ]);
 
-//No surprises
+        //No surprises
         DB::table('songs')->insert([            
             'id' => 3,
             'band_id' => 1,
@@ -201,7 +201,7 @@ class DatabaseSeeder extends Seeder
             'url' => 'https://www.youtube.com/watch?v=u5CVsCnxyXg',
         ]);
 
-//Cleopatra
+        //Cleopatra
         DB::table('songs')->insert([
             'id' => 4,
             'band_id' => 1,
@@ -220,7 +220,7 @@ class DatabaseSeeder extends Seeder
             'url' => 'https://www.youtube.com/watch?v=GuDgvbpVQD4',
         ]);
     
-//U2
+        //U2
         DB::table('songs')->insert([
             'id' => 5,
             'band_id' => 1,
@@ -247,7 +247,7 @@ class DatabaseSeeder extends Seeder
             'file' => 'demo-band/IStillhaventfoundU2-1585124881.txt',
         ]);   
         
-//The White Stripes-Jolene    
+        //The White Stripes-Jolene    
 
         DB::table('songs')->insert([
             'id' => 6,
@@ -283,8 +283,8 @@ class DatabaseSeeder extends Seeder
             'file' => 'demo-band/JoleneTest-1585845075.mp3',
         ]);
 
-//Liste Projets
-//Coldplay - Yellow
+        //Liste Projets
+        //Coldplay - Yellow
         DB::table('songs')->insert([
             'id' => 7,
             'band_id' => 1,
@@ -303,7 +303,7 @@ class DatabaseSeeder extends Seeder
             'url' => 'https://www.youtube.com/watch?v=yKNxeF4KMsY',
         ]);
 
-//Beat it  
+        //Beat it  
         DB::table('songs')->insert([
             'id' => 8,
             'band_id' => 1,
@@ -322,7 +322,7 @@ class DatabaseSeeder extends Seeder
             'file' => 'demo-band/Beatitbacktr-1585126956.mp3',
         ]); 
 
-//Tracy Chapman - Fast car
+        //Tracy Chapman - Fast car
         DB::table('songs')->insert([
             'id' => 9,
             'band_id' => 1,
@@ -341,7 +341,7 @@ class DatabaseSeeder extends Seeder
             'url' => 'https://www.youtube.com/watch?v=DwrHwZyFN7M',
         ]);
 
-//Nina Simone - Backlash Blues
+        //Nina Simone - Backlash Blues
         DB::table('songs')->insert([
             'id' => 10,
             'band_id' => 1,
@@ -360,7 +360,7 @@ class DatabaseSeeder extends Seeder
             'url' => 'https://www.youtube.com/watch?v=2Pj9AucSc9Y',
         ]);
 
-//Dream on
+        //Dream on
         DB::table('songs')->insert([
             'id' => 11,
             'band_id' => 1,
@@ -459,6 +459,31 @@ class DatabaseSeeder extends Seeder
                 'list' => 1,
                 'comments' => $faker->realText($maxNbChars = 50, $indexSize = 2), 
             ]);
-        }
+        }    
+        
+        DB::table('plans')->insert([
+            'name' => 'Basic',
+            'slug' => 'basic',
+            'datavol' => '500Mo',
+            'stripe_plan' => '123456',
+            'cost' => '5',
+        ]);
+
+        DB::table('plans')->insert([
+            'name' => 'Stage',
+            'slug' => 'stage',
+            'datavol' => '1Go',
+            'stripe_plan' => 'plan_H4OobiPWzHH3XT',
+            'cost' => '10',
+        ]);
+
+        DB::table('plans')->insert([
+            'name' => 'Expand',
+            'slug' => 'expand',
+            'datavol' => '10Go',
+            'stripe_plan' => 'plan_H4Oq0K9DGJLYZu',
+            'cost' => '50',
+        ]);
+
     }
 }

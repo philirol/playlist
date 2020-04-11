@@ -1,5 +1,7 @@
 {
-    "Abonnement" : "Subscription to more..." ,
+    "Abonnement" : "Subscription",
+
+    "Abonnement du groupe" : "Subscription for",
     
     "Activer pour passer en liste principale": "check to put item in main list",
     
@@ -37,6 +39,8 @@
 
     "Aller sur le lien": "Open new page to link",
 
+    "an": "year",
+
     "Annuler": "Cancel",
 
     "Autoriser mon IP ": "Allow my IP ",
@@ -72,6 +76,8 @@
     "Connexion": "Login",
 
     "Contenu adulte": "Adult content",
+
+    "Continuer": "Continue",
 
     "Création du groupe": "Creation of the band",
 
@@ -135,9 +141,13 @@
 
     "Fermer (Esc)": "Close (Esc)",
 
+    "Faire un don": "Make a donation",
+
     "Fiche Utilisateur" : "User Card",
 
     "Fichier(s)/lien(s)" : "File(s)/link(s)",
+
+    "Formules d'abonnement" : "Subscriptions plans",
 
     "Gestion": "Gestion",
 
@@ -154,6 +164,8 @@
     "Gérer les albums": "Albums management",
 
     "Gérer les catégories": "Categories management",
+
+    "groupe": "band",
 
     "Groupe": "Band",
 
@@ -230,6 +242,8 @@
     "Membres": "Members",
 
     "Mentions légales": "Legal mentions",
+
+    "Merci pour votre abonnement": "Your plan subscribed successfully",    
 
     "Merci pour votre vote !": "Thank you for your vote!",
 
@@ -325,6 +339,8 @@
 
     "Précédent (Flèche gauche)": "Previous (Left arrow key)",
 
+    "Procéder au paiement": "Process to transaction",
+
     "Rapport généré pour : ": "Report generated for:",
 
     "Renouvellement": "Reset Password",
@@ -336,6 +352,8 @@
     "Retour ": "Back to ",
 
     "Retour Playlist": "Back to Playlist",
+   
+    "Saisir ci-dessous le montant de votre don": "Indicate the amount of your donation below",
 
     "Saisir un commentaire": "Insert your comment",
 
@@ -360,6 +378,8 @@
     "Si vous n'avez pas fait cette demande, aucune action complémentaire n'est requise.": "If you did not request a password reset, no further action is required.",
 
     "Si vous n'avez pas reçu l'email ": "If you did not receive the email",
+
+    "Stockage": "Storage",
 
     "Suivant (Flèche droite)": "Next (Right arrow key)",
 
@@ -403,6 +423,8 @@
 
     "Valider": "Send",
 
+    "Versement libre": "Free donation",
+
     "Veuillez utiliser le bouton ci-dessous pour vérifier votre adresse email.": "Please click the button below to verify your email address.",
 
     "Ville": "City",
@@ -410,6 +432,8 @@
     "Voir les photos de ": "Show photos from ",
 
     "Vos droits d'accès ne vous permettent pas d'accéder à cette ressource": "You might not have the necessary permissions for this resource",
+
+    "Votre montant": "Your amount",
 
     "Votre nom ou pseudo": "Your name or pseudo",
 

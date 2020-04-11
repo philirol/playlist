@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Plan extends Model
 {
     protected $fillable = [
-        'name',
+        'plan',
         'slug',
+        'datavol',
         'stripe_plan',
         'cost',
         'description'
@@ -18,4 +19,5 @@ class Plan extends Model
     {
         return 'slug';
     }
+
 }

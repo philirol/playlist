@@ -95,6 +95,7 @@ class RegisterController extends Controller
             // 'password' => $data['password'], (je sais plus pourquoi je n'avais pas crypté le mdp)
             'password' => Hash::make($data['password']),
         ]);
+        
     }
 
     protected function createMember(array $data) //test http://localhost/playlist_laravel58/public/inv/9d5b629f-2428-423a-8f9e-4b2f05a0ed62

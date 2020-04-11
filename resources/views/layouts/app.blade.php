@@ -71,14 +71,11 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Tests Payment
+                            Payment
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="{{ route('plans.index') }}">@lang('Subscr')</a>
-                                <a class="dropdown-item" href="{{ route('planb') }}">@lang('PlanB')</a>
-                                <a class="dropdown-item" href="{{ route('planc') }}">@lang('PlanC')</a>
-                                <a class="dropdown-item" href="{{ route('pland') }}">@lang('PlanD')</a>
-                                <a class="dropdown-item" href="{{ route('plane') }}">@lang('Plane')</a>
+                                <a class="dropdown-item" href="{{ route('don') }}">@lang('Don')</a>
+                                <a class="dropdown-item" href="{{ route('plans.index') }}">@lang('Plan')</a>
                             </div>
                         </li>
                     </ul>

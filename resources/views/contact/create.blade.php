@@ -1,8 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-
-<h1>Contactez-nous</h1>
+<div class="bg-info rounded-lg">
+<table class="table text-white">
+  <tr>
+    <td class="align-middle"><h4>Contactez-nous</h4></td>
+  </tr>
+</table>
+</div>
     @if (!session()->has('message'))
         <form action="{{ route('contact.store') }}" method="POST">
             @csrf

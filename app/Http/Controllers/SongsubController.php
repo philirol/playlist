@@ -111,6 +111,7 @@ class SongsubController extends Controller
             if(in_array(strtolower($extension),$valid_extension)){            
                 if($fileSize <= $maxFileSize){               
                     $filename = preg_replace('/[^a-zA-Z0-9\-\._]/','', $filename); 
+                    $filename = substr($filename, 0, 40);
                                 
                     $withoutExt = pathinfo($filename, PATHINFO_FILENAME); //suppression de l'extension for that final formatting : filename-time.ext
                     $filenameToStorage = $withoutExt . '-' .time() . '.' . $extension;                

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<form action="{{ route('plane.post2') }}" method="post" id="payment-form">
+<form action="{{ route('don.post2') }}" method="post" id="payment-form">
  @csrf
 <div class="py-4 container">
     <div class="row justify-content-center">  

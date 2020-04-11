@@ -15,9 +15,10 @@ class CreateSubscriptionsTable extends Migration
     {
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('user_id')->nullable();                 
             $table->string('name');
-            $table->string('stripe_id')->collation('utf8mb4_bin');
+            $table->string('stripe_id')->nullable()->collation('utf8mb4_bin');
+            $table->string('stripe_status');
             $table->string('stripe_plan');
             $table->integer('quantity');
             $table->timestamp('trial_ends_at')->nullable();
@@ -26,6 +27,7 @@ class CreateSubscriptionsTable extends Migration
         });
     }
 
+    
     /**
      * Reverse the migrations.
      *

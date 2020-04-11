@@ -21,7 +21,7 @@ class Band extends Model
     {
         return $this->hasMany(User::class);
     }
-
+    
     public function getSizedirAttribute()
     {
         return $this->getSizedir();  

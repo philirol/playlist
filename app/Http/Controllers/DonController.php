@@ -4,33 +4,29 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Session;
-use Stripe;
-use Billable;
 
-class PlanEController extends Controller
+class DonController extends Controller
 {
     public function index(){
-        return view('plane.index');
+
+        return view('don.index');
     }
 
     public function prepaiement(Request $request){
         $prix = $request->input('prix');
         session(['prix' => $prix]);
-        return view('plane.paiement', compact('prix'));     
+        return view('don.show', compact('prix'));     
         
     }
 
     public function paiement(Request $request)
     {
-        // dd($request);        
+        // dd($request->get('stripeToken'));        
         $user = Auth::user();
 
         if( $request->isMethod('post') ) 
            {
                 $stripe_token = $request->get('stripeToken');
-                // dd($user);
                 
                 $user->stripe_id = $stripe_token;
                 $user->card_brand = session('prix');
@@ -38,8 +34,9 @@ class PlanEController extends Controller
 
                 \Stripe\Charge::create(array(
                         "currency" => "eur",
-                        "customer" => $stripe_token,
-                        "amount"   => session('prix')                                                
+                        "source" => $stripe_token,
+                        "amount"   => session('prix')*100,
+                        "description" => "Payment from Playlist. User_id : ". $user->id                                              
                 ));
                            
            }

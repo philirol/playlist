@@ -1,23 +1,31 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="py-4 container">
+<div class="py-3 container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-        <p>Bonjour et bienvenu(e) à toi,</p>        
+        
         @empty($item)
-        <p>
-        Ceci est le formulaire de création d'un groupe et de son "leader" sur Playlist.<br>
-        Une fois le groupe créé, le leader pourra inviter les autres membres depuis cette <a href="{{ route('band.show') }}">page.</a><br>
-        <u>Si le groupe est déja créé</u>, vous devez attendre de recevoir le mail d'invitation du leader.
-        </p>
+            <p>Bonjour et bienvenu(e) à toi,<br>
+            Ceci est le formulaire de création d'un groupe et de son "leader" sur Playlist.<br>
+            Une fois le groupe créé, le leader pourra inviter les autres membres depuis cette <a href="{{ route('band.show') }}">page.</a><br>
+            <u>Si le groupe est déja créé</u>, vous devez attendre de recevoir le mail d'invitation du leader.
+            </p><br>
+            <p class="note">Welcome,<br>
+            Here below the band leader subscription form.<br>
+            Once the band is created, the leader invite others members by sending them emails from this <a href="{{ route('band.show') }}">page</a>.<br>
+            It means if the band is already created, the members have to wait for receiving this email.
+            </p><br>
         @else
-        <p>
-        Suite à l'invitation de {{ $item->user->name }}, merci de saisir vos identifiants.<br>
-        Vous pouvez indiquer une autre adresse mail si besoin.
-        </p>
-        @endempty    
-        <br>
+            <p>Bonjour et bienvenu(e) à toi,<br>
+            Suite à l'invitation de {{ $item->user->name }}, merci de saisir vos identifiants.<br>
+            Vous pouvez indiquer une autre adresse mail si besoin.
+            </p><br>
+            <p class="note">Welcome here,<br>
+            Following the invitation of your band leader {{$item->user->name }}, please subscribe yourself with that form.
+            </p><br>
+        @endempty 
+
         <form method="POST" action="{{ route('register') }}">            
         @csrf
             <div class="card">
