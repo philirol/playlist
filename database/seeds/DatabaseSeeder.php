@@ -17,25 +17,25 @@ class DatabaseSeeder extends Seeder
         DB::table('bands')->insert([
             'bandname' => 'The Demo Band',
             'slug' => 'demo-band',
-            'city' => '30000',
+            'freeupload' => 'false',
         ]);
 
         DB::table('bands')->insert([
             'bandname' => 'The Rolling Fools',
             'slug' => 'rolling_fools',
-            'city' => '15000',
+            'freeupload' => 'true',
         ]);
 
         DB::table('bands')->insert([
             'bandname' => 'Mothers if Invasion',
             'slug' => 'mothers_invasion',
-            'city' => '9200',
+            'freeupload' => 'false',
         ]);
 
         DB::table('bands')->insert([
             'bandname' => 'Justicks',
             'slug' => 'justicks',
-            'city' => '28546',
+            'freeupload' => 'false',
         ]);
 
              
@@ -459,30 +459,42 @@ class DatabaseSeeder extends Seeder
                 'list' => 1,
                 'comments' => $faker->realText($maxNbChars = 50, $indexSize = 2), 
             ]);
-        }    
-        
+        } 
+
+        DB::table('plans')->insert([
+            'name' => 'Free',
+            'slug' => 'free',
+            'datavol' => '500Mo',
+            'stripe_plan' => '',
+            'cost' => '',
+            'bitval' => '5000000',
+        ]);
+
         DB::table('plans')->insert([
             'name' => 'Basic',
             'slug' => 'basic',
-            'datavol' => '500Mo',
-            'stripe_plan' => '123456',
+            'datavol' => '1Go',
+            'stripe_plan' => 'plan_H57guQCYMdY92N',
             'cost' => '5',
+            'bitval' => '10000000',
         ]);
 
         DB::table('plans')->insert([
             'name' => 'Stage',
             'slug' => 'stage',
-            'datavol' => '1Go',
-            'stripe_plan' => 'plan_H4OobiPWzHH3XT',
+            'datavol' => '2Go',
+            'stripe_plan' => 'plan_P12MfgYtEZ45RE',
             'cost' => '10',
+            'bitval' => '20000000',
         ]);
 
         DB::table('plans')->insert([
             'name' => 'Expand',
             'slug' => 'expand',
-            'datavol' => '10Go',
+            'datavol' => '5Go',
             'stripe_plan' => 'plan_H4Oq0K9DGJLYZu',
             'cost' => '50',
+            'bitval' => '50000000',
         ]);
 
     }

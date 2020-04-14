@@ -63,7 +63,7 @@ class SongPolicy
      */
     public function update(User $user, Song $song)
     {
-        return true;
+        return $user->band_id === $song->band_id;
     }
 
     /**

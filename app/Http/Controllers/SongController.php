@@ -93,6 +93,7 @@ class SongController extends Controller
 
     public function update(SongRequest $songRequest, Song $song) 
     {    
+        $this->authorize('update', $song);
         /*
         array_search($song->list, $song->getListOptions() renvoie la clé de la liste d'avant
         on compare cette clé avec la liste de destination et si le morceau change de liste, on met son order à 0 de manière à ce que le morceau en question soit le premier de la nouvelle liste
@@ -114,7 +115,7 @@ class SongController extends Controller
 
     public function show(Song $song)
     {               
-        // $this->authorize('view', $song);
+        $this->authorize('view', $song);
         session(['song' => $song]); //sert pour show songsub
         
         session()->exists('filetoplay') ? $url = session('filetoplay')->url : $url = 'https://www.youtube.com/watch?v=GuDgvbpVQD4';

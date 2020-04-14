@@ -12,7 +12,7 @@
         <form action="{{ route('contact.store') }}" method="POST">
             @csrf
             <div class="form-group">
-                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Votre nom" value="{{ old('name') }}">
+                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="@lang('Votre nom')" value="{{ old('name') }}" autofocus>
                 @error('name')
                 <div class="invalid-feedback">
                     {{ $errors->first('name') }}
@@ -21,7 +21,7 @@
             </div>
 
             <div class="form-group">
-                <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="Votre Email" value="{{ old('email') }}">
+                <input type="text" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="@lang('Votre Email')" value="{{ old('email') }}">
                 @error('email')
                 <div class="invalid-feedback">
                     {{ $errors->first('email') }}
@@ -29,7 +29,7 @@
                 @enderror
             </div>
             <div class="form-group">
-                <textarea name="message" cols="30" rows="10" class="form-control @error('message') is-invalid @enderror" placeholder="Votre message...">
+                <textarea name="message" cols="30" rows="10" class="form-control @error('message') is-invalid @enderror" placeholder="@lang('Votre message...')">
                 {{ old('message') }}
                 </textarea>
                 @error('message')

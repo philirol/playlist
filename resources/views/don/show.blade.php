@@ -15,12 +15,13 @@
                             <h5 class="card-title">Credit or debit card</h5><br><br>
                             <div id="card-element"></div>
                             <div id="card-errors" role="alert"></div><br><br>
-                            <button class="btn btn-primary btn-lg btn-block" type="submit">Pay Now {{session('prix')}} €</button>
+                            <button class="btn btn-primary btn-lg btn-block" type="submit">@lang('Versement de') {{session('amount')}} €</button>
                         </div>
-                    </div>
+                    </div><br>
+                    <a href="javascript:history.back()" class="btn btn-primary"><span class="glyphicon glyphicon-circle-arrow-left"></span> @lang('Retour')</a> 
           </div>
     </div>
-</div>                    
+</div>                   
                                    
 </form>  
 @endsection

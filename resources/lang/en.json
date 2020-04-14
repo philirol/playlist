@@ -105,6 +105,8 @@
 
     "Déconnexion": "Logout",
 
+    "Don": "Donation",
+
     "Editer": "Edit",
 
     "élément en liste principale": "item in main list (Playlist or Projects) - click on items to change it",
@@ -183,6 +185,8 @@
 
     "Imprimer Playlist": "Print Playlist",
 
+    "Indiquer un montant et vous serez redirigé vers le formulaire de paiement": "Enter the amount of your donation and you will be redirected to the payment form",
+
     "Inscription": "Register",
 
     "Inscription au groupe ": "Subscription to ",
@@ -241,9 +245,9 @@
 
     "Membres": "Members",
 
-    "Mentions légales": "Legal mentions",
-
-    "Merci pour votre abonnement": "Your plan subscribed successfully",    
+    "Mentions légales": "Legal mentions",  
+    
+    "Merci beaucoup pour votre don": "Thank you very much for your donation!",
 
     "Merci pour votre vote !": "Thank you for your vote!",
 
@@ -349,6 +353,8 @@
 
     "Renouveller": "Reset",
 
+    "Retour": "Back",
+
     "Retour ": "Back to ",
 
     "Retour Playlist": "Back to Playlist",
@@ -395,9 +401,7 @@
 
     "Supprimer mon compte": "Delete my account",
     
-    "Taille des fichiers limités à 1MB": "File too large. File must be less than 1MB",
-
-    "Taille des fichiers limités à 32MB": "File too large. File must be less than 32MB",
+    "Taille des fichiers limités à ": "File too large. File must be less than ",
 
     "Télécharger" : "Download",
 
@@ -423,6 +427,8 @@
 
     "Valider": "Send",
 
+    "Versement de": "Donation of",
+
     "Versement libre": "Free donation",
 
     "Veuillez utiliser le bouton ci-dessous pour vérifier votre adresse email.": "Please click the button below to verify your email address.",
@@ -433,13 +439,25 @@
 
     "Vos droits d'accès ne vous permettent pas d'accéder à cette ressource": "You might not have the necessary permissions for this resource",
 
+    "Vos dons": "Your donations",
+
+    "Votre abonnement a bien été pris en compte": "Your plan subscribed successfully",
+
+    "Votre Email": "Your Email",
+
+    "Votre message...": "Your message...",
+
     "Votre montant": "Your amount",
+
+    "Votre nom": "Your name",
 
     "Votre nom ou pseudo": "Your name or pseudo",
 
     "Votre profil a été modifié !": "Your profil has been changed!",
 
     "Vos données personnelles": "Personnal datas",
+
+    "Vous avez effectué un don de": "You gave a donation of",
 
     "Vous avez déjà donné cette note !": "You already gave this rating!",
 

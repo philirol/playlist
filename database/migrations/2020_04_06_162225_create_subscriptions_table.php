@@ -15,9 +15,9 @@ class CreateSubscriptionsTable extends Migration
     {
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('user_id')->nullable();                 
+            $table->unsignedInteger('user_id'); //nullable suite à pb avec relationships dans modèle Subscription...essayer sans nullable                
             $table->string('name');
-            $table->string('stripe_id')->nullable()->collation('utf8mb4_bin');
+            $table->string('stripe_id')->collation('utf8mb4_bin'); //nullable suite à pb avec relationships dans modèle Subscription...essayer sans nullable 
             $table->string('stripe_status');
             $table->string('stripe_plan');
             $table->integer('quantity');

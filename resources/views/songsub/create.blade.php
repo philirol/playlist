@@ -1,6 +1,6 @@
 @extends('layouts.app')
-
 @section('content')
+{{-- @can('create', $songsub) --}}
 @include('includes.songhead')
     <hr>
     <form action="{{ route('songsub.store') }}" enctype="multipart/form-data" method="POST">
@@ -14,4 +14,8 @@
         $(this).siblings('.custom-file-label').addClass('selected').html(fileName);
         });
     </script>
+{{--    @else
+        ->abon
+    @endcan
+--}}    
 @endsection

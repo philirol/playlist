@@ -17,10 +17,10 @@ class CreatePlansTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('slug')->unique();
-            $table->string('datavol')->nullable(); //nullable for donation
-            $table->string('stripe_plan');
-            $table->float('cost')->nullable(); //nullable for donation
-            $table->text('description')->nullable();
+            $table->string('datavol');
+            $table->string('stripe_plan')->nullable(); //plan Free nullable
+            $table->float('cost')->nullable();
+            $table->text('bitval');
             $table->timestamps();
         });
     }

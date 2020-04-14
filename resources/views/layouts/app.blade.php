@@ -42,7 +42,7 @@
 
 </head>
 <body>
-    <div id="app">
+    <div id="wrap">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ action('SongController@index', '1') }}">Playlist</a>
@@ -75,7 +75,7 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="dropdown-item" href="{{ route('don') }}">@lang('Don')</a>
-                                <a class="dropdown-item" href="{{ route('plans.index') }}">@lang('Plan')</a>
+                                <a class="dropdown-item" href="{{ route('plans.index') }}">@lang('Abonnement')</a>
                             </div>
                         </li>
                     </ul>
@@ -147,6 +147,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('band.index') }}">@lang('Groupes')</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('plans.plan') }}">@lang('Stripe')</a>
+                        </li>
                         {{--   
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('ville.index') }}">@lang('Villes')</a>
@@ -212,15 +215,20 @@
                     @endif
                 @yield('content')
             </main>
-        @endif
-        <nav class="navbar navbar-expand fixed-bottom navbar-dark">
-            <div class="navbar-nav ml-auto">
-                <a class="nav-item nav-link " href="">Mentions légales</a>
-                <a class="nav-item nav-link " href="">Politique de confidentialité</a>
-            </div>
-        </nav>
+        @endif        
     </div>
-    
+
+    <footer id="foot">
+        <br>
+        <div class="content-foot">
+            <p>@ 2020 Playlist by Védas-Informatique</p>
+            <p>
+                <a href="">Mentions légales</a>&nbsp; &nbsp; - &nbsp;&nbsp;
+                <a href="">Politique de confidentialité</a>
+            </p>
+        </div>
+    </footer>
+
 </body>
 </html>
 

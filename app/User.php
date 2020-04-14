@@ -37,6 +37,11 @@ class User extends Authenticatable
         return $this->hasMany(Invitation::class);
     }
 
+    public function donations()
+    {               
+        return $this->hasMany(Donation::class);
+    }
+
     public function isAdmin(){
         return $this->admin == '1';
     }

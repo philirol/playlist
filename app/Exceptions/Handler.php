@@ -53,7 +53,7 @@ class Handler extends ExceptionHandler
             $data['trace']   = $e->getTrace(); // An array of the backtrace()
             $data['traceAsString'] = $e->getTraceAsString(); // Formated string of trace
 
-            if(ENV('APP_ENV') == "production"){ //local or production
+            if(ENV('APP_ENV') == "local"){ //local or production
                 Mail::to('philirol@hotmail.com')->send(new SendMailable($data));
             }
         }

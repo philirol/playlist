@@ -15,7 +15,7 @@
             <div class="card-header">@lang('Formules d\'abonnement')                
             </div>
             <div class="card-body"> 
-            @empty($userSubscr) 
+            @empty($banduserSubscr) 
                 <ul class="list-group">
                     @foreach($plans as $plan)
                         <li class="list-group-item clearfix">
@@ -24,7 +24,7 @@
                                     <tr>
                                         <td>
                                             <h4>{{ $plan->name }} : {{ number_format($plan->cost) }}€/@lang('an')</h4>
-                                            <h5>@lang('Stockage') {{ $plan->description }}</h5>
+                                            <h5>@lang('Stockage') {{ $plan->datavol }}</h5>
                                         </td>
                                         <td class="text-right">                                                   
                                                 @if(!auth()->user()->subscribedToPlan($plan->stripe_plan, 'main'))
@@ -40,11 +40,11 @@
                 @else
                     <h5 class="card-title">Votre groupe a déjà contracté un abonnement :</h5>
                     <p class="card-text">
-                    Souscripteur : {{$userSubscr->name}}<br>
-                    Abonnement créé le : {{ Carbon\Carbon::parse($userSubscr->created_at)->format('d/m/Y') }}<br>
+                    Souscripteur : {{$banduserSubscr->name}}<br>
+                    Abonnement créé le : {{ Carbon\Carbon::parse($banduserSubscr->created_at)->format('d/m/Y') }}<br>
                     Durée de l'abonnement : 1 an renouvelable tacitement<br>
                     Formule : {{$plan->name}}<br>
-                    Stockage : {{$plan->description}}<br><br>
+                    Stockage : {{$plan->datavol}}<br><br>
                     Stockage consommé : {{ $band->sizedir }} ({{ bcdiv($band->sizedir, 1048576, 0) }}Mo)
                     </p>
                 @endempty

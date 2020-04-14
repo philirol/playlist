@@ -21,8 +21,12 @@ class SubscriptionController extends Controller
             ->create($paymentMethod, [
                 'email' => $user->email,
         ]);
+
+        $band = $user->band;
+        $band->id_plan = $plan->id;
+        $band->save();
             
         return redirect('songs')->with('message', __('Merci pour votre abonnement'));
-        // return back()->with('message', __('Merci pour votre abonnement'));
+        // return back()->with('message', __('Votre abonnement a bien été pris en compte'));
     }
 }

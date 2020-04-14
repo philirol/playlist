@@ -15,8 +15,10 @@ class CreateBandsTable extends Migration
     {
         Schema::create('bands', function (Blueprint $table) {
             $table->bigIncrements('id'); 
+            $table->tinyInteger('id_plan')->nullable();
             $table->string('bandname');
             $table->string('slug');
+            $table->boolean('freeupload')->default(false);
             $table->tinyInteger('id_department')->nullable();
             $table->string('city')->nullable();
             $table->timestamp('created_at')->useCurrent();

@@ -6,12 +6,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\Songsub as SongsubRequest;
 use App\Songsub;
-use App\Song;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Gate;
+use Carbon\Carbon;
 
 class SongsubController extends Controller
 {
@@ -46,18 +47,11 @@ class SongsubController extends Controller
         return $songsub;
     }
 
-    public function stockBandControl($fileSize){
-        $bandStorage = Auth::user()->band->sizedir;
-        if($bandStorage + $fileSize > 20000000){
-            dd($bandStorage + $fileSize);
-            return view('band.proposAbon');
-        }
-    }
-    
     public function store(Request $request)
     { 
         $song = session('song');        
         $songsub = new Songsub;
+        
         $this->mainSongsub($request->main, $songsub);
         
         if($request->testfile != null){ 
@@ -94,8 +88,8 @@ class SongsubController extends Controller
         return redirect()->action('SongController@show', ['id' => $song->id]);
     }
 
-    private function storeFile($songsub){
-        $user = Auth::user();          
+    private function storeFile(Songsub $songsub){
+        $user = Auth::user();    
         $song = session('song');           
         //source de ce qui suit : https://makitweb.com/how-to-upload-a-file-in-laravel/
         $file = request()->file('file');         
@@ -103,10 +97,15 @@ class SongsubController extends Controller
         $extension = $file->getClientOriginalExtension();
         $tempPath = $file->getRealPath(); //if needed
         $fileSize = $file->getSize();
-        if(Gate::allows('upload', $fileSize)){ //see AuthServiceProvider for storage limit                    
+        
+        if ( Gate::any(['freeupload', 'freePlan'], $fileSize) || $this->BandPlanLimitControl($user, $fileSize)){ 
+            dd($this->BandPlanControl());
+            // if ( Gate::any(['freeupload', 'freePlan'], $fileSize) || $this->BandHasValidSubscription()){  
+                // if ( Gate::allows('freeupload', $user)) {               
             $mimeType = $file->getMimeType();
             $valid_extension = array('mpga','mp3','ogg','wav','flac','mid','mp4','png','gif','jpg','jpeg','txt','xls','xlsx','ods','doc','docx','odt','pdf','gpx','gp3','gpa4','gp5','mov');
-            $maxFileSize = 32000000; //32MB
+            // dd(ini_get('post_max_size'));
+            $maxFileSize = 95000000; //ini_get('post_max_size') renvoie en local "128Mo" 
             
             if(in_array(strtolower($extension),$valid_extension)){            
                 if($fileSize <= $maxFileSize){               
@@ -125,7 +124,7 @@ class SongsubController extends Controller
                     return $songsub;
                     
                 } else {
-                    return redirect()->action('SongController@show', ['id' => $song->id])->with('messageDanger', __('Taille des fichiers limités à 32MB'))->send();
+                    return redirect()->action('SongController@show', ['id' => $song->id])->with('messageDanger', __('Taille des fichiers limités à ').$maxFileSize)->send();
                 }
             } else {
                 return redirect()->action('SongController@show', ['id' => $song->id])->with('messageDanger', __('Extension de fichier invalide'))->send();
@@ -133,6 +132,31 @@ class SongsubController extends Controller
         } else {
             return redirect()->route('proposAbon')->send();
         } 
+    }
+
+    private function BandHasValidSubscription() { 		
+		$array_id_users_band = User::where('band_id', Auth::user()->band->id)->get()->modelKeys();
+        return DB::table('subscriptions')->whereDate('updated_at','>', Carbon::now()->subYear())->whereIn('user_id',$array_id_users_band)->get();        
+    }
+    
+    private function BandPlan(){ //return an object plan if subscription not null
+        $subscr =  $this->BandHasValidSubscription()->first();
+        if ($subscr !== null){
+            $plan = DB::table('plans')->where('stripe_plan', $subscr->stripe_plan)->first();
+            return $plan ; 
+        } else {
+            return false;
+        }
+    }
+
+    private function BandPlanLimitControl(User $user, $fileSize){
+        $controleStorage = $user->band->sizedir + $fileSize;
+        $plan = $this->BandPlan()->first();
+        if ($plan !== null){
+        return $controleStorage < $plan->bitval; //return true if limit not reached
+        } else {
+            return false;
+        }
     }
 
     public function download(Songsub $songsub)
@@ -157,7 +181,7 @@ class SongsubController extends Controller
     private function validatorFile()
     {
            return request()->validate([
-            'file' => 'required|max:32000', //ne pas utiliser size. Mettre pour max la valeur de config php post_max_size Sinon entre les 2 valeurs il met un msg trop générique
+            'file' => 'required|max:100000', //ne pas utiliser size. Mettre pour max la valeur de config php post_max_size Sinon entre les 2 valeurs il met un msg trop générique
             // 'main' => 'required'
             'user_id' => 'exists:users,id',
             'song_id' => 'exists:songs,id'
