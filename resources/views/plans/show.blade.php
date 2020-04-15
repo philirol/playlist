@@ -40,12 +40,12 @@
                 @else
                     <h5 class="card-title">Votre groupe a déjà contracté un abonnement :</h5>
                     <p class="card-text">
-                    Souscripteur : {{$banduserSubscr->name}}<br><br>
+                    Souscripteur : {{$banduserSubscr->name}}<br>
                     Abonnement créé le : {{ Carbon\Carbon::parse($banduserSubscr->created_at)->format('d/m/Y') }}<br>
                     Durée de l'abonnement : 1 an renouvelable tacitement<br>
                     Formule : {{$plan->name}}<br>
-                    Stockage : {{$plan->datavol}}<br><br>
-                    Stockage consommé : {{ $band->sizedir }} ({{ bcdiv($band->sizedir, 1048576, 0) }}Mo)
+                    Volume de stockage disponible : {{$plan->datavol}}<br><br>
+                    Volume des données stockées : {{ $band->sizedir }} ({{ bcdiv($band->sizedir, 1048576, 0) }}Mo)
                     </p>
                 @endempty
             </div>

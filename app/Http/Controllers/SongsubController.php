@@ -135,16 +135,19 @@ class SongsubController extends Controller
     }
 
     private function BandHasValidSubscription() { 		
-		$array_id_users_band = User::where('band_id', Auth::user()->band->id)->get()->modelKeys();
+		$array_id_users_band = User::where('band_id', Auth::user()->band->id)->get()->modelKeys(); //modelKeys return an array of all the members of the band
         return DB::table('subscriptions')->whereDate('updated_at','>', Carbon::now()->subYear())->whereIn('user_id',$array_id_users_band)->get(); //return php stdclass object       
     }
     
     private function BandPlan(){ 
         if($this->BandHasValidSubscription()->isNotEmpty()){  
-            $subscr =  $this->BandHasValidSubscription()->first(); //subscr so php stdclass object
-                $plan = DB::table('plans')->where('stripe_plan', $subscr->stripe_plan)->get();  //$plan so php stdclass object
-                return $plan ; 
+            $subscr =  $this->BandHasValidSubscription()->first(); //subscr so php stdclass object. first : normally there's jut one valid subscription per band
+                $plan = DB::table('plans')->where('stripe_plan', $subscr->stripe_plan)->get();  //$plan so php stdclass object 
         }
+        else {
+            $plan = DB::table('plans')->where('slug', 'free')->get();
+        }
+        return $plan ;
     }
 
     private function BandPlanLimitControl(User $user, $fileSize){

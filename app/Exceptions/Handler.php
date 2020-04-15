@@ -75,6 +75,11 @@ class Handler extends ExceptionHandler
             }
             return redirect('songs')->with('messageDanger', 'Action non autorisée !');
         }
+
+        if ($exception instanceof \Laravel\Cashier\Exceptions\InvalidStripeCustomer){
+            return back()->with('messageDanger', __('Il y a eu un problème technique. Signaler votre problème dans Contact'));
+        }
+
         if ($exception instanceof \Illuminate\Http\Exceptions\PostTooLargeException) 
             return response()->view('errors.post_too_large');
         
