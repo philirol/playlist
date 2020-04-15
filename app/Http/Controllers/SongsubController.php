@@ -99,7 +99,7 @@ class SongsubController extends Controller
         $fileSize = $file->getSize();
         
         if ( Gate::any(['freeupload', 'freePlan'], $fileSize) || $this->BandPlanLimitControl($user, $fileSize)){ 
-            dd($this->BandPlanControl());
+            // dd('ok');
             // if ( Gate::any(['freeupload', 'freePlan'], $fileSize) || $this->BandHasValidSubscription()){  
                 // if ( Gate::allows('freeupload', $user)) {               
             $mimeType = $file->getMimeType();
@@ -136,27 +136,31 @@ class SongsubController extends Controller
 
     private function BandHasValidSubscription() { 		
 		$array_id_users_band = User::where('band_id', Auth::user()->band->id)->get()->modelKeys();
-        return DB::table('subscriptions')->whereDate('updated_at','>', Carbon::now()->subYear())->whereIn('user_id',$array_id_users_band)->get();        
+        return DB::table('subscriptions')->whereDate('updated_at','>', Carbon::now()->subYear())->whereIn('user_id',$array_id_users_band)->get(); //return php stdclass object       
     }
     
-    private function BandPlan(){ //return an object plan if subscription not null
-        $subscr =  $this->BandHasValidSubscription()->first();
-        if ($subscr !== null){
-            $plan = DB::table('plans')->where('stripe_plan', $subscr->stripe_plan)->first();
-            return $plan ; 
+    private function BandPlan(){ 
+        if($this->BandHasValidSubscription()->isNotEmpty()){  
+            $subscr =  $this->BandHasValidSubscription()->first(); //subscr so php stdclass object
+                $plan = DB::table('plans')->where('stripe_plan', $subscr->stripe_plan)->get();  //$plan so php stdclass object
+                return $plan ; 
+        }
+    }
+
+    private function BandPlanLimitControl(User $user, $fileSize){
+        $controleStorage = $user->band->sizedir + $fileSize;   
+        // dd(var_dump($this->BandPlan()))  ;   
+        if (($this->BandPlan()) !== null){
+        $plan = $this->BandPlan()->first();
+        return $controleStorage < $plan->bitval; //return true if limit not reached
         } else {
             return false;
         }
     }
 
-    private function BandPlanLimitControl(User $user, $fileSize){
-        $controleStorage = $user->band->sizedir + $fileSize;
-        $plan = $this->BandPlan()->first();
-        if ($plan !== null){
-        return $controleStorage < $plan->bitval; //return true if limit not reached
-        } else {
-            return false;
-        }
+    public function showPlan(){
+        $plan =  $this->BandPlan()->first();
+        return view('band.proposAbon', compact('plan'));
     }
 
     public function download(Songsub $songsub)

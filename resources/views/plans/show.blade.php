@@ -40,7 +40,7 @@
                 @else
                     <h5 class="card-title">Votre groupe a déjà contracté un abonnement :</h5>
                     <p class="card-text">
-                    Souscripteur : {{$banduserSubscr->name}}<br>
+                    Souscripteur : {{$banduserSubscr->name}}<br><br>
                     Abonnement créé le : {{ Carbon\Carbon::parse($banduserSubscr->created_at)->format('d/m/Y') }}<br>
                     Durée de l'abonnement : 1 an renouvelable tacitement<br>
                     Formule : {{$plan->name}}<br>

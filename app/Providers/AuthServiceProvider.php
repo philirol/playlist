@@ -51,25 +51,24 @@ class AuthServiceProvider extends ServiceProvider
             if ($controleStorage < $freeUploadLimit) {
                 return true;
                 }
-            });
+            });            
             
-            
-            Gate::define('CheckPlan', function (User $user, $fileSize) {
-                $controleStorage = $user->band->sizedir + $fileSize;
-                // dd($controleStorage);
-                $array_id_users_band = User::where('band_id', Auth::user()->band->id)->get()->modelKeys();
-                if (!empty($subscr_id = DB::table('subscriptions')->whereDate('updated_at','>', Carbon::now()->subYear())->whereIn('user_id',$array_id_users_band)->get())){
-                    $subscr = $subscr_id->first();
-                    if ($subscr !== null){
-                        // $plan = Plan::where('stripe_plan', $subscr->stripe_plan)->first();
-                        $plan = DB::table('plans')->where('stripe_plan', $subscr->stripe_plan)->first();
-                        // dd($plan->bitval);
-                        return $controleStorage < $plan->bitval ;
-                    } else {
-                        return false;
-                    }
-                }    
-            });
+            // Gate::define('CheckPlan', function (User $user, $fileSize) {
+            //     $controleStorage = $user->band->sizedir + $fileSize;
+            //     // dd($controleStorage);
+            //     $array_id_users_band = User::where('band_id', Auth::user()->band->id)->get()->modelKeys();
+            //     if (!empty($subscr_id = DB::table('subscriptions')->whereDate('updated_at','>', Carbon::now()->subYear())->whereIn('user_id',$array_id_users_band)->get())){
+            //         $subscr = $subscr_id->first();
+            //         if ($subscr !== null){
+            //             // $plan = Plan::where('stripe_plan', $subscr->stripe_plan)->first();
+            //             $plan = DB::table('plans')->where('stripe_plan', $subscr->stripe_plan)->first();
+            //             // dd($plan->bitval);
+            //             return $controleStorage < $plan->bitval ;
+            //         } else {
+            //             return false;
+            //         }
+            //     }    
+            // });
         
     }
 }
