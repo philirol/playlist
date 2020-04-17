@@ -2,7 +2,7 @@
 
 @section('content')
     <br><h5>
-    @lang('La taille des fichiers est limitée à ')
+    Taille limite de téléchargement pour un fichier (limit size upload) : 
     @php
     echo ini_get('post_max_size');
     @endphp

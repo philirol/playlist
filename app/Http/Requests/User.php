@@ -28,7 +28,6 @@ class User extends FormRequest
         return [
             'name' => 'required|max:255|unique:users,name,' . $id,
             'email' => 'required|email|max:255|unique:users,email,' . $id,
-            'image' => 'sometimes|image|max:2000'
         ];
     }
 }

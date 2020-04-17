@@ -35,7 +35,7 @@ class InvitationController extends Controller
         $invitations = new Invitation;
         $invitations->email = $data['email'];
         $invitations->uid = Str::uuid();
-        $data['url'] = 'https://playlistband.net/inv/'.$invitations->uid;
+        $data['url'] = 'http://localhost/playlist_laravel58/public/inv/'.$invitations->uid;
         $invitations->user_id = Auth::user()->id;
 
         $invitations->save();

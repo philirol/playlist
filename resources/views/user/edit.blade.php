@@ -55,7 +55,7 @@
       <a href="javascript:history.back()" class="btn btn-primary">
 			<span class="glyphicon glyphicon-circle-arrow-left"></span> @lang('Retour')
 		</a>
-		<button type="submit" class="btn btn-secondary my-3">Enregistrer</button>
+		<button type="submit" class="btn btn-secondary my-3">@lang('Enregistrer')</button>
 	</form>
     </div>
 	</div>

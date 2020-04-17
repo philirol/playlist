@@ -13,10 +13,16 @@
 </div>
 
 <p class="text-muted font-italic">@lang('Création du groupe le') {{ Carbon\Carbon::parse($band->created_at)->format('d m Y') }} {{-- - {{ $band->ville->ville_nom }} ({{ $band->ville->ville_code_postal }}) --}}</p>
-<ul class="list-inline">
-  <li class="list-inline-item"><a href="{{ route('band.edit', ['band' => $band->id]) }}">@lang('Modif nom du groupe')</a></li>
-  <li class="list-inline-item"><a href="{{ route('invit.addmember') }}">@lang('Ajouter des musiciens')</a></li>
-</ul>
+    @can('update', $band)
+        <ul class="list-inline">
+        <small>
+        <li class="list-inline-item"><a href="{{ route('band.edit', ['band' => $band->id]) }}">@lang('Modif nom du groupe')</a></li>
+        <li class="list-inline-item"><a href="{{ route('invit.addmember') }}">@lang('Ajouter des musiciens')</a></li>
+        <li class="list-inline-item"><a href="{{ route('band.delete') }}">@lang('Supprimer le groupe')</a></li>
+        
+        </small>
+        </ul>
+    @endcan
     {{-- With cards
     @foreach($band->users as $user)
     <div class="card border-info mb-3" style="max-width: 20rem;">
@@ -41,9 +47,14 @@
             </div>
             <div class="col-md-8">
                 <div class="card-body">
-                    <span class="font-weight-bold">{{ $user->name }}</span><br>
-                    <span class="note">@lang('Créé le') {{ Carbon\Carbon::parse($user->created_at)->format('d m y') }}</span>
-                    <p class="card-text"><u>{{ $user->email }}</u></p>                
+                    <span class="font-weight-bold">{{ $user->name }}</span>&nbsp;&nbsp;
+                    <small class="text-muted">(@lang('Créé le') {{ Carbon\Carbon::parse($user->created_at)->format('d m y') }})</small>
+                    <p class="card-text"><u>{{ $user->email }}</u></p>
+                    @can('delete',$user)
+                    <small><a href="{{ route('user.delete', $user->id) }}" onclick="return delAsk();">@lang('supprimer')</a></small>
+                    @endcan  
+                    
+                                  
                 </div>
             </div>
         </div>
@@ -54,3 +65,11 @@
 
 @endsection
 
+@section('scripts')
+<script type="text/javascript">
+    function delAsk() {
+      if(!confirm('Supprimer le membre ?'))
+      event.preventDefault();
+  }
+</script>        
+@endsection

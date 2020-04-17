@@ -59,7 +59,7 @@ class BandPolicy
      */
     public function update(User $user, Band $band)
     {
-        return $band->id === $user->band_id;
+        if($band->id == $user->band_id && $user->leader == 1) return true;
     }
 
     /**
@@ -71,7 +71,7 @@ class BandPolicy
      */
     public function delete(User $user, Band $band)
     {
-        return $band->id === $user->band_id;
+        if($band->id == $user->band_id && $user->leader == 1) return true;
     }
 
     /**

@@ -65,7 +65,7 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-        //
+        if($user->leader == 1 && $model->id <> $user->id ) return true; //the leader can not delete himself here
     }
 
     /**

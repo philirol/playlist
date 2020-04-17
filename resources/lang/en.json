@@ -47,6 +47,8 @@
 
     "Bienvenue sur Playlist ": "Welcome on Playlist ",
 
+    "Bonjour :)": "Hello!",
+
     "Browse pour changer": "Browse for change",
 
     "Avant d'utiliser ce site veuillez trouver le lien de vérification dans vos emails": "Before proceeding, please check your email for a verification link.",
@@ -90,6 +92,8 @@
     "Créer un groupe": "Create band",
 
     "Créer un membre": "Create user",
+    
+    "Créez votre playlist, enregistrez des liens, déposez vos fichiers par morceaux, etc.": "Set up your playlist and create all items per song...",
 
     "Dans": "In",
 
@@ -207,15 +211,15 @@
 
     "L'image a bien été enregistrée": "Image has been saved",
 
-    "L'utilisateur a bien été modifié": "User has been updated",
+    "L'utilisateur a bien été modifié": "The user has been updated",
+
+    "L'utilisateur a été supprimé": "The user has been deleted",
 
     "La catégorie a bien été changée !": "Category updated successfully !",
 
     "La catégorie a bien été enregistrée": "Category has been saved",
 
     "La catégorie a bien été modifiée": "Category has been updated",
-
-    "La taille des fichiers est limitée à ": "Limit file upload : ",
 
     "le": "on",
 
@@ -250,6 +254,10 @@
     "Mentions légales": "Legal mentions",  
     
     "Merci beaucoup pour votre don": "Thank you very much for your donation!",
+
+    "Merci d'utiliser notre application": "Thank you for using our application!",
+
+    "Merci de vous être inscrit sur le site Playlist.": "Welcome in Playlist",
 
     "Merci pour votre vote !": "Thank you for your vote!",
 
@@ -391,6 +399,10 @@
 
     "Suivant (Flèche droite)": "Next (Right arrow key)",
 
+    "Suppression du groupe": "Band deleting",
+
+    "supprimer": "delete",
+
     "Supprimer": "Delete",
 
     "Supprimer cette photo": "Delete this photo",
@@ -401,9 +413,15 @@
 
     "Supprimer la catégorie": "Category delete",
 
+    "Supprimer le groupe": "Delete the Band",
+
+    "Supprimer membre ?": "Really delete member ?",
+
     "Supprimer mon compte": "Delete my account",
     
     "Taille des fichiers limités à ": "File too large. File must be less than ",
+
+    "Taille des fichiers est limitée à ": "Limit file upload : ",
 
     "Télécharger" : "Download",
 

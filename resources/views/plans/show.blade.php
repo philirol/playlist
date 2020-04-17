@@ -43,13 +43,14 @@
                     Souscripteur : {{$banduserSubscr->name}}<br>
                     Abonnement créé le : {{ Carbon\Carbon::parse($banduserSubscr->created_at)->format('d/m/Y') }}<br>
                     Durée de l'abonnement : 1 an renouvelable tacitement<br>
-                    Formule : {{$plan->name}}<br>
-                    Volume de stockage disponible : {{$plan->datavol}}<br><br>
+                    Formule : {{$plan->name}}<br><br>
+                    Volume de stockage disponible : {{$plan->bitval}} (test)<br>
                     Volume des données stockées : {{ $band->sizedir }} ({{ bcdiv($band->sizedir, 1048576, 0) }}Mo)
                     </p>
                 @endempty
             </div>
         </div>
+        @empty($banduserSubscr) @lang('Gratuit jusquà 500Mo') @endempty
     </div>
 </div>
 

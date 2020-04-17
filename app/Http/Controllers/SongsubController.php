@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\Songsub as SongsubRequest;
+use App\Repositories\SongsubRepository;
 use App\Songsub;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -13,12 +14,17 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Gate;
 use Carbon\Carbon;
+use App\Traits\SubscriptionControlTrait;
 
 class SongsubController extends Controller
 {
-    public function __construct() 
+    use SubscriptionControlTrait;    
+    protected $songsubRepository;
+    
+    public function __construct(SongsubRepository $songsubRepository) 
     {   
-        $this->middleware('members')->except(['index','create']);              
+        $this->middleware('members')->except(['index','create']);   
+        $this->songsubRepository = $songsubRepository;           
     }
     
     public function index()
@@ -57,12 +63,7 @@ class SongsubController extends Controller
         if($request->testfile != null){ 
             
             $this->validatorFile();
-            $this->storeFile($songsub);
-        /* 
-        si je met que "$this->validatorFile();" ca fonctionne mais un fichier d'extension non permise provoque une erreur 
-        si je met que "return $this->validatorFile();" le controle des extension fonctionne mais cela fait juste un retour json avec un fichier ok 
-        RESOLU avec ->send() ... https://stackoverflow.com/questions/27991837/laravel-return-redirect-inside-function    
-        */
+            $this->songsubRepository->storeFile($songsub);
         }
 
         if($request->testfile == null){
@@ -83,87 +84,7 @@ class SongsubController extends Controller
 
         $song->save();
         $song->refresh();
-        // $bandStorage = $song->band->sizedir;
-        // dd($bandStorage);
         return redirect()->action('SongController@show', ['id' => $song->id]);
-    }
-
-    private function storeFile(Songsub $songsub){
-        $user = Auth::user();    
-        $song = session('song');           
-        //source de ce qui suit : https://makitweb.com/how-to-upload-a-file-in-laravel/
-        $file = request()->file('file');         
-        $filename = $file->getClientOriginalName();
-        $extension = $file->getClientOriginalExtension();
-        $tempPath = $file->getRealPath(); //if needed
-        $fileSize = $file->getSize();
-        
-        if ( Gate::any(['freeupload', 'freePlan'], $fileSize) || $this->BandPlanLimitControl($user, $fileSize)){ 
-            // dd('ok');
-            // if ( Gate::any(['freeupload', 'freePlan'], $fileSize) || $this->BandHasValidSubscription()){  
-                // if ( Gate::allows('freeupload', $user)) {               
-            $mimeType = $file->getMimeType();
-            $valid_extension = array('mpga','mp3','ogg','wav','flac','mid','mp4','png','gif','jpg','jpeg','txt','xls','xlsx','ods','doc','docx','odt','pdf','gpx','gp3','gpa4','gp5','mov');
-            // dd(ini_get('post_max_size'));
-            $maxFileSize = 95000000; //ini_get('post_max_size') renvoie en local "128Mo" 
-            
-            if(in_array(strtolower($extension),$valid_extension)){            
-                if($fileSize <= $maxFileSize){               
-                    $filename = preg_replace('/[^a-zA-Z0-9\-\._]/','', $filename); 
-                    $filename = substr($filename, 0, 40);
-                                
-                    $withoutExt = pathinfo($filename, PATHINFO_FILENAME); //suppression de l'extension for that final formatting : filename-time.ext
-                    $filenameToStorage = $withoutExt . '-' .time() . '.' . $extension;                
-                    $band_folder = $user->band->slug;
-                    $paths = $file->storeAs($band_folder, $filenameToStorage, 'public');
-                    $songsub->file = $paths;         
-                    $songsub->title = $filename;
-                    //type 2 files will be treated with html5 audio player (wma, aiff, mid not supported by the player)
-                    $array_audiofile = ['audio/mpeg','audio/ogg','audio/flac','audio/x-wav','audio/x-flac','video/quicktime'];
-                    in_array($mimeType, $array_audiofile) ? $songsub->type = 2 : $songsub->type = 3;  
-                    return $songsub;
-                    
-                } else {
-                    return redirect()->action('SongController@show', ['id' => $song->id])->with('messageDanger', __('Taille des fichiers limités à ').$maxFileSize)->send();
-                }
-            } else {
-                return redirect()->action('SongController@show', ['id' => $song->id])->with('messageDanger', __('Extension de fichier invalide'))->send();
-            } 
-        } else {
-            return redirect()->route('proposAbon')->send();
-        } 
-    }
-
-    private function BandHasValidSubscription() { 		
-		$array_id_users_band = User::where('band_id', Auth::user()->band->id)->get()->modelKeys(); //modelKeys return an array of all the members of the band
-        return DB::table('subscriptions')->whereDate('updated_at','>', Carbon::now()->subYear())->whereIn('user_id',$array_id_users_band)->get(); //return php stdclass object       
-    }
-    
-    private function BandPlan(){ 
-        if($this->BandHasValidSubscription()->isNotEmpty()){  
-            $subscr =  $this->BandHasValidSubscription()->first(); //subscr so php stdclass object. first : normally there's jut one valid subscription per band
-                $plan = DB::table('plans')->where('stripe_plan', $subscr->stripe_plan)->get();  //$plan so php stdclass object 
-        }
-        else {
-            $plan = DB::table('plans')->where('slug', 'free')->get();
-        }
-        return $plan ;
-    }
-
-    private function BandPlanLimitControl(User $user, $fileSize){
-        $controleStorage = $user->band->sizedir + $fileSize;   
-        // dd(var_dump($this->BandPlan()))  ;   
-        if (($this->BandPlan()) !== null){
-        $plan = $this->BandPlan()->first();
-        return $controleStorage < $plan->bitval; //return true if limit not reached
-        } else {
-            return false;
-        }
-    }
-
-    public function showPlan(){
-        $plan =  $this->BandPlan()->first();
-        return view('band.proposAbon', compact('plan'));
     }
 
     public function download(Songsub $songsub)

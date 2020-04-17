@@ -10,10 +10,12 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Song as SongRequest;
 use Illuminate\Database\Eloquent\Builder;
 use PDF;
+use App\Traits\DeleteSong;
 
 
 class SongController extends Controller
 {
+    use DeleteSong;
     private $NbrParPage = 13;
     private $user;
 
@@ -143,13 +145,7 @@ class SongController extends Controller
 
     public function destroy(Song $song)
     {      
-        foreach ($song->songsubs as $songsub){ 
-            if( $songsub->file != null ) {
-            unlink(storage_path('app/public/'.$songsub->file));            
-            }
-            $songsub->delete();
-        }
-        $song->delete();        
+        $this->deleteSong($song);   
         return redirect()->route('playlist', [array_search($song->list, $song->getListOptions())])->with('message', __('Le morceau a bien été supprimé!'));
     }
 

@@ -20,7 +20,7 @@ class DonController extends Controller
     public function prepaiement(Request $request){
 
         $request->validate([
-            'amount' => 'required|numeric|max:200000',
+            'amount' => 'required|numeric|max:200000|min:5',
         ]);
 
         $amount = $request->input('amount');

@@ -6,14 +6,17 @@ use App\Band;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Band as BandRequest;
 use Illuminate\Http\Request;
+use App\Traits\DeleteSong;
+use Stripe\Stripe;
 
 class BandController extends Controller
 {
+    use DeleteSong;
 
     public function __construct()
     {    
         $this->middleware('members')->except(['show','edit']); 
-        $this->middleware('leader')->only(['create','update']);
+        $this->middleware('leader')->only(['create','update','destroy']);
         $this->middleware('admin')->only(['showByAdmin']);    
     }
     
@@ -101,15 +104,35 @@ class BandController extends Controller
         return $request->all();
     }
 
+    public function delete(){
+        $band = Auth::user()->band;
+        return view('band.delete', compact('band'));
+    }
+
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy(Band $band){
+        $leader = Auth::user();
+        DB::table('songsubs')->where('user_id',$leader->id)->delete();
+        DB::table('songs')->where('user_id',$leader->id)->delete();
+
+        foreach ($band->users as $user){ 
+            foreach($user->songs as $songtodelete){
+            $this->deleteSong($songtodelete);
+            }
+            Stripe::setApiKey(env("STRIPE_SECRET"));
+            $customer = \Stripe\Customer::retrieve($user->stripe_id);
+            $customer->delete();
+            $user->delete();
+        }    
+
+        $band->delete();
+        $leader->delete();
+        return route('login');
     }
 
 

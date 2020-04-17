@@ -22,6 +22,8 @@
         myVideo.load();
         myVideo.play();    
         }
+        var deleteLinks = document.querySelectorAll('.delete');
+
     </script>
 
     <!-- Styles -->
@@ -147,8 +149,15 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('band.index') }}">@lang('Groupes')</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('plans.plan') }}">@lang('Stripe')</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Stripe
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="{{ route('stripe.plan') }}">@lang('Stripe products')</a>
+                                <a class="dropdown-item" href="{{ route('stripe.index') }}">@lang('Stripe clients')</a>
+                                <a class="dropdown-item" href="{{ route('stripe.subscr') }}">@lang('Subscriptions')</a>
+                            </div>
                         </li>
                         {{--   
                         <li class="nav-item">

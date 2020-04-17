@@ -27,10 +27,12 @@ Route::post('contactez-nous', 'ContactController@store')->name('contact.store');
 
 Auth::routes();
 Route::get('users', 'UserController@indexByAdmin')->middleware('admin')->name('user.indexByAdmin');
-Route::get('banduser/{slug}', 'UserController@indexByAdmin')->middleware('admin')->name('user.band');
-Route::get('usershow', 'UserController@show')->name('user.show');
+Route::get('user/{user}', 'UserController@show')->name('user.show');
 Route::get('deleteImage/{user}', 'UserController@deleteImage')->name('user.deleteImage');
-Route::resource('user', 'UserController');
+Route::delete('customer/{user}', 'UserController@customerdestroy')->name('customer.destroy');
+// Route::delete('user/{user}', 'UserController@destroy')->name('user.destroy');
+Route::get('user/{user}/delete', ['as' => 'user.delete', 'uses' => 'UserController@destroy']); //because I want to use a link for destroy a ressource. Not secure but Policy & middleware protect
+Route::resource('user', 'UserController')->except(['destroy','deleteImage','indexByAdmin']);
 
 Route::get('songsband/{id}', function($id){  //coming from band/show.blade.php (admin area)
     session(['band_id' => $id]);
@@ -47,9 +49,11 @@ Route::get('playin/{songsub}/{id}', function(Songsub $songsub, $id){
     return redirect('songs/' . $id);
 })->name('playin');
 
+Route::get('Banddelete','BandController@delete')->name('band.delete');
+Route::get('banduser/{slug}', 'UserController@indexByAdmin')->middleware('admin')->name('user.band');
 Route::get('band/{band}', 'BandController@showByAdmin')->name('bandByAdmin');
 Route::get('Uband', 'BandController@show')->name('band.show'); //method show sans paramètre
-Route::resource('band', 'BandController', ['except' => ['show']]);//except show car pas besoin de paramètre pour cette méthode, non CRUD
+Route::resource('band', 'BandController')->except(['show']);//except show car pas besoin de paramètre pour cette méthode, non CRUD
 
 Route::get('addmember', 'InvitationController@addmember')->name('invit.addmember');
 Route::post('mailtomember', 'InvitationController@mailtomember')->name('invit.mailtomember');
@@ -76,6 +80,9 @@ Route::get('/dons', 'donController@historyDonation')->name('donhist');
 Route::post('/don', 'donController@prepaiement')->name('don.post');
 Route::post('/donb', 'donController@paiement')->name('don.post2');
 
-Route::view('planadm','plans/plan')->name('plans.plan');
+Route::view('planadm','stripe/plan')->name('stripe.plan');
 Route::get('planpr/{product}','PlanController@createProduct')->name('plans.createProd');
 Route::post('planpl','PlanController@createPlan')->name('plans.createPlan');
+
+Route::get('stripeUsers','StripeController@index')->name('stripe.index');
+Route::get('stripeSubscr','StripeController@subscriptionList')->name('stripe.subscr');

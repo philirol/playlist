@@ -6,12 +6,15 @@ use App\{User, Band};
 use App\Http\Requests\User as UserRequest;
 use Illuminate\Support\Facades\Auth;
 use Image;
+use Stripe\Stripe;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin', ['only' => 'indexByAdmin']);
+        $this->middleware('admin', ['only' => 'indexByAdmin','customerdestroy']);
+        $this->middleware('leader',['only' => 'destroy']);
         $this->middleware('auth');
     }
     
@@ -41,8 +44,27 @@ class UserController extends Controller
         return view('user.edit', compact('user'));
     }
 
-    public function destroy($id){
-        
+    public function destroy(User $user){
+        $this->authorize('delete', $user);
+
+        //update items which belonged to the user
+        DB::table('songsubs')->where('user_id',$user->id)->update(['user_id' => Auth::user()->id]);
+        DB::table('songs')->where('user_id',$user->id)->update(['user_id' => Auth::user()->id]);
+
+        $user->delete();
+        Stripe::setApiKey(env("STRIPE_SECRET"));
+        $customer = \Stripe\Customer::retrieve($user->stripe_id);
+        $customer->delete();
+        //Stripe Also immediately cancels any active subscriptions on the customer (see API reference)
+        return redirect()->route('band.show')->with('message',__('L\'utilisateur a été supprimé'));
+    }
+
+    public function customerdestroy($id){
+        Stripe::setApiKey(env("STRIPE_SECRET"));
+        $customer = \Stripe\Customer::retrieve($id);
+        $customer->delete();
+        //Stripe Also immediately cancels any active subscriptions on the customer (see API reference)
+        return back()->with('message','Client Stripe supprimé');
     }
 
     public function create(){
@@ -76,7 +98,17 @@ class UserController extends Controller
                 $constraint->aspectRatio();
             });
             $img->save($thumbnailpath);
-        }       
+        } 
+        
+        if ($user->email !== $userRequest->email){
+            Stripe::setApiKey(env("STRIPE_SECRET"));
+            \Stripe\Customer::update(
+                $user->stripe_id,
+                [
+                    'email' => $userRequest->email,
+                ]
+            );
+        }
         
         $user->update($userRequest->except('image'));
 
