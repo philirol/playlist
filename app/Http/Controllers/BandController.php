@@ -20,10 +20,11 @@ class BandController extends Controller
         $this->middleware('admin')->only(['showByAdmin']);    
     }
     
-    public function index()
+    public function index($sort)
     {
-        $bands = Band::withCount(['songs','users'])->get(); 
-        return view('band.index', compact('bands'));               
+        $bands = Band::withCount(['songs','users'])->orderBy($sort)->get(); 
+        $bandnumber = count($bands);
+        return view('band.index', compact('bands','bandnumber'));               
     }
 
     /**
@@ -116,9 +117,9 @@ class BandController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Band $band){
-        $leader = Auth::user();
-        DB::table('songsubs')->where('user_id',$leader->id)->delete();
-        DB::table('songs')->where('user_id',$leader->id)->delete();
+        // $leader = Auth::user();
+       /*  DB::table('songsubs')->where('user_id',$leader->id)->delete();
+        DB::table('songs')->where('user_id',$leader->id)->delete(); */
 
         foreach ($band->users as $user){ 
             foreach($user->songs as $songtodelete){
@@ -127,13 +128,15 @@ class BandController extends Controller
             Stripe::setApiKey(env("STRIPE_SECRET"));
             $customer = \Stripe\Customer::retrieve($user->stripe_id);
             $customer->delete();
-            $user->delete();
+            DB::table('subscriptions')->where('user_id',$user->id)->update(['stripe_status' => 'user_deleted', 'updated_at' => date('Y-m-d G:i:s')]);
+            $user->delete();            
         }    
-
         $band->delete();
-        $leader->delete();
-        return route('login');
+        return redirect()->route('login');
     }
-
-
 }
+        
+        
+        
+
+

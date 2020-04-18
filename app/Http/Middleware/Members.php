@@ -19,6 +19,6 @@ class Members
         if (Auth::check()){
             return $next($request);
         }
-        return redirect('songs')->with('messageDanger', __('Vous n\'avez pas accès à la page demandée'));
+        return redirect('songs')->with('messageDanger', __('Action ou page non autorisée.'));
     }
 }

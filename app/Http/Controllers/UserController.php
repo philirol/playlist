@@ -24,12 +24,20 @@ class UserController extends Controller
 
     }
     
-    public function indexByAdmin($slug = null)
+    public function indexByAdmin($slug, $sort = null)
     {
+        if ($slug == 'noband'){
+            $slug = null;
+            session(['slug' => 'noband']);
+        } 
+        else session(['slug' => $slug]);
         $query = $slug ? Band::whereSlug($slug)->firstOrFail()->users() : User::query();
-        $users = $query->oldest('name')->paginate(12);
+        $sort !== null ? $order = $sort : $order = 'name';
+        $users = $query->orderBy($order)->get();
+        // $users = $query->oldest('name')->paginate(12);
         $bands = Band::all();
         $users_nbr = $query->count();
+        
         return view('user.index', compact('users', 'bands', 'slug','users_nbr'));
     }
     
@@ -50,7 +58,8 @@ class UserController extends Controller
         //update items which belonged to the user
         DB::table('songsubs')->where('user_id',$user->id)->update(['user_id' => Auth::user()->id]);
         DB::table('songs')->where('user_id',$user->id)->update(['user_id' => Auth::user()->id]);
-
+        DB::table('subscriptions')->where('user_id',$user->id)->update(['stripe_status' => 'user_deleted']);
+        
         $user->delete();
         Stripe::setApiKey(env("STRIPE_SECRET"));
         $customer = \Stripe\Customer::retrieve($user->stripe_id);
@@ -59,7 +68,7 @@ class UserController extends Controller
         return redirect()->route('band.show')->with('message',__('L\'utilisateur a été supprimé'));
     }
 
-    public function customerdestroy($id){
+    public function customerdestroy($id){ //called from admin area
         Stripe::setApiKey(env("STRIPE_SECRET"));
         $customer = \Stripe\Customer::retrieve($id);
         $customer->delete();

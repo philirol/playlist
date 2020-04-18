@@ -3,6 +3,8 @@
 
     "Abonnement du groupe" : "Subscription for",
     
+    "Action ou page non autorisée.": "Unauthorized request or action.",
+
     "Activer pour passer en liste principale": "check to put item in main list",
     
     "Aide" : "Help" ,
@@ -478,10 +480,6 @@
     "Vos données personnelles": "Personnal datas",
 
     "Vous avez effectué un don de": "You gave a donation of",
-
-    "Vous avez déjà donné cette note !": "You already gave this rating!",
-
-    "Vous devez être connecté pour pouvoir voter !": "You must be logged in to vote!",
 
     "Vous n'avez aucun album pour le moment": "You have no album yet.",
 

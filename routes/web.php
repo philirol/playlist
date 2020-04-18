@@ -26,7 +26,6 @@ Route::get('contactez-nous', 'ContactController@create')->name('contact.create')
 Route::post('contactez-nous', 'ContactController@store')->name('contact.store');
 
 Auth::routes();
-Route::get('users', 'UserController@indexByAdmin')->middleware('admin')->name('user.indexByAdmin');
 Route::get('user/{user}', 'UserController@show')->name('user.show');
 Route::get('deleteImage/{user}', 'UserController@deleteImage')->name('user.deleteImage');
 Route::delete('customer/{user}', 'UserController@customerdestroy')->name('customer.destroy');
@@ -49,11 +48,13 @@ Route::get('playin/{songsub}/{id}', function(Songsub $songsub, $id){
     return redirect('songs/' . $id);
 })->name('playin');
 
+Route::get('users/{slug}/{sort}', 'UserController@indexByAdmin')->middleware('admin')->name('user.indexByAdmin');
+Route::get('users/{slug}', 'UserController@indexByAdmin')->middleware('admin')->name('user.band');
 Route::get('Banddelete','BandController@delete')->name('band.delete');
-Route::get('banduser/{slug}', 'UserController@indexByAdmin')->middleware('admin')->name('user.band');
 Route::get('band/{band}', 'BandController@showByAdmin')->name('bandByAdmin');
 Route::get('Uband', 'BandController@show')->name('band.show'); //method show sans paramètre
-Route::resource('band', 'BandController')->except(['show']);//except show car pas besoin de paramètre pour cette méthode, non CRUD
+Route::get('bandsorted/{sort}', 'BandController@index')->name('band.index');
+Route::resource('band', 'BandController')->except(['show','index']);//except show car pas besoin de paramètre pour cette méthode, non CRUD
 
 Route::get('addmember', 'InvitationController@addmember')->name('invit.addmember');
 Route::post('mailtomember', 'InvitationController@mailtomember')->name('invit.mailtomember');

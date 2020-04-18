@@ -80,9 +80,9 @@ class SongsubController extends Controller
         $countsongsub = Songsub::where('song_id', $song->id)->count(); 
         $countsongsub == null ? $songsub->main = 1 : ''; //main = 1 pour le       
         $song->songsub = $countsongsub + 1;
-        $songsub->save();
+        $songsub->touch();
 
-        $song->save();
+        $song->touch();
         $song->refresh();
         return redirect()->action('SongController@show', ['id' => $song->id]);
     }

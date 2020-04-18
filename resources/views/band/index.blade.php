@@ -3,26 +3,23 @@
 
 @endsection
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-auto mr-auto"><h3>@lang('Liste des groupes')</h3></div>
-        <div class="col-auto">
-        <a href="{{ route('band.create') }}" class="btn btn-outline-dark">@lang('Créer un groupe')</a>
-        </div>
-
-    </div>
+<div class="bg-info rounded-lg">
+<table class="table text-white">
+  <tr>
+    <td class="align-middle"><h3>@lang('Liste des goupes') ({{ $bandnumber}})</h3></td>
+  </tr>
+</table>
 </div>
-<br>
+
 <table class="table table-striped">
-<caption>Liste des groupes</caption>
     <thead class="thead-dark">
         <tr>
-            <th scope="col">id</th>
-            <th scope="col">@lang('Groupe')</th>
+            <th scope="col"><a href="{{ route('band.index', ['sort' => 'id']) }}">id</a></th>
+            <th scope="col"><a href="{{ route('band.index', ['sort' => 'bandname']) }}">@lang('Groupe')</a></th>
             <th scope="col">Stock</th>
-            <th scope="col">Users</th>
-            <th scope="col">Songs</th>
-            <th scope="col">@lang('Date création')</th>  
+            <th scope="col"><a href="{{ route('band.index', ['sort' => 'users_count']) }}">Users</th>
+            <th scope="col"><a href="{{ route('band.index', ['sort' => 'songs_count']) }}">Songs</th>
+            <th scope="col"><a href="{{ route('band.index', ['sort' => 'created_at']) }}">@lang('Date création')</th>  
         </tr>
     </thead> 
     <tbody>

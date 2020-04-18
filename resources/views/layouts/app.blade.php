@@ -144,10 +144,10 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">                   
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('user.indexByAdmin') }}">@lang('Utilisateurs')</a>
+                            <a class="nav-link" href="{{ route('user.indexByAdmin', ['slug' => 'demo-band','sort' => 'id']) }}">@lang('Utilisateurs')</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('band.index') }}">@lang('Groupes')</a>
+                            <a class="nav-link" href="{{ route('band.index', ['sort' => 'id']) }}">@lang('Groupes')</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

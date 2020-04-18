@@ -49,7 +49,6 @@ class PlanController extends Controller
     public function createProduct(Request $request){
         // dd($request->product);
         Stripe::setApiKey(env("STRIPE_SECRET"));
-
         $product = \Stripe\Product::create([
             'name' => $request->product,
             'type' => 'service',
