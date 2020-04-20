@@ -6,6 +6,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMailable;
+use App\Jobs\ErrorHandledMailToAdminJob;
 
 use Illuminate\Http\Response;
 
@@ -76,9 +77,100 @@ class Handler extends ExceptionHandler
             return redirect('songs')->with('messageDanger', 'Action non autorisée !');
         }
 
-        if ($exception instanceof \Laravel\Cashier\Exceptions\InvalidStripeCustomer){
+        /* if ($exception instanceof \Laravel\Cashier\Exceptions\InvalidStripeCustomer){
             return back()->with('messageDanger', __('Il y a eu un problème technique. Signaler votre problème dans Contact'));
+            
+            $error['message'] = 'Error Stripe : InvalidStripeCustomer';
+            ErrorHandledMailToAdminJob::dispatch($error);
+            return back()->with('messageDanger', __('Il y a eu un problème technique non identifié, désolé.'));
+        } */
+
+        /* if ($exception instanceof \Stripe\Exception\CardException){
+            $error['status'] = $exception->getHttpStatus();
+            return back()->with('messageDanger', __('Il y a eu un problème technique. Signaler votre problème dans Contact'));
+        } */
+
+        /* if ($exception instanceof \Stripe\Exception\InvalidRequestException){
+            $error['type'] = 'Invalid parameters were supplied to Stripe\'s API';
+            $error['message'] = 'bla bla';
+            ErrorHandledMailToAdminJob::dispatch($error);
+            return back()->with('messageDanger', __('Il y a eu un problème technique non identifié, désolé.'));
+        } */
+    
+     //https://stripe.com/docs/api/errors/handling       
+        if ($exception instanceof \Laravel\Cashier\Exceptions\InvalidStripeCustomer){
+            $error['message'] = 'Error Stripe : InvalidStripeCustomer';
+        } elseif ($exception instanceof \Stripe\Exception\CardException){
+            $error['class'] = 'CardException';
+            $error['stripe'] = 'Stripe says : Since it\'s a decline, \Stripe\Exception\CardException will be caught.';
+            $error['status'] = $exception->getHttpStatus();
+            $error['type'] = $exception->getError()->type; 
+            $error['code'] = $exception->getError()->code;
+            $error['param'] = $exception->getError()->message;
+            $error['message'] = 'No advice yet';
+        } elseif ($exception instanceof \Stripe\Exception\AuthenticationException){
+            $error['class'] = 'AuthenticationException';
+            $error['stripe'] = 'Authentication with Stripe\'s API failed';
+            // $error['status'] = $exception->getHttpStatus();
+            // $error['type'] = $exception->getError()->type; 
+            // $error['code'] = $exception->getError()->code;
+            // $error['param'] = $exception->getError()->message;
+            $error['message'] = 'Maybe check the Strip customer stripe_id, maybe you changed API keys recently, or maybe run config:clear on the app';
+        } elseif ($exception instanceof \Stripe\Exception\RateLimitException){
+            $error['class'] = 'RateLimitException';
+            $error['stripe'] = 'Too many requests made to the API too quickly';
+            $error['status'] = $exception->getHttpStatus();
+            $error['type'] = $exception->getError()->type; 
+            $error['code'] = $exception->getError()->code;
+            $error['param'] = $exception->getError()->message;
+            $error['message'] = 'No advice';
+        } elseif ($exception instanceof \Stripe\Exception\InvalidRequestException){
+            $error['class'] = 'InvalidRequestException';
+            $error['stripe'] = 'Invalid parameters were supplied to Stripe\'s API';
+            $error['status'] = $exception->getHttpStatus();
+            $error['type'] = $exception->getError()->type; 
+            $error['code'] = $exception->getError()->code;
+            $error['param'] = $exception->getError()->message;
+            $error['message'] = 'Maybe check the Strip customer stripe_id o run config:clear on the app';
+        } elseif ($exception instanceof \Stripe\Exception\ApiConnectionException ){
+            $error['class'] = 'ApiConnectionException';
+            $error['stripe'] = 'Network communication with Stripe failed';
+            $error['status'] = $exception->getHttpStatus();
+            $error['type'] = $exception->getError()->type; 
+            $error['code'] = $exception->getError()->code;
+            $error['param'] = $exception->getError()->message;
+            $error['message'] = 'No advice';
+        } elseif ($exception instanceof \Stripe\Exception\ApiErrorException ){
+            $error['class'] = 'ApiErrorException';
+            $error['stripe'] = 'Display a very generic error to the user, and maybe send yourself an email';
+            $error['status'] = $exception->getHttpStatus();
+            $error['type'] = $exception->getError()->type; 
+            $error['code'] = $exception->getError()->code;
+            $error['param'] = $exception->getError()->message;
+            $error['message'] = 'No advice';
         }
+        if(isset($error)){
+        ErrorHandledMailToAdminJob::dispatch($error);
+        return back()->with('messageDanger', __('Il y a eu un problème technique non identifié, désolé.'));
+        }
+
+        // try {
+        //   // Use Stripe's library to make requests...
+        // } catch(\Stripe\Exception\CardException $e) {
+        //   // Since it's a decline, \Stripe\Exception\CardException will be caught
+        //   echo 'Status is:' . $e->getHttpStatus() . '\n';
+        //   echo 'Type is:' . $e->getError()->type . '\n';
+        //   echo 'Code is:' . $e->getError()->code . '\n';
+        //   // param is '' in this case
+        //   echo 'Param is:' . $e->getError()->param . '\n';
+        //   echo 'Message is:' . $e->getError()->message . '\n';
+        // } catch (\Stripe\Exception\ApiConnectionException $e) {
+        // } catch (\Stripe\Exception\ApiErrorException $e) {
+        //   // Display a very generic error to the user, and maybe send
+        //   // yourself an email
+        // } catch (Exception $e) {
+        //   // Something else happened, completely unrelated to Stripe
+        // }
 
         if ($exception instanceof \Illuminate\Http\Exceptions\PostTooLargeException) 
             return response()->view('errors.post_too_large');

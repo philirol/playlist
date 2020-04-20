@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 
-use App\{Invitation,User};
-use Illuminate\Support\Facades\Mail;
-use App\Mail\InvitMail;
+use App\Jobs\InvitationJob;
+use App\Invitation;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+
 
 class InvitationController extends Controller
 {
@@ -29,17 +29,17 @@ class InvitationController extends Controller
         ]);
         $data['band_id'] = Auth::user()->band_id;
         $data['leader'] = Auth::user()->name;
-        $data['bandname'] = Auth::user()->band->bandname;
-        
+        $data['bandname'] = Auth::user()->band->bandname;       
 
         $invitations = new Invitation;
         $invitations->email = $data['email'];
         $invitations->uid = Str::uuid();
         $data['url'] = 'http://localhost/playlist_laravel58/public/inv/'.$invitations->uid;
         $invitations->user_id = Auth::user()->id;
+        // Mail::to($data['email'])->sendNow(new InvitMail($data));
+        InvitationJob::dispatch($data);
 
         $invitations->save();
-        Mail::to($data['email'])->send(new InvitMail($data));
         return back()->with('message', __('Votre invitation a bien été envoyée!'));
     }
 

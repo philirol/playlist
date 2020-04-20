@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\NotifyAdminNewUserMail;
 
-class NewUserListener
+class NewUserListener implements ShouldQueue
 {
     /**
      * Create the event listener.

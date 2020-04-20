@@ -63,10 +63,10 @@ Route::get('inv/{uid}','InvitationController@store');
 
 // Route::get('ville', 'VilleController@index')->name('ville.index')->middleware('admin');
 
-Route::get('bandtest', function(){
+/* Route::get('bandtest', function(){
     $band = App\Band::find(3);
     dd($band->ville);
-});
+}); */
 
 // Route::get('register-step2', 'Auth\RegisterStep2Controller@showForm');
 // Route::post('register-step2', 'Auth\RegisterStep2Controller@postForm')->name('register.step2');

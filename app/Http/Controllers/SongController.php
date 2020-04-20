@@ -78,8 +78,7 @@ class SongController extends Controller
     }
 
     public function store(SongRequest $songRequest)
-    {      
-        // dd($songRequest->list);
+    {
         $song = Song::create($songRequest->all());
         $user = Auth::user();
         $song->band_id = $user->band->id; 
@@ -93,11 +92,10 @@ class SongController extends Controller
 
     public function update(SongRequest $songRequest, Song $song) 
     {    
-        $this->authorize('update', $song);
-        /*
-        array_search($song->list, $song->getListOptions() renvoie la clé de la liste d'avant
-        on compare cette clé avec la liste de destination et si le morceau change de liste, on met son order à 0 de manière à ce que le morceau en question soit le premier de la nouvelle liste
-       */
+        $this->authorize('update', $song); //the members of the band are only authorized
+        
+        // array_search(...) get the key of the list the song was
+        // Order putted at first position if the song change of list      
         if( array_search($song->list, $song->getListOptions()) <> intval($songRequest->list)){
             $songRequest['order'] = 0 ;
         }      
