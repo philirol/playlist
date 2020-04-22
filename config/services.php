@@ -17,7 +17,7 @@ return [
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),
-        'endpoint' => env('MAILGUN_ENDPOINT', 'api.mailgun.net'),
+        'endpoint' => 'https://api.mailgun.net/v3/sandboxcd83986f9c13462db11df3740ed77599.mailgun.org',
     ],
 
     'postmark' => [
@@ -38,6 +38,11 @@ return [
         'key' => env('NEXMO_KEY'),
         'secret' => env('NEXMO_SECRET'),
         'sms_from' => '15556666666',
+    ],
+
+    'mailgun' => [
+        'domain' => 'your-mailgun-domain',
+        'secret' => 'your-mailgun-key',
     ],
 
     // 'stripe' => [

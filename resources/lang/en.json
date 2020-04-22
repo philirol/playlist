@@ -243,6 +243,8 @@
 
     "Lien": "Link",
 
+    "Les membres du groupe seront notifiés de vos modifications par email" : "Group members will be notified of your changes by email",
+
     "Liste des utilisateurs" : "Users list",
 
     "Liste des groupes" : "Bands list",
@@ -276,6 +278,8 @@
     "Mode maintenance": "Maintenance mode",
 
     "Modifer le profil": "Profile update",
+
+    "Modification morceau" : "Song modification ",
 
     "Modifier l'album": "Update album",
 
@@ -311,6 +315,8 @@
 
     "Notation de vos photos": "Rating of your photos",
 
+    "Notifier les membres": "Notify members",
+
     "Note": "Mark",
 
     "Notes des membres": "Comments of members",
@@ -328,8 +334,6 @@
     "Oui": "Yes",
 
     "Ouvrir dans site web": "Open in website",
-
-    "Page de modification" : "Song modify ",
 
     "Pagination : ": "Pagination: ",
 

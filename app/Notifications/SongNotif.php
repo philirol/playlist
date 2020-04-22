@@ -3,24 +3,21 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use App\Song;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Support\Facades\Auth;
 
-class NewUser extends Notification implements ShouldQueue
+class SongNotif extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $user;
+    protected $song;
 
-    /**
-     * Create a new notification instance.
-     *
-     * @return void
-     */
-    public function __construct($user)
+    public function __construct(Song $song)
     {
-        $this->user = $user;
+        $this->song = $song;
     }
 
     /**
@@ -43,10 +40,9 @@ class NewUser extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject('Welcome in Playlist')
-                    ->greeting(__('Bonjour '.$this->user->name.','))
-                    ->line(__('Merci de vous être inscrit sur le site Playlist.'))
-                    ->line(__('Créez votre playlist, enregistrez des liens, déposez vos fichiers par morceaux, etc.'))
+                    ->subject('Change on your Playlist')
+                    ->greeting('Hello!')   
+                    ->line('The song "'. $this->song->title.'" has been created/modify by '. Auth::user()->name)
                     ->action('Go on Playlist', url('http://localhost/playlist_laravel58/public'));
     }
 
@@ -63,4 +59,3 @@ class NewUser extends Notification implements ShouldQueue
         ];
     }
 }
-

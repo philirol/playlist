@@ -2,10 +2,6 @@
 
 return [
 
-    'to' => [
-        'address' => 'philirol@free.fr',
-        'name' => 'playlist'
-    ],
     /*
     |--------------------------------------------------------------------------
     | Mail Driver
@@ -20,7 +16,7 @@ return [
     |
     */
 
-    'driver' => env('MAIL_DRIVER', 'mailgun'),
+    'driver' => env('MAIL_DRIVER', 'smtp'),
 
     /*
     |--------------------------------------------------------------------------
@@ -60,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'webmaster@playlistband.net'),
-        'name' => env('MAIL_FROM_NAME', 'the Webmaster'),
+        'address' => env('MAIL_FROM_ADDRESS', 'philirol@hotmail.com'),
+        'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
     /*

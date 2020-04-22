@@ -59,17 +59,6 @@ Route::resource('band', 'BandController')->except(['show','index']);//except sho
 Route::get('addmember', 'InvitationController@addmember')->name('invit.addmember');
 Route::post('mailtomember', 'InvitationController@mailtomember')->name('invit.mailtomember');
 Route::get('inv/{uid}','InvitationController@store');
- 
-
-// Route::get('ville', 'VilleController@index')->name('ville.index')->middleware('admin');
-
-/* Route::get('bandtest', function(){
-    $band = App\Band::find(3);
-    dd($band->ville);
-}); */
-
-// Route::get('register-step2', 'Auth\RegisterStep2Controller@showForm');
-// Route::post('register-step2', 'Auth\RegisterStep2Controller@postForm')->name('register.step2');
 
 Route::view('xplan','plans/index')->name('plans.index');
 Route::get('plan', 'PlanController@index')->name('plans.show');
@@ -87,3 +76,39 @@ Route::post('planpl','PlanController@createPlan')->name('plans.createPlan');
 
 Route::get('stripeUsers','StripeController@index')->name('stripe.index');
 Route::get('stripeSubscr','StripeController@subscriptionList')->name('stripe.subscr');
+
+
+
+
+//TEST
+use App\Song;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Mail\Markdown;
+use Illuminate\Mail\Mailable;
+use App\Mail\InvitMail;
+
+Route::get('songnotifmail', function () {
+    $users = Auth::user()->band->users;
+    $song = Song::find(1);
+
+    return (new App\Notifications\SongNotif($song))
+                ->toMail($users);
+});
+
+Route::get('newusermail', function () {
+    $user = Auth::user();
+    return (new App\Notifications\NewUser($user))
+                ->toMail($user);
+});
+//FIN TEST
+
+
+// Route::get('ville', 'VilleController@index')->name('ville.index')->middleware('admin');
+
+/* Route::get('bandtest', function(){
+    $band = App\Band::find(3);
+    dd($band->ville);
+}); */
+
+// Route::get('register-step2', 'Auth\RegisterStep2Controller@showForm');
+// Route::post('register-step2', 'Auth\RegisterStep2Controller@postForm')->name('register.step2');

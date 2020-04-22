@@ -40,7 +40,7 @@ class Handler extends ExceptionHandler
      */
     public function report(\Exception $e)
     {
-        if ($e instanceof \Exception && !$e instanceof \Illuminate\Validation\ValidationException) {
+        /* if ($e instanceof \Exception && !$e instanceof \Illuminate\Validation\ValidationException) {
 
             //  if ($e instanceof \Symfony\Component\HttpKernel\Exception\HttpException){                
             //     $data['httpcode'] = $e->getStatusCode();
@@ -57,7 +57,7 @@ class Handler extends ExceptionHandler
             if(ENV('APP_ENV') == "local"){ //local or production
                 Mail::to('philirol@hotmail.com')->send(new SendMailable($data));
             }
-        }
+        } */
         return parent::report($e);
     }
 
@@ -76,29 +76,9 @@ class Handler extends ExceptionHandler
             }
             return redirect('songs')->with('messageDanger', 'Action non autorisée !');
         }
-
-        /* if ($exception instanceof \Laravel\Cashier\Exceptions\InvalidStripeCustomer){
-            return back()->with('messageDanger', __('Il y a eu un problème technique. Signaler votre problème dans Contact'));
-            
-            $error['message'] = 'Error Stripe : InvalidStripeCustomer';
-            ErrorHandledMailToAdminJob::dispatch($error);
-            return back()->with('messageDanger', __('Il y a eu un problème technique non identifié, désolé.'));
-        } */
-
-        /* if ($exception instanceof \Stripe\Exception\CardException){
-            $error['status'] = $exception->getHttpStatus();
-            return back()->with('messageDanger', __('Il y a eu un problème technique. Signaler votre problème dans Contact'));
-        } */
-
-        /* if ($exception instanceof \Stripe\Exception\InvalidRequestException){
-            $error['type'] = 'Invalid parameters were supplied to Stripe\'s API';
-            $error['message'] = 'bla bla';
-            ErrorHandledMailToAdminJob::dispatch($error);
-            return back()->with('messageDanger', __('Il y a eu un problème technique non identifié, désolé.'));
-        } */
     
      //https://stripe.com/docs/api/errors/handling       
-        if ($exception instanceof \Laravel\Cashier\Exceptions\InvalidStripeCustomer){
+        /* if ($exception instanceof \Laravel\Cashier\Exceptions\InvalidStripeCustomer){
             $error['message'] = 'Error Stripe : InvalidStripeCustomer';
         } elseif ($exception instanceof \Stripe\Exception\CardException){
             $error['class'] = 'CardException';
@@ -152,25 +132,7 @@ class Handler extends ExceptionHandler
         if(isset($error)){
         ErrorHandledMailToAdminJob::dispatch($error);
         return back()->with('messageDanger', __('Il y a eu un problème technique non identifié, désolé.'));
-        }
-
-        // try {
-        //   // Use Stripe's library to make requests...
-        // } catch(\Stripe\Exception\CardException $e) {
-        //   // Since it's a decline, \Stripe\Exception\CardException will be caught
-        //   echo 'Status is:' . $e->getHttpStatus() . '\n';
-        //   echo 'Type is:' . $e->getError()->type . '\n';
-        //   echo 'Code is:' . $e->getError()->code . '\n';
-        //   // param is '' in this case
-        //   echo 'Param is:' . $e->getError()->param . '\n';
-        //   echo 'Message is:' . $e->getError()->message . '\n';
-        // } catch (\Stripe\Exception\ApiConnectionException $e) {
-        // } catch (\Stripe\Exception\ApiErrorException $e) {
-        //   // Display a very generic error to the user, and maybe send
-        //   // yourself an email
-        // } catch (Exception $e) {
-        //   // Something else happened, completely unrelated to Stripe
-        // }
+        } */
 
         if ($exception instanceof \Illuminate\Http\Exceptions\PostTooLargeException) 
             return response()->view('errors.post_too_large');

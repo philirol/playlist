@@ -32,3 +32,11 @@
     </div>
     @enderror
 </div>
+
+<div class="custom-control custom-switch">
+    <input type="checkbox" class="custom-control-input" id="customSwitch1" name="mailtomembers" value="1">
+    <label class="custom-control-label" for="customSwitch1">
+        @lang('Notifier les membres')&nbsp;
+        <img src="{{asset('images/interog.png')}}" width="22" height="22" title="@lang('Les membres du groupe seront notifiés de vos modifications par email')">
+    </label>              
+</div>

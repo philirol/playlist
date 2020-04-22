@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<h3>@lang('Page de modification')</h3>
+<h3>@lang('Modification morceau')</h3>
 <br>
 <form action="{{ route('songs.update', ['song' => $song->id]) }}" method="post">
     @method('PATCH')

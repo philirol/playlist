@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\{User,Invitation};
+use App\Events\NewUserEvent;
 use App\Http\Controllers\Controller;
+use App\Notifications\NewUser;
+use DateTime;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -12,76 +15,41 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
+
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
-
     use RegistersUsers;
 
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
     // protected $redirectTo = '/register-step2';
     protected $redirectTo = '/home';
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('guest');
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validatorLead(array $data)
+    public function register(Request $request) //surcharge register du trait RegistersUsers
     {
-        return Validator::make($data, [
-            // 'band_id' => ['required', 'integer'],
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'bandname' => ['required', 'string', 'min:2']
-            // 'departement' => ['required', 'numeric', 'min:2', 'max:2']
-        ]);
+        if(!$request->inv){
+            $this->validatorLead($request->all())->validate();
+            event(new Registered($user = $this->createLead($request->all())));        
+        }else{
+            $this->validatorMember($request->all())->validate();
+            event(new Registered($user = $this->createMember($request->all()))); 
+        }
+        $user->createAsStripeCustomer();
+
+        event(new NewUserEvent($user)); //to Mailable::NotifyAdminNewUserMail -> NotifyAdminNewUser.blade.php
+        $user->notify(new NewUser($user)); //to Notification::NewUser.php (welcome message to new User)
+        $this->guard()->login($user);
+        
+        return $this->registered($request, $user) ? : redirect($this->redirectPath());
     }
 
-    protected function validatorMember(array $data)
-    {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
-    }
-
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\User
-     */
     protected function createLead(array $data)
     {             
-        //session(['departement_code' => $data['departement_code']]);
-        
         $id = DB::table('bands')->insertGetId([
             'bandname' => $data['bandname'],
             'slug' => Str::slug($data['bandname'], '-'),
@@ -94,8 +62,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             // 'password' => $data['password'], (je sais plus pourquoi je n'avais pas crypté le mdp)
             'password' => Hash::make($data['password']),
-        ]);
-        
+        ]);        
     }
 
     protected function createMember(array $data) //test http://localhost/playlist_laravel58/public/inv/9d5b629f-2428-423a-8f9e-4b2f05a0ed62
@@ -113,5 +80,36 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    protected function validatorLead(array $data)
+    {
+        return Validator::make($data, [
+            // 'band_id' => ['required', 'integer'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'bandname' => ['required', 'string', 'min:2']
+        ]);
+    }
+
+    protected function validatorMember(array $data)
+    {
+        return Validator::make($data, [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+    }
+    
+    public function registertest(Request $request){
+        $user = new User;
+        $user->name = $request->name;        
+        $user->email = $request->email;
+        $user->leader = 1;
+        $user->bandname = $request->bandname;
+        $user->password = $request->password;
+        $user->created_at = new Datetime('now');
+        return view($user->notify(new NewUser($user))->render()); //to Notification::NewUser.php (welcome message to new User)
     }
 }

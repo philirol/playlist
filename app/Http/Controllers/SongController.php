@@ -8,9 +8,11 @@ use App\Songsub;
 use App\Band;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Song as SongRequest;
+use App\Notifications\SongNotif;
 use Illuminate\Database\Eloquent\Builder;
 use PDF;
 use App\Traits\DeleteSong;
+use Illuminate\Support\Facades\Notification;
 
 
 class SongController extends Controller
@@ -87,7 +89,13 @@ class SongController extends Controller
         $this->list($song);
         return redirect()->route('playlist', [$songRequest->list])->with('message', __('Le nouveau morceau a bien été créé!'));
         // return view('songs.show', compact('song'))->with('message', __('Le nouveau morceau a bien été créé!'));
+    }
 
+    public function mailtomembers(Song $song, $mailtomembers){
+        if ($mailtomembers !== null){
+            $users = Auth::user()->band->users;
+            Notification::send($users, new SongNotif($song, $users));
+        }
     }
 
     public function update(SongRequest $songRequest, Song $song) 
@@ -100,6 +108,7 @@ class SongController extends Controller
             $songRequest['order'] = 0 ;
         }      
         $song->update($songRequest->all()); 
+        $this->mailtomembers($song, $songRequest->mailtomembers);
         return redirect()->route('playlist', [$songRequest->list])->with('message', __('Le morceau a bien été mis à jour!'));
         // return view('songs.show', compact('song'))->with('message', __('Le morceau a bien été mis à jour!'));
     }

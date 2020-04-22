@@ -28,6 +28,7 @@ class NewUserListener implements ShouldQueue
     public function handle($event)
     {
         $event->user->name;
+        // return(new NotifyAdminNewUserMail($event->user))->render();
         Mail::to('philirol@hotmail.com')->send(new NotifyAdminNewUserMail($event->user));
     }
 }
