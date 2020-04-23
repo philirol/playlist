@@ -87,6 +87,10 @@ class SongsubController extends Controller
         return redirect()->action('SongController@show', ['id' => $song->id]);
     }
 
+    public function toproposeplan(){
+        
+    }
+
     public function download(Songsub $songsub)
     {
         $filename = $songsub->file;
@@ -129,6 +133,7 @@ class SongsubController extends Controller
     
     public function update(Request $request, Songsub $songsub)
     {
+        $this->authorize('edit',$songsub);
         $this->mainSongsub($request->main, $songsub);       
 
         if($request->testfile != null){                        

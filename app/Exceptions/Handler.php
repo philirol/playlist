@@ -78,7 +78,7 @@ class Handler extends ExceptionHandler
         }
     
      //https://stripe.com/docs/api/errors/handling       
-        /* if ($exception instanceof \Laravel\Cashier\Exceptions\InvalidStripeCustomer){
+        if ($exception instanceof \Laravel\Cashier\Exceptions\InvalidStripeCustomer){
             $error['message'] = 'Error Stripe : InvalidStripeCustomer';
         } elseif ($exception instanceof \Stripe\Exception\CardException){
             $error['class'] = 'CardException';
@@ -132,7 +132,7 @@ class Handler extends ExceptionHandler
         if(isset($error)){
         ErrorHandledMailToAdminJob::dispatch($error);
         return back()->with('messageDanger', __('Il y a eu un problème technique non identifié, désolé.'));
-        } */
+        }
 
         if ($exception instanceof \Illuminate\Http\Exceptions\PostTooLargeException) 
             return response()->view('errors.post_too_large');

@@ -40,7 +40,9 @@ class SongPolicy
      */
     public function view(User $user, Song $song)
     {          
-        return $user->band_id === $song->band_id;
+        if($user->band_id === $song->band_id){
+            return true;
+        }
     }
 
     /**

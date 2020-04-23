@@ -4,7 +4,7 @@
 <div class="bg-info rounded-lg">
 <table class="table text-white">
   <tr>
-    <td class="align-middle"><h4>@lang('Abonnement du groupe') @if(Auth::check()) {{ Auth::user()->band->bandname }} @endif</h4></td>
+    <td class="align-middle"><h4>@lang('Abonnement')</h4></td>
   </tr>
 </table>
 </div>
@@ -41,6 +41,7 @@
                     <h5 class="card-title">Votre groupe a déjà contracté un abonnement :</h5>
                     <p class="card-text">
                     Souscripteur : {{$banduserSubscr->name}}<br>
+                    Groupe : {{$band->bandname}}<br>
                     Abonnement créé le : {{ Carbon\Carbon::parse($banduserSubscr->created_at)->format('d/m/Y') }}<br>
                     Durée de l'abonnement : 1 an renouvelable tacitement<br>
                     Formule : {{$plan->name}}<br><br>

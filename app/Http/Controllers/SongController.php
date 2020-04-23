@@ -23,7 +23,7 @@ class SongController extends Controller
 
     public function __construct()
     {    
-        $this->middleware('members')->except(['index','update_order','show','printPlaylist','edit']); 
+        $this->middleware('members')->except(['index','update_order','show','printPlaylist','edit','create']); 
         //permet ces fonctions à l'user non authentifié
         // $this->middleware('admin');
         //only : fonctions qui seront non permises aux users non admin    
@@ -122,7 +122,7 @@ class SongController extends Controller
 
     public function show(Song $song)
     {               
-        // $this->authorize('view', $song);
+        if($song->band->slug !== 'demo-band') $this->authorize('view', $song);
         session(['song' => $song]); //sert pour show songsub
         
         session()->exists('filetoplay') ? $url = session('filetoplay')->url : $url = 'https://www.youtube.com/watch?v=GuDgvbpVQD4';

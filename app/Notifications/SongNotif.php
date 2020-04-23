@@ -40,9 +40,9 @@ class SongNotif extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject('Change on your Playlist')
+                    ->subject('Message from Playlist')
                     ->greeting('Hello!')   
-                    ->line('The song "'. $this->song->title.'" has been created/modify by '. Auth::user()->name)
+                    ->line('The song "'. $this->song->title.'" has been modified by '. Auth::user()->name)
                     ->action('Go on Playlist', url('http://localhost/playlist_laravel58/public'));
     }
 

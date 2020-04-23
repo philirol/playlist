@@ -55,7 +55,7 @@ class SongsubRepository
                 return redirect()->action('SongController@show', ['id' => $song->id])->with('messageDanger', __('Extension de fichier invalide'))->send();
             } 
         } else {
-            return redirect()->route('proposAbon')->send();
+            return redirect()->action('SongsubController@showPlan')->with('messageDanger', __('Espace de stockage insuffisant'))->send();
         } 
     }
 	

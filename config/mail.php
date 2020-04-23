@@ -3,7 +3,7 @@
 return [
 
     'to' => [
-        'address' => 'philirol@free.fr',
+        'address' => 'philirol@hotmail.com',
         'name' => 'playlist'
     ],
     /*
@@ -20,7 +20,7 @@ return [
     |
     */
 
-    'driver' => env('MAIL_DRIVER', 'mailgun'),
+    'driver' => env('MAIL_DRIVER', 'smtp'),
 
     /*
     |--------------------------------------------------------------------------
@@ -61,7 +61,7 @@ return [
 
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'webmaster@playlistband.net'),
-        'name' => env('MAIL_FROM_NAME', 'the Webmaster'),
+        'name' => env('MAIL_FROM_NAME', 'Your Playlist app'),
     ],
 
     /*

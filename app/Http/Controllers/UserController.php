@@ -109,7 +109,7 @@ class UserController extends Controller
             $img->save($thumbnailpath);
         } 
         
-        if ($user->email !== $userRequest->email){
+        if ($user->email !== $userRequest->email && $user->stripe_id <> null){
             Stripe::setApiKey(env("STRIPE_SECRET"));
             \Stripe\Customer::update(
                 $user->stripe_id,

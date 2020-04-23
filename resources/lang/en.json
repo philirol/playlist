@@ -137,6 +137,8 @@
 
     "Erreur 503": "Error 503",
 
+    "Espace de stockage insuffisant": "Not enough storage space",
+
     "et cliquez sur \"Mot de passe oublié\"." : "and click on \"Forgot your password\".", 
 
     "Export des données personnelles": "Personal data export",
@@ -243,7 +245,7 @@
 
     "Lien": "Link",
 
-    "Les membres du groupe seront notifiés de vos modifications par email" : "Group members will be notified of your changes by email",
+    "Les membres du groupe seront avertis par mail de la modification" : "An email will be sent to all members to warn them for changes on the song",
 
     "Liste des utilisateurs" : "Users list",
 

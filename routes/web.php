@@ -8,7 +8,7 @@ Route::fallback(function(){
 });
 
 Route::view('/','auth/login')->name('accueil');
-Route::get('SubscribedPlan','SongsubController@showPlan')->name('proposAbon');
+Route::get('SubscribedPlan','SongsubController@showPlan');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('language/{lang}', 'HomeController@language')->name('language');
 Route::get('/songs/pdf', 'SongController@printPlaylist');
