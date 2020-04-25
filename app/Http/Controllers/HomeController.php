@@ -27,7 +27,7 @@ class HomeController extends Controller
         Auth::user()->nconnex ++;
         Auth::user()->update();
         if(Auth::user()->admin) {
-            return redirect('band');
+            return redirect()->route('band.index', ['sort' => 'id']);
         }
         return redirect('songs')->with('message', __('Bienvenue sur Playlist ').Auth::user()->name.' !');
     }

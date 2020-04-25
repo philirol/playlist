@@ -63,7 +63,7 @@ class SongController extends Controller
         $songs = Song::where([
             ['band_id', $band_id],
             ['list', $list ]
-            ])->orderBy('order', 'ASC')->get();
+            ])->orderBy('order', 'ASC')->with('songsubs')->get();
         
         /* $urlDefault = $songs::find(1)->songsubs()->find(1)->get('url');
         dd($urlDefault); */
