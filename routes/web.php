@@ -12,11 +12,16 @@ Route::get('SubscribedPlan','SongsubController@showPlan');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('language/{lang}', 'HomeController@language')->name('language');
 Route::get('/songs/pdf', 'SongController@printPlaylist');
+Route::view('/ML', 'mentionslegales');
+Route::view('/CF', 'confidentialite');
+Route::view('/CGV', 'cgv');
+
 
 Route::post('song-sortable','SongController@update_order')->name('orderingPlaylist');
 Route::resource('songs', 'SongController');
 Route::get('playlist/{list}', 'SongController@index')->name('playlist');
 
+Route::get('sgsubsfiles', 'SongsubController@storedfilelist')->name('storedfilelist');
 Route::get('dwnld/{songsub}', 'SongsubController@download')->name('songsub.dwnld');
 Route::get('songsub/{sub?}', 'SongsubController@create')->name('songsub.create');
 // Route::get('songsub/{song}/edit', 'SongsubController@edit')->middleware('members');
@@ -60,22 +65,24 @@ Route::get('addmember', 'InvitationController@addmember')->name('invit.addmember
 Route::post('mailtomember', 'InvitationController@mailtomember')->name('invit.mailtomember');
 Route::get('inv/{uid}','InvitationController@store');
 
-Route::view('xplan','plans/index')->name('plans.index');
-Route::get('plan', 'PlanController@index')->name('plans.show');
-Route::get('/plan/{plan}', 'PlanController@show')->name('plans.process');
-Route::post('/subscription', 'SubscriptionController@create')->name('subscription.create');
-
 Route::get('/don', 'donController@index')->name('don');
 Route::get('/dons', 'donController@historyDonation')->name('donhist');
 Route::post('/don', 'donController@prepaiement')->name('don.post');
 Route::post('/donb', 'donController@paiement')->name('don.post2');
 
-Route::view('planadm','stripe/plan')->name('stripe.plan');
+Route::get('subscrdel','SubscriptionController@delete')->name('subscr.delete');
+Route::get('show','SubscriptionController@show')->name('subscr.manage');
+Route::post('/subscription', 'SubscriptionController@create')->name('subscription.create');
+Route::get('stripeUsers','SubscriptionController@index')->name('subscr.index');
+Route::get('subscrlist','SubscriptionController@subscriptionList')->name('subscr.subscrList');
+
+Route::view('xplan','plans/index')->name('plans.index');
+Route::get('/plan/{plan}', 'PlanController@show')->name('plans.process');
+Route::view('planadm','subscr/plan')->name('subscr.plan');
 Route::get('planpr/{product}','PlanController@createProduct')->name('plans.createProd');
 Route::post('planpl','PlanController@createPlan')->name('plans.createPlan');
+Route::get('plan', 'PlanController@index')->name('plans.show');
 
-Route::get('stripeUsers','StripeController@index')->name('stripe.index');
-Route::get('stripeSubscr','StripeController@subscriptionList')->name('stripe.subscr');
 
 
 

@@ -25,9 +25,17 @@ class SongsubRepository
         $extension = $file->getClientOriginalExtension();
         $tempPath = $file->getRealPath(); //if needed
         $fileSize = $file->getSize();
+        $mimeType = $file->getMimeType();
+
+        if($extension == "mp3"){
+            $songsub->type = 2;
+        } else {
+            $array_audiofile = ['audio/mpeg','audio/ogg','audio/flac','audio/x-wav','audio/x-flac','video/mp4','video/quicktime'];
+            in_array($mimeType, $array_audiofile) ? $songsub->type = 2 : $songsub->type = 3;
+        } // getMimeType sometimes not detect mp3 because of this format
         
         if ( Gate::any(['freeupload', 'freePlan'], $fileSize) || $this->BandPlanLimitControl($user, $fileSize)){               
-            $mimeType = $file->getMimeType();
+            
             $valid_extension = array('mpga','mp3','ogg','wav','flac','mid','mp4','png','gif','jpg','jpeg','txt','xls','xlsx','ods','doc','docx','odt','pdf','gpx','gp3','gpa4','gp5','mov');
             // dd(ini_get('post_max_size'));
             $maxFileSize = 95000000; //ini_get('post_max_size') renvoie en local "128Mo" 
@@ -43,9 +51,7 @@ class SongsubRepository
                     $paths = $file->storeAs($band_folder, $filenameToStorage, 'public');
                     $songsub->file = $paths;         
                     $songsub->title = $filename;
-                    //type 2 files will be treated with html5 audio player (wma, aiff, mid not supported by the player)
-                    $array_audiofile = ['audio/mpeg','audio/ogg','audio/flac','audio/x-wav','audio/x-flac','video/mp4','video/quicktime'];
-                    in_array($mimeType, $array_audiofile) ? $songsub->type = 2 : $songsub->type = 3;  
+                    //type 2 files will be treated with html5 audio player (wma, aiff, mid not supported by the player)  
                     return $songsub;
                     
                 } else {

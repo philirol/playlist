@@ -38,15 +38,20 @@
                     @endforeach
                 </ul>                
                 @else
-                    <h5 class="card-title">Votre groupe a déjà contracté un abonnement :</h5>
+                    <h5 class="card-title">@lang('Votre groupe a déjà contracté un abonnement') :</h5>
                     <p class="card-text">
-                    Souscripteur : {{$banduserSubscr->name}}<br>
-                    Groupe : {{$band->bandname}}<br>
-                    Abonnement créé le : {{ Carbon\Carbon::parse($banduserSubscr->created_at)->format('d/m/Y') }}<br>
-                    Durée de l'abonnement : 1 an renouvelable tacitement<br>
-                    Formule : {{$plan->name}}<br><br>
-                    Volume de stockage disponible : {{$plan->bitval}} (test)<br>
-                    Volume des données stockées : {{ $band->sizedir }} ({{ bcdiv($band->sizedir, 1048576, 0) }}Mo)
+                    @lang('Souscripteur') : <strong>{{$banduserSubscr->name}}</strong><br>
+                    @lang('Groupe') : {{$band->bandname}}<br>
+                    @lang('Abonnement créé le') : {{ Carbon\Carbon::parse($banduserSubscr->created_at)->format('d/m/Y') }}<br>
+                    @lang('Durée : 1 an renouvelable tacitement')<br><br>
+                    @lang('Formule') : <strong>{{$plan->name}}</strong><br>
+                    @lang('Volume de stockage disponible pour cette formule') : {{$plan->datavol}}<br>
+                    @lang('Volume des données stockées') : {{ $band->sizedir }} ({{ bcdiv($band->sizedir, 1048576, 0) }}Mo)
+                    </p>
+                    <p>
+                    @if (Auth::user()->name == $banduserSubscr->name)
+                        <a href="{{ route('subscr.manage') }}">@lang('Supprimer votre abonnement')</a>
+                    @endif
                     </p>
                 @endempty
             </div>

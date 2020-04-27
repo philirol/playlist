@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Stripe\Stripe;
 
 trait SubscriptionControlTrait {
     
@@ -40,6 +41,15 @@ trait SubscriptionControlTrait {
     public function showPlan(){
         $plan =  $this->BandPlan()->first();
         return view('band.proposAbon', compact('plan'));
+    }
+
+    public function userCustomer(User $user){
+        Stripe::setApiKey(env("STRIPE_SECRET"));
+        return \Stripe\Customer::retrieve($user->stripe_id);
+    }
+    
+    public function getUserSubscrId(User $user){
+        return DB::table('subscriptions')->where('user_id', $user->id)->value('stripe_id');
     }
 
 }

@@ -12,9 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Gate;
-use Carbon\Carbon;
 use App\Traits\SubscriptionControlTrait;
+use Illuminate\Support\Facades\Storage;
 
 class SongsubController extends Controller
 {
@@ -85,10 +84,6 @@ class SongsubController extends Controller
         $song->touch();
         $song->refresh();
         return redirect()->action('SongController@show', ['id' => $song->id]);
-    }
-
-    public function toproposeplan(){
-        
     }
 
     public function download(Songsub $songsub)
@@ -164,6 +159,26 @@ class SongsubController extends Controller
         DB::table('songs')->where('id', $songsub->song_id)->update(['songsub' => $songsub->song->songsub - 1]); //removing 1 to the songsub number
         
         return back()->with('message', __('L\'élément a bien été supprimé'));
+    }
+
+    public function storedfilelist(){
+        /* $array_id_users_band = User::where('band_id', Auth::user()->band->id)->get()->modelKeys();
+        dd($array_id_users_band);
+        $bandfiles = DB::table('songsubs')->where('file','<>', NULL)->whereIn('user_id',$array_id_users_band)->get();
+        $songsubs = Songsub::all();
+        $bandfiles = $songsubs->contains(Songsub::whereIn('user_id', $array_id_users_band)->get());
+        dd($bandfiles); */
+
+        $files_with_size = array();
+        $files = Storage::disk('public'). Auth::user()->band->slug;
+
+        dd($files);
+        foreach ($files as $key => $file) {
+            $files_with_size[$key]['name'] = $file;
+            $files_with_size[$key]['size'] = Storage::url(Auth::user()->band->slug)->size($file);
+        }
+        dd($files_with_size);
+        return view('songsub.storedfilelist', compact('bandfiles'));
     }
     
 }

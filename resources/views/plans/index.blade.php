@@ -17,6 +17,8 @@
         <br>
         <a href="{{ route('plans.show') }}" class="btn btn-primary">@lang('Continuer')</a>
         <a href="{{ action('SongController@index', '1') }}" class="btn btn-outline-primary">@lang('Retour Playlist')</a>
+        <br><br>
+        <a href="{{ route('storedfilelist') }}">Voir la liste des fichiers stockés</a>
 
         @else
  

@@ -61,6 +61,7 @@ class UserController extends Controller
         DB::table('subscriptions')->where('user_id',$user->id)->update(['stripe_status' => 'user_deleted']);
         
         $user->delete();
+
         if($user->stripe_id <> null){ 
             Stripe::setApiKey(env("STRIPE_SECRET"));
             $customer = \Stripe\Customer::retrieve($user->stripe_id);
@@ -73,7 +74,7 @@ class UserController extends Controller
     public function customerdestroy($id){ //called from admin area
         Stripe::setApiKey(env("STRIPE_SECRET"));
         $customer = \Stripe\Customer::retrieve($id);
-        $customer->delete();
+        $customer->delete(); //with Stripe, subscriptions are canceled following customer deleting
         //Stripe Also immediately cancels any active subscriptions on the customer (see API reference)
         return back()->with('message','Client Stripe supprimé');
     }

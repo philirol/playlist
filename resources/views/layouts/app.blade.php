@@ -154,9 +154,9 @@
                             Stripe
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="{{ route('stripe.plan') }}">@lang('Stripe products')</a>
-                                <a class="dropdown-item" href="{{ route('stripe.index') }}">@lang('Stripe clients')</a>
-                                <a class="dropdown-item" href="{{ route('stripe.subscr') }}">@lang('Subscriptions')</a>
+                                <a class="dropdown-item" href="{{ route('subscr.plan') }}">@lang('Stripe products')</a>
+                                <a class="dropdown-item" href="{{ route('subscr.index') }}">@lang('Stripe clients')</a>
+                                <a class="dropdown-item" href="{{ route('subscr.subscrList') }}">@lang('Subscriptions')</a>
                             </div>
                         </li>
                         {{--   
@@ -230,10 +230,15 @@
     <footer id="foot">
         <br>
         <div class="content-foot">
-            <p>@ 2020 Playlist by Védas-Informatique</p>
+            <p>Copyright © 2020 Védas-Informatique</p>
             <p>
-                <a href="">Mentions légales</a>&nbsp; &nbsp; - &nbsp;&nbsp;
-                <a href="">Politique de confidentialité</a>
+                <a href="{{ URL::to('/ML') }}">Mentions légales</a>
+                &nbsp; &nbsp; - &nbsp;&nbsp;
+                <a href="{{ URL::to('/CF') }}">Politique de confidentialité</a>
+                &nbsp; &nbsp; - &nbsp;&nbsp;
+                <a href="{{ URL::to('/CGV') }}">CGV</a>
+                &nbsp; &nbsp; - &nbsp;&nbsp;
+                <a href="">A propos</a>
             </p>
         </div>
     </footer>

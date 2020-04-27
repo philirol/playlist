@@ -12,7 +12,9 @@
 <table class="table table-striped">
     <thead class="thead-info">
         <tr>
-            <th scope="col">id</th>
+            <th scope="col">Stripe_id</th>
+            <!-- <th scope="col">User_id</th> -->
+            <th scope="col">Subscr status</th>
             <th scope="col">customer</th>
             <th scope="col">period end</th>
             <th scope="col">Active - Plan</th>
@@ -22,9 +24,10 @@
     @foreach($subscriptions as $subscr)
         <tr>
             <td>{{ $subscr->id }}</td>
-            <td>
-            {{ $subscr->customer }}
-            </td>
+            <!-- <td>{{ $subscr->user_id }}</td> -->
+            <td>{{ $subscr->status }}</td>
+            <td>{{ $subscr->customer }}</td>
+            
             <td>{{ date('d m Y', $subscr->current_period_end) }}</td>
             <td>
                 @foreach($subscr->items as $data) 

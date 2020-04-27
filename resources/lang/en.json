@@ -1,6 +1,8 @@
 {
     "Abonnement" : "Subscription",
 
+    "Abonnement créé le" : "Subscription created on",
+
     "Abonnement du groupe" : "Subscription for",
     
     "Action ou page non autorisée.": "Unauthorized request or action.",
@@ -102,8 +104,10 @@
     "de": "of",
 
     "Date création": "Created at",
-
+    
     "Date d'inscription :": "Registration date:",
+
+    "Date de renouvellement": "Periode end",
 
     "Description (optionnelle)": "Description (optional)",
 
@@ -111,7 +115,11 @@
 
     "Déconnexion": "Logout",
 
+    "Désabonnement": "Unsubscribing",
+
     "Don": "Donation",
+
+    "Durée : 1 an renouvelable tacitement": "Duration : one tacitly renewable year",
 
     "Editer": "Edit",
 
@@ -157,6 +165,8 @@
 
     "Fichier(s)/lien(s)" : "File(s)/link(s)",
 
+    "Formule" : "Subscribed plan",
+
     "Formules d'abonnement" : "Subscriptions plans",
 
     "Gestion": "Gestion",
@@ -170,10 +180,14 @@
     "Gestion des utilisateurs (administrateurs en rouge)": "Users management (administrators in red)",
 
     "Gérer la description": "Description management",
-
+    
     "Gérer les albums": "Albums management",
-
+    
     "Gérer les catégories": "Categories management",
+    
+    "Gérer votre abonnement": "Manage your subscription",
+    
+    "Gestion de votre abonnement": "Subscription management",
 
     "groupe": "band",
 
@@ -388,6 +402,8 @@
     "Saisir un titre pour le lien": "Insert a title for the link",
 
     "\n    Sed cautela nimia in peiores haeserat plagas, ut narrabimus postea, aemulis consarcinantibus insidias graves apud Constantium, cetera medium principem sed siquid auribus eius huius modi quivis infudisset ignotus, acerbum et inplacabilem et in hoc causarum titulo dissimilem sui.": "",
+
+    "Se désabonner" : "Unsubscribe" ,
     
     "Se déconnecter" : "Sign out" ,
     
@@ -403,11 +419,15 @@
 
     "Si vous n'avez pas reçu l'email ": "If you did not receive the email",
 
+    "Souscripteur": "Subscriber",
+
     "Stockage": "Storage",
 
     "Suivant (Flèche droite)": "Next (Right arrow key)",
 
     "Suppression du groupe": "Band deleting",
+
+    "Suppression de l'abonnement": "Subscription canceling",
 
     "supprimer": "delete",
 
@@ -426,6 +446,8 @@
     "Supprimer membre ?": "Really delete member ?",
 
     "Supprimer mon compte": "Delete my account",
+
+    "Supprimer votre abonnement": "Cancel your subscription",
     
     "Taille des fichiers limités à ": "File too large. File must be less than ",
 
@@ -465,11 +487,17 @@
 
     "Voir les photos de ": "Show photos from ",
 
+    "Volume de stockage disponible pour cette formule": "Available storage volume for this plan",
+
+    "Volume des données stockées": "Storage datas stored",
+
     "Vos droits d'accès ne vous permettent pas d'accéder à cette ressource": "You might not have the necessary permissions for this resource",
 
     "Vos dons": "Your donations",
 
     "Votre abonnement a bien été pris en compte": "Your plan subscribed successfully",
+
+    "Votre groupe a déjà contracté un abonnement": "Your band has already a current subscription",
 
     "Votre Email": "Your Email",
 
