@@ -170,15 +170,16 @@ class SongsubController extends Controller
         dd($bandfiles); */
 
         $files_with_size = array();
-        $files = Storage::disk('public'). Auth::user()->band->slug;
+        // $files = Storage::disk('public'). Auth::user()->band->slug;
+        $files = Storage::disk('public')->files(Auth::user()->band->slug);
+        // dd($files);
 
-        dd($files);
         foreach ($files as $key => $file) {
             $files_with_size[$key]['name'] = $file;
-            $files_with_size[$key]['size'] = Storage::url(Auth::user()->band->slug)->size($file);
+            $files_with_size[$key]['size'] = Storage::disk('public')->size($file);
         }
-        dd($files_with_size);
-        return view('songsub.storedfilelist', compact('bandfiles'));
+        // dd($files_with_size);
+        return view('songsub.storedfilelist', compact('files_with_size'));
     }
     
 }
