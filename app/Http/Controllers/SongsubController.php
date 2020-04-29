@@ -128,7 +128,7 @@ class SongsubController extends Controller
     
     public function update(Request $request, Songsub $songsub)
     {
-        $this->authorize('edit',$songsub);
+        $this->authorize('update',$songsub);
         $this->mainSongsub($request->main, $songsub);       
 
         if($request->testfile != null){                        
