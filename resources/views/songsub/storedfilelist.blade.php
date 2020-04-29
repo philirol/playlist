@@ -11,11 +11,9 @@
 
 <div class="py-2 row justify-content-center">
     <div class="col-md-8">
-        @foreach($bandfiles as $file)
-        <p class="note">
-         {{ $file->title }}<br>
-         {{ Storage::size($this->file) }}
-         </p>
+        @foreach($files_with_size as $item)
+        {{ substr($item['name'], stripos($item['name'],'/') +1, -15) }} - {{ $item['size'] }}
+        <br>
         @endforeach
     
     </div>
