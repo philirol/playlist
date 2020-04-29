@@ -30,7 +30,7 @@
             <td>{{ $band->sizedir }} ({{ bcdiv($band->sizedir, 1048576, 0) }}Mo)</td>
             <td>{{ $band->users_count }}</td>
             <td>{{ $band->songs_count }}</td>
-            <td>{{ $band->created_at->format('d/m/Y') }}</td> 
+            <td>{{ Carbon\Carbon::parse($band->created_at)->format('d/m/Y') }}</td> 
         </tr>
         @endforeach 
     <tbody> 
