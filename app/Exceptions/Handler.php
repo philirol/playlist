@@ -40,7 +40,7 @@ class Handler extends ExceptionHandler
      */
     public function report(\Exception $e)
     {
-        /* if ($e instanceof \Exception && !$e instanceof \Illuminate\Validation\ValidationException) {
+        if ($e instanceof \Exception && !$e instanceof \Illuminate\Validation\ValidationException) {
 
             //  if ($e instanceof \Symfony\Component\HttpKernel\Exception\HttpException){                
             //     $data['httpcode'] = $e->getStatusCode();
@@ -57,7 +57,7 @@ class Handler extends ExceptionHandler
             if(ENV('APP_ENV') == "local"){ //local or production
                 Mail::to('philirol@hotmail.com')->send(new SendMailable($data));
             }
-        } */
+        }
         return parent::report($e);
     }
 

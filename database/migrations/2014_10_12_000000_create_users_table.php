@@ -29,8 +29,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamps();
             $table->string('image')->nullable();
             $table->Integer('nconnex')->nullable()->unsigned()->default(0);
             $table->string('stripe_id')->nullable()->collation('utf8mb4_bin');

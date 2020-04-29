@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Providers;
-use App\Song;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
