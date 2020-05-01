@@ -6,7 +6,7 @@
   <tr>
     <td class="align-middle"><h4>{{ $band->bandname }}</h4> <h6>@lang('Membres')</h6></td>
     @if(Auth::check() and Auth::user()->admin)
-    <td class="text-right"><a href="{{ route('band.songs', ['band' => $band->id]) }}" class="btn btn-primary my-3">@lang('Voir Playlist')</a></td>
+    <td class="text-right"><a href="{{ route('band.songs', [$band->id]) }}" class="btn btn-primary my-3">@lang('Voir Playlist')</a></td>
     @endif
   </tr>
 </table>

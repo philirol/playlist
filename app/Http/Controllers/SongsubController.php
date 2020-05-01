@@ -83,7 +83,7 @@ class SongsubController extends Controller
 
         $song->touch();
         $song->refresh();
-        return redirect()->action('SongController@show', ['id' => $song->id]);
+        return redirect()->action('SongController@show', [$song->id]);
     }
 
     public function download(Songsub $songsub)
@@ -143,7 +143,7 @@ class SongsubController extends Controller
             $songsub->update($this->validatorLink());
         }
         $song = session('song');
-        return redirect()->action('SongController@show', ['id' => $song->id]);
+        return redirect()->action('SongController@show', [$song->id]);
     }
 
     private function destroyFile(Songsub $songsub){

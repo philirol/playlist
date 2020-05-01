@@ -21,7 +21,7 @@
             </div>
         </div>
     </div>
-    <p class="text-muted">@lang('Créé le') {{ $user->created_at->format('d/m/Y') }}</p>
+    <p class="text-muted">@lang('Créé le') {{ Carbon\Carbon::parse($user->created_at)->format('d/m/Y') }}</p>
     <p>@lang('Pour changer de mot de passe, ') 
         <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">@lang('déconnecter-vous')</a>
         @lang('et cliquez sur "Mot de passe oublié".')

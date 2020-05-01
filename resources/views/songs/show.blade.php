@@ -24,7 +24,7 @@
                             @case(1)
                             @if( preg_match('/(vimeo)/', $songsub->url ) || preg_match('/(yout)/', $songsub->url ))
                             <td>
-                            <a href="{{ route('playin', ['songsub' => $songsub , 'song' => $song->id]) }}"><img src="{{asset('images/ytb.png')}}" alt="Ouvrir dans le lecteur" title="@lang('Ouvrir dans le lecteur')"></a>
+                            <a href="{{ route('playin', [$songsub , $song->id]) }}"><img src="{{asset('images/ytb.png')}}" alt="Ouvrir dans le lecteur" title="@lang('Ouvrir dans le lecteur')"></a>
                             </td>
                             @else
                             <td>&nbsp;</td>
