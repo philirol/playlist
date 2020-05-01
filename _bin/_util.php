@@ -4,6 +4,15 @@
 <a class="navbar-brand" href="">Mentions légales</a>
             <a class="navbar-brand" href="">Politique de confidentialité</a>
 
+//free
+MAIL_DRIVER=smtp ou log
+MAIL_HOST=smtp.free.fr
+MAIL_PORT=25
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS=webmaster@playlistband.net
+MAIL_FROM_NAME="${APP_NAME}"
         
 //Mailtrap
 MAIL_DRIVER=smtp
