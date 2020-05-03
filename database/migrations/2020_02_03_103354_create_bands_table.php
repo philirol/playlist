@@ -21,8 +21,7 @@ class CreateBandsTable extends Migration
             $table->boolean('freeupload')->default(false);
             $table->tinyInteger('id_department')->nullable();
             $table->string('city')->nullable();
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamps();
         });
     }
 

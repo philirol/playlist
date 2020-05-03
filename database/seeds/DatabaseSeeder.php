@@ -17,25 +17,25 @@ class DatabaseSeeder extends Seeder
         DB::table('bands')->insert([
             'bandname' => 'The Demo Band',
             'slug' => 'demo-band',
-            'freeupload' => 'false',
+            'freeupload' => '0',
         ]);
 
         DB::table('bands')->insert([
             'bandname' => 'The Rolling Fools',
             'slug' => 'rolling_fools',
-            'freeupload' => 'true',
+            'freeupload' => '1',
         ]);
 
         DB::table('bands')->insert([
             'bandname' => 'Mothers if Invasion',
             'slug' => 'mothers_invasion',
-            'freeupload' => 'false',
+            'freeupload' => '0',
         ]);
 
         DB::table('bands')->insert([
             'bandname' => 'Justicks',
             'slug' => 'justicks',
-            'freeupload' => 'false',
+            'freeupload' => '0',
         ]);
 
              
@@ -54,15 +54,6 @@ class DatabaseSeeder extends Seeder
         } 
         //ce script crééra $number x $i lignes. Le pb est que des songs appartiennent à plusieurs users mais bon pas grave c'est du test
         */
-        
-        DB::table('users')->insert([
-            'band_id' => 2,
-            'name' => 'Phil',
-            'admin' => true,
-            'leader' => true,
-            'email' => 'philirol@hotmail.com',
-            'password' => Hash::make('password'),
-        ]);
         
         DB::table('users')->insert([
             'band_id' => 1,
@@ -116,6 +107,24 @@ class DatabaseSeeder extends Seeder
 
         DB::table('users')->insert([
             'band_id' => 2,
+            'name' => 'Phil',
+            'admin' => true,
+            'leader' => true,
+            'email' => 'philirol@hotmail.com',
+            'password' => Hash::make('password'),
+        ]);
+
+        DB::table('users')->insert([
+            'band_id' => 3,
+            'name' => 'Simone',
+            'admin' => 0,
+            'leader' => 1,
+            'email' => 'mothers1@ijdi.co',
+            'password' => Hash::make('password'),
+        ]);
+        
+        DB::table('users')->insert([
+            'band_id' => 4,
             'name' => 'Héloise',
             'admin' => false,
             'leader' => true,
@@ -123,9 +132,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password'),
         ]);
 
-        factory(App\User::class, 3)->create(); //mettre 10 users pour être raccord avec le nombre de songs sinon erreur sur song.show
-
-
+        
         //SONGS & SONGSUBS
         // Life on Mars
         DB::table('songs')->insert([
@@ -140,6 +147,7 @@ class DatabaseSeeder extends Seeder
         DB::table('songsubs')->insert([
             'song_id' => 1,
             'user_id' => 3,
+            'band_id' => 1,
             'main' => 0,
             'title' => 'Cover R.Coleman',
             'type' => 1,
@@ -148,25 +156,29 @@ class DatabaseSeeder extends Seeder
         DB::table('songsubs')->insert([
             'song_id' => 1,
             'user_id' => 3,
+            'band_id' => 1,
             'main' => 0,
             'title' => 'NYLiveLifeOnMars.jpg',
             'type' => 3,
             'file' => 'demo-band/NYLiveLifeOnMars-1585125456.jpg',
+            'filesize' => '4815'
         ]);
         DB::table('songsubs')->insert([
             'song_id' => 1,
             'user_id' => 3,
+            'band_id' => 1,
             'main' => 1,
             'title' => 'Life on Mars Intro',
             'type' => 2,
             'file' => 'demo-band/LifeonMarsintro-1585843256.mp3',
+            'filesize' => '663575'
         ]);
 
         //Wonderwall        
         DB::table('songs')->insert([
             'id' => 2,
             'band_id' => 1,
-            'user_id' => 6,
+            'user_id' => 5,
             'title' => 'Wonderwall',
             'order' => 2,
             'list' => 1,
@@ -174,7 +186,8 @@ class DatabaseSeeder extends Seeder
         ]);
         DB::table('songsubs')->insert([
             'song_id' => 2,
-            'user_id' => 6,
+            'user_id' => 5,
+            'band_id' => 1,
             'main' => 1,
             'title' => 'Original clip',
             'type' => 1,
@@ -195,6 +208,7 @@ class DatabaseSeeder extends Seeder
         DB::table('songsubs')->insert([
             'song_id' => 3,
             'user_id' => 2,
+            'band_id' => 1,
             'main' => 1,
             'title' => 'Original Clip',
             'type' => 1,
@@ -205,7 +219,7 @@ class DatabaseSeeder extends Seeder
         DB::table('songs')->insert([
             'id' => 4,
             'band_id' => 1,
-            'user_id' => 6,
+            'user_id' => 1,
             'title' => 'Cleopatra\'s cat - Spin Doctors',
             'order' => 4,
             'list' => 1,
@@ -213,7 +227,8 @@ class DatabaseSeeder extends Seeder
         ]);
         DB::table('songsubs')->insert([
             'song_id' => 4,
-            'user_id' => 6,
+            'user_id' => 1,
+            'band_id' => 1,
             'main' => 1,
             'title' => 'Original Vidéo ytb',
             'type' => 1,
@@ -233,6 +248,7 @@ class DatabaseSeeder extends Seeder
         DB::table('songsubs')->insert([
             'song_id' => 5,
             'user_id' => 5,
+            'band_id' => 1,
             'main' => 0,
             'title' => 'Original Clip',
             'type' => 1,
@@ -241,10 +257,12 @@ class DatabaseSeeder extends Seeder
         DB::table('songsubs')->insert([
             'song_id' => 5,
             'user_id' => 2,
+            'band_id' => 1,
             'main' => 1,
             'title' => 'IStillhaventfoundU2.docx',
             'type' => 3,
             'file' => 'demo-band/IStillhaventfoundU2-1585124881.txt',
+            'filesize' => '1056'
         ]);   
         
         //The White Stripes-Jolene    
@@ -261,6 +279,7 @@ class DatabaseSeeder extends Seeder
         DB::table('songsubs')->insert([
             'song_id' => 6,
             'user_id' => 4,
+            'band_id' => 1,
             'main' => 0,
             'title' => 'Original Clip',
             'type' => 1,
@@ -269,6 +288,7 @@ class DatabaseSeeder extends Seeder
         DB::table('songsubs')->insert([
             'song_id' => 6,
             'user_id' => 3,
+            'band_id' => 1,
             'main' => 0,
             'title' => 'Miley C version',
             'type' => 1,
@@ -277,10 +297,12 @@ class DatabaseSeeder extends Seeder
         DB::table('songsubs')->insert([
             'song_id' => 6,
             'user_id' => 1,
+            'band_id' => 1,
             'main' => 1,
             'title' => 'Demo acoustic',
             'type' => 2,
             'file' => 'demo-band/JoleneTest-1585845075.mp3',
+            'filesize' => '497439'
         ]);
 
         //Liste Projets
@@ -297,6 +319,7 @@ class DatabaseSeeder extends Seeder
         DB::table('songsubs')->insert([
             'song_id' => 7,
             'user_id' => 4,
+            'band_id' => 1,
             'main' => 1,
             'title' => 'Yellow - Original',
             'type' => 1,
@@ -316,10 +339,12 @@ class DatabaseSeeder extends Seeder
         DB::table('songsubs')->insert([
             'song_id' => 8,
             'user_id' => 3,
+            'band_id' => 1,
             'main' => 1,
             'title' => 'Beatitbacktr.mp3',
             'type' => 2,
             'file' => 'demo-band/Beatitbacktr-1585126956.mp3',
+            'filesize' => '631758',
         ]); 
 
         //Tracy Chapman - Fast car
@@ -335,6 +360,7 @@ class DatabaseSeeder extends Seeder
         DB::table('songsubs')->insert([
             'song_id' => 9,
             'user_id' => 5,
+            'band_id' => 1,
             'main' => 1,
             'title' => 'Youtube link',
             'type' => 1,
@@ -354,6 +380,7 @@ class DatabaseSeeder extends Seeder
         DB::table('songsubs')->insert([
             'song_id' => 10,
             'user_id' => 3,
+            'band_id' => 1,
             'main' => 1,
             'title' => 'N.Simone Ytb',
             'type' => 1,
@@ -373,12 +400,24 @@ class DatabaseSeeder extends Seeder
         DB::table('songsubs')->insert([
             'song_id' => 11,
             'user_id' => 2,
+            'band_id' => 1,
             'main' => 1,
             'title' => 'Dream On Acoustic',
             'type' => 2,
             'file' => 'demo-band/Dreamonintro-1585844017.mp3',
+            'filesize' => '750172'
         ]);
-     
+
+
+
+
+
+        
+
+
+        
+        factory(App\User::class, 3)->create(); //mettre 10 users pour être raccord avec le nombre de songs sinon erreur sur song.show
+
 
         //30 autre morceaux pour les autres groupes et user SANS SONGSUBS
 
@@ -465,8 +504,6 @@ class DatabaseSeeder extends Seeder
             'name' => 'Free',
             'slug' => 'free',
             'datavol' => '500Mo',
-            'stripe_plan' => '',
-            'cost' => '',
             'bitval' => '5000000',
         ]);
 

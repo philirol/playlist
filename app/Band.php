@@ -5,12 +5,17 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
-
+//testgit
 class Band extends Model
 {
     protected $fillable = ['bandname', 'slug']; 
     public $incrementing = false;
     protected $appends = array('sizedir');
+    
+    public function songsubs()
+    {
+        return $this->hasMany(Songsub::class);
+    }
     
     public function songs()
     {

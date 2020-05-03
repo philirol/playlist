@@ -17,8 +17,8 @@ class SongsubRepository
 	}
 
     public function storeFile(Songsub $songsub){
-        $user = Auth::user();    
-        $song = session('song');           
+        $user = Auth::user();
+        $song = session('song');       
         //source de ce qui suit : https://makitweb.com/how-to-upload-a-file-in-laravel/
         $file = request()->file('file');         
         $filename = $file->getClientOriginalName();
@@ -48,17 +48,20 @@ class SongsubRepository
                     $withoutExt = pathinfo($filename, PATHINFO_FILENAME); //suppression de l'extension for that final formatting : filename-time.ext
                     $filenameToStorage = $withoutExt . '-' .time() . '.' . $extension;                
                     $band_folder = $user->band->slug;
+                    // dd($tempPath);
                     $paths = $file->storeAs($band_folder, $filenameToStorage, 'public');
+                    // dd($paths);
                     $songsub->file = $paths;         
                     $songsub->title = $filename;
+                    $songsub->filesize = $fileSize; 
                     //type 2 files will be treated with html5 audio player (wma, aiff, mid not supported by the player)  
                     return $songsub;
                     
                 } else {
-                    return redirect()->action('SongController@show', ['id' => $song->id])->with('messageDanger', __('Taille des fichiers limités à ').$maxFileSize)->send();
+                    return redirect()->action('SongController@show', [$song->id])->with('messageDanger', __('Taille des fichiers limités à ').$maxFileSize)->send();
                 }
             } else {
-                return redirect()->action('SongController@show', ['id' => $song->id])->with('messageDanger', __('Extension de fichier invalide'))->send();
+                return redirect()->action('SongController@show', [$song->id])->with('messageDanger', __('Extension de fichier invalide'))->send();
             } 
         } else {
             return redirect()->action('SongsubController@showPlan')->with('messageDanger', __('Espace de stockage insuffisant'))->send();

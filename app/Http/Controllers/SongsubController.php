@@ -74,6 +74,8 @@ class SongsubController extends Controller
         
         $songsub->user()->associate(Auth::user());
         $songsub->song()->associate($song);
+        
+        $songsub->band_id = Auth::user()->band_id;
 
         //comptage des songsubs et update du nombre dans le champ songsub de la table song
         $countsongsub = Songsub::where('song_id', $song->id)->count(); 
@@ -162,24 +164,21 @@ class SongsubController extends Controller
     }
 
     public function storedfilelist(){
-        /* $array_id_users_band = User::where('band_id', Auth::user()->band->id)->get()->modelKeys();
-        dd($array_id_users_band);
-        $bandfiles = DB::table('songsubs')->where('file','<>', NULL)->whereIn('user_id',$array_id_users_band)->get();
-        $songsubs = Songsub::all();
-        $bandfiles = $songsubs->contains(Songsub::whereIn('user_id', $array_id_users_band)->get());
-        dd($bandfiles); */
 
         $files_with_size = array();
-        // $files = Storage::disk('public'). Auth::user()->band->slug;
         $files = Storage::disk('public')->files(Auth::user()->band->slug);
-        // dd($files);
-
+        $size1= 0;        
         foreach ($files as $key => $file) {
-            $files_with_size[$key]['name'] = $file;
-            $files_with_size[$key]['size'] = Storage::disk('public')->size($file);
+            $size1 += $files_with_size[$key]['size'] = Storage::disk('public')->size($file);            
         }
-        // dd($files_with_size);
-        return view('songsub.storedfilelist', compact('files_with_size'));
-    }
-    
+        
+        $songsubs = Songsub::type()->where('band_id', Auth::user()->band_id)->get();
+        $size2 = $songsubs->sum('filesize');
+        
+        // size1 gives the total size of the band directory
+        // size2 do the same but with the values registered in the database for each file
+        // both must give the same value
+
+        return view('songsub.storedfilelist', compact('songsubs', 'size1', 'size2'));
+    }    
 }

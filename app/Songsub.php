@@ -21,11 +21,21 @@ class Songsub extends Model
         return $this->belongsTo(Song::class);
     }
 
-    public function scopeUserId($query){
-        $array_id_users_band = User::where('band_id', Auth::user()->band->id)->get()->modelKeys();
+    public function band()
+    {
+        return $this->belongsTo(Band::class);
     }
 
-    public function getFileSize(){
+    public function scopeType($query)
+    {
+        return $query->where('type', '>', 1);
+    }
+
+/*     public function scopeUserId($query){
+        $array_id_users_band = User::where('band_id', Auth::user()->band->id)->get()->modelKeys();
+    } */
+
+    public function getFileSize(){ //old, replace by the value filesize in db
         return Storage::size($this->file);
     }
 
