@@ -2,12 +2,20 @@
 
 @section('content')
 @include('includes.songhead')
-
-    <a href="{{ route('songs.edit', $song->id) }}" class="btn btn-secondary my-3">@lang('Editer')</a>
+<br><br>
+@if ($song->comments)
+<h6>@lang('Notes des membres'):</h6>
+<div class="jumbotron">
+{{ $song->comments }}
+</div>
+@else
+<p><span class="note">@lang('Il n\'y a pas de commentaires pour ce morceau')</span></p>
+@endif
+    <a href="{{ route('songs.edit', $song->id) }}" class="btn btn-secondary my-3">@lang('Modifier')</a>
     <form action="{{ route('songs.destroy', ['song' => $song->id]) }}" method="POST" style="display: inline;">
         @csrf
         @method('DELETE')
-        <button type="submit" class="btn btn-danger">@lang('Supprimer')</button>
+        <button type="submit" class="btn btn-danger">@lang('Supprimer le morceau')</button>
     </form>
     <hr>
 @section('media')
@@ -38,7 +46,7 @@
                             <td>
                             <a href="#" onClick="javascript:vidSwap('{{ asset('storage/' . $songsub->file) }}'); return false;"><img src="{{asset('images/file2.png')}}" alt="Play" title="@lang('Jouer dans le lecteur')"></a>
                             </td> 
-                            <td>
+                            <td class="d-none d-lg-block">
                                 <a href="{{ route('songsub.dwnld', ['songsub' => $songsub->id]) }}"><img src="{{asset('images/dwnld.png')}}" width="22" height="22" alt="@lang('Télécharger')" title="@lang('Télécharger')"></a>
                             </td>
                             @break

@@ -11,8 +11,7 @@
   </tr>
 </table>
 </div>
-
-<p class="text-muted font-italic">@lang('Création du groupe le') {{ Carbon\Carbon::parse($band->created_at)->format('d m Y') }} {{-- - {{ $band->ville->ville_nom }} ({{ $band->ville->ville_code_postal }}) --}}</p>
+<p class="text-muted font-italic">@lang('Création du groupe le') {{ Carbon\Carbon::parse($band->created_at)->formatLocalized('%d %B %Y') }} {{-- - {{ $band->ville->ville_nom }} ({{ $band->ville->ville_code_postal }}) --}}</p>
     @can('update', $band)
         <ul class="list-inline">
         <small>
@@ -51,7 +50,7 @@
                     <small class="text-muted">(@lang('Créé le') {{ Carbon\Carbon::parse($user->created_at)->format('d m y') }})</small>
                     <p class="card-text"><u>{{ $user->email }}</u></p>
                     @can('delete',$user)
-                    <small><a href="{{ route('user.delete', $user->id) }}" onclick="return delAsk();">@lang('supprimer')</a></small>
+                    <small><a href="{{ route('user.delete', $user->id) }}">@lang('supprimer')</a></small>
                     @endcan  
                     
                                   
@@ -63,13 +62,4 @@
 
 <a href="{{ action('SongController@index', '1') }}" class="btn btn-primary">@lang('Retour Playlist')</a>
 
-@endsection
-
-@section('scripts')
-<script type="text/javascript">
-    function delAsk() {
-      if(!confirm('Supprimer le membre ?'))
-      event.preventDefault();
-  }
-</script>        
 @endsection

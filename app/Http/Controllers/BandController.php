@@ -124,15 +124,29 @@ class BandController extends Controller
         foreach ($band->users as $user){ 
             foreach($user->songs as $songtodelete){
             $this->deleteSong($songtodelete);
-            }
+            }           
+        }
+
+        foreach ($band->users as $user){ 
+            foreach($user->donations as $don){
+                $don->delete();
+                }       
+        }
+        foreach ($band->users as $user){ 
+            foreach($user->invitations as $invit){
+                $invit->delete();
+                }       
+        }
+
+        foreach ($band->users as $user){ 
             if($user->stripe_id <> null){
                 Stripe::setApiKey(env("STRIPE_SECRET"));
                 $customer = \Stripe\Customer::retrieve($user->stripe_id);
                 $customer->delete();
             }
             DB::table('subscriptions')->where('user_id',$user->id)->update(['stripe_status' => 'user_deleted', 'updated_at' => date('Y-m-d G:i:s')]);
-            $user->delete();            
-        }    
+            $user->delete();           
+        }
         $band->delete();
         return redirect()->route('login');
     }

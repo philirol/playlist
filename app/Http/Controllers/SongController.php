@@ -23,7 +23,7 @@ class SongController extends Controller
 
     public function __construct()
     {    
-        $this->middleware('members')->except(['index','update_order','show','printPlaylist','edit','create']); 
+        $this->middleware('members')->except(['index','indexByVisitors','update_order','show','printPlaylist','edit','create']); 
         //permet ces fonctions à l'user non authentifié
         // $this->middleware('admin');
         //only : fonctions qui seront non permises aux users non admin    
@@ -31,7 +31,7 @@ class SongController extends Controller
 
     private function chechBandId(){
         if(!Auth::check()){
-            $band_id = 1; //pour groupe démo
+            $band_id = session('band_id', 1); //session('band_id') can be provided by VisitosMiddleware, if not, we give by default the id of the demo group
         } elseif (Auth::check() && !Auth::user()->admin) {
             $band_id = Auth::user()->band->id;
         } else {
@@ -71,6 +71,14 @@ class SongController extends Controller
         session()->exists('filetoplay') ? $url = session('filetoplay')->url : $url = 'https://www.youtube.com/watch?v=6Zv6M2WMY2s';
 
         return view('songs.index', compact('songs', 'bandname', 'url'));
+    }
+
+    public function indexByVisitors($slug){
+        $band = Band::where('slug', $slug)->first();
+        $bandname = $band->bandname; 
+        $songs = Song::where('band_id', $band->id)->orderBy('order', 'ASC')->get();
+        // dd($songs);
+        return view('songs.visitors', compact('songs', 'bandname'));
     }
 
     public function create()

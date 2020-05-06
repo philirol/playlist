@@ -4,7 +4,7 @@
 <div class="bg-info rounded-lg">
 <table class="table text-white">
   <tr>
-    <td class="align-middle"><h4>Contactez-nous</h4></td>
+    <td class="align-middle"><h4>@lang('Contactez-nous')</h4></td>
   </tr>
 </table>
 </div>
@@ -38,7 +38,7 @@
                     </div>
                 @enderror
             </div>
-            <button type="submit" class="btn btn-primary">Envoyer mon message</button>
+            <button type="submit" class="btn btn-primary">@lang('Envoyer')</button>
         </form>
     @endif
 @endsection

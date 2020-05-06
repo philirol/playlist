@@ -14,20 +14,26 @@
 
 <h3>Utilisation du site</h3>
 <p>L'utilisateur s'engage à ne pas utiliser le site à des fins illicites ou commerciales.</p>
-<p>Les services payants sur Playlist sont le don, qui représente un soutien financier en contrepartie du service rendu, et les formules d'abonnement, proposant des volumes de stockage des fichiers.
-<p>N'importe quel membre du groupe pourra souscrire un abonnement pour le compte du groupe.<br>
-Si un Utilisateur est supprimé par lui-même ou par la suppression du groupe, son abonnement est supprimé mais la période est dûe et ne sera pas remboursée.
+<p>Les services payants sur Playlist sont :
+<ul>
+    <li>Le don, qui représente un soutien financier en contrepartie du service rendu,</li>
+    <li>Les formules d'abonnement, proposant des volumes de stockage des fichiers.</li>
+</ul>
+<p>Tous les membres du groupe peuvent souscrire un abonnement pour le compte du groupe.<br>
+Si l'utilisateur est supprimé, son abonnement le sera aussi. Le groupe ne pourra plus bénéficicier de cet abonnement.<br>
+Un Utilisateur ne peut être supprimé que par son leader.<br>
 </p>
 
 <h3>Prix des abonnements</h3>
 <p>Playlist se réserve le droit de modifier les prix des abonnements et des volumes de stockage par formule. L'abonnement annuel en vigueur ne sera pas affecté par ce changement.<br>
-La mise à jour u volume de stockage est immédiat après l'abonnement.
-
-Tout abonnement est dû pour le restant de l'année. Les renouvellements sont fait automatiquement. Le compte de l'Utilisateur est débité tout les ans à la date d'anniversaire de l'abonnement.
-Pour interrompre l'abonnement il suffit de 
+La mise à jour du volume de stockage est immédiat après l'abonnement.<br>
+En cas de suppression d'un abonnement, celui-ci est dû pour le restant de l'année.<br>
+Le renouvellement des abonnements est reconductible tacitement. L'abonné peut supprimer son abonnement sur le site directement ou en envoyant sa demande à vedas@informatique.fr.<br>
 </p>
 <h3>Preuve de transaction</h3>
-<p>Le paiement en ligne par carte bancaire est réalisé par l’intermédiaire de la société Stripe. Les données enregistrées par le système de paiement Stripe constituent la preuve des transactions financières réalisées par carte bancaire. Stripe ne transmet pas les données de carte bancaire à Playlist, la transaction de fait directement de l'Utilisateur à Stripe.
+<p>Le paiement en ligne par carte bancaire est réalisé par l’intermédiaire de la société <a href="https://stripe.com/fr/" target="_blank">Stripe.com</a>.
+<br>
+Les données enregistrées par le système de paiement Stripe constituent la preuve des transactions financières réalisées par le ou les moyens de paiement de l'abonné.
 </p>
 
 <h3>Facturation</h3>

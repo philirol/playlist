@@ -15,7 +15,7 @@
   <tbody id="tablecontents"> {{-- tbody for sorting list js --}}
     @foreach($songs as $song)
       <tr class="row1" data-id="{{ $song->id }}">
-        <th><img src="{{asset('images/updownarrow.png')}}"></th>
+        <th class="d-none d-lg-table-cell"><img src="{{asset('images/updownarrow.png')}}"></th>
         <td><a href="{{ route('songs.show', $song->id) }}" title="{{ $song->songsub }} @lang('Fichier(s)/lien(s)')">{{ $song->title }}</a></td>
         @if($song->comments)
         <td><img src="{{asset('images/comment.png')}}" title="{{ substr($song->comments, 0, 50) }}..."></td>
@@ -56,11 +56,11 @@
         </td>
       </tr>
     @endforeach
-      <tr>
-        <td colspan="4"><img src="{{asset('images/uparrow.png')}}"><span class="align-bottom">&nbsp;&nbsp;<span class="note">@lang('Ordonner les lignes avec')</span>&nbsp;&nbsp;<img src="{{asset('images/updownarrow.png')}}"></span></td>
-      </tr>
     </tbody>
 </table>
+<div class="d-none d-lg-block">
+&nbsp;&nbsp;<img src="{{asset('images/uparrow2.png')}}"><span class="align-bottom">&nbsp;&nbsp;<span class="note">@lang('Ordonner les lignes avec')</span>&nbsp;&nbsp;<img src="{{asset('images/updownarrow.png')}}"></span></td>
+</div>
 {{--<button class="btn btn-success btn-sm" onclick="window.location.reload()">Réord.</button> --}}
 
 

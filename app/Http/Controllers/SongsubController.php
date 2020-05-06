@@ -22,7 +22,7 @@ class SongsubController extends Controller
     
     public function __construct(SongsubRepository $songsubRepository) 
     {   
-        $this->middleware('members')->except(['index','create']);   
+        $this->middleware('members')->except(['index','create','edit']);   
         $this->songsubRepository = $songsubRepository;           
     }
     
@@ -172,7 +172,7 @@ class SongsubController extends Controller
             $size1 += $files_with_size[$key]['size'] = Storage::disk('public')->size($file);            
         }
         
-        $songsubs = Songsub::type()->where('band_id', Auth::user()->band_id)->get();
+        $songsubs = Songsub::type()->where('band_id', Auth::user()->band_id)->orderBy('created_at','desc')->get();
         $size2 = $songsubs->sum('filesize');
         
         // size1 gives the total size of the band directory

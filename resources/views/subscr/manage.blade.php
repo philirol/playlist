@@ -25,16 +25,18 @@
         <b>Les fichiers présents sur la playlist seront supprimés à hauteur de la formule free (par ordre d'ancienneté).</b><br>
       </p>
       <div class="jumbotron">
-      <p class="note">
+      <span class="note">
         By deleting your subscription, the available storage for your band files will return to the free limit (500Mo).
         <br>
         Your subscription will be definitely deleted and you won't be charged for the next period.<br>
-        <b>Your exceeding files up to free plan will be erased (oldest files will be erased)</b><br>
-      </p>
+        <b>Your exceeding files up to free plan will be erased (oldest files will be erased).</b>
+      </span>
       </div>
+        <a href="{{ route('storedfilelist') }}" class="note">@lang('Liste des fichiers')</a>
+        <br><br>
       <p>
         <a href="{{ route('subscr.delete') }}" type="button" class="btn btn-danger">@lang('Supprimer')</a>
-        <a href="javascript:history.back()" class="btn btn-primary"><span class="glyphicon glyphicon-circle-arrow-left"></span> @lang('Retour')</a>
+        <a href="javascript:history.back()" class="btn btn-outline-dark"><span class="glyphicon glyphicon-circle-arrow-left"></span> @lang('Retour')</a>
     </p>
     @endforeach
     {{-- $userCustomer --}}

@@ -17,7 +17,7 @@ class CreateBandsTable extends Migration
             $table->bigIncrements('id'); 
             $table->tinyInteger('id_plan')->nullable();
             $table->string('bandname');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->boolean('freeupload')->default(false);
             $table->tinyInteger('id_department')->nullable();
             $table->string('city')->nullable();

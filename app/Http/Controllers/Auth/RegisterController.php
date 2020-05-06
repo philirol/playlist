@@ -50,9 +50,13 @@ class RegisterController extends Controller
 
     protected function createLead(array $data)
     {             
+        $slug = Str::slug($data['bandname'], '-');
+            do{$slug = $slug.rand(1,99);}
+            while(\App\Band::firstwhere('slug',$slug));
+                
         $id = DB::table('bands')->insertGetId([
             'bandname' => $data['bandname'],
-            'slug' => Str::slug($data['bandname'], '-'),
+            'slug' => $slug,
         ]);
         
         return User::create([
@@ -87,7 +91,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             // 'band_id' => ['required', 'integer'],
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'bandname' => ['required', 'string', 'min:2']
         ]);
@@ -97,7 +101,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }

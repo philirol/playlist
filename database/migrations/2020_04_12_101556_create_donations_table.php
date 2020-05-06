@@ -18,9 +18,7 @@ class CreateDonationsTable extends Migration
             $table->unsignedBigInteger('user_id')->nullable(); 
             $table->foreign('user_id')
                 ->references('id')
-                ->on('users')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->on('users');
             $table->integer('amount');
             $table->string('stripe_token')->collation('utf8mb4_bin');
             $table->timestamps();

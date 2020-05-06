@@ -4,8 +4,9 @@
 <a class="navbar-brand" href="">Mentions légales</a>
 			<a class="navbar-brand" href="">Politique de confidentialité</a>
 			
-TEST
+SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`playlist7b`.`invitations`, CONSTRAINT `invitations_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) (SQL: delete from `users` where `id` = 12) 
 
+SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`playlist7b`.`invitations`, CONSTRAINT `invitations_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)) (SQL: delete from `users` where `id` = 12) 
 //free
 MAIL_DRIVER=smtp ou log
 MAIL_HOST=smtp.free.fr

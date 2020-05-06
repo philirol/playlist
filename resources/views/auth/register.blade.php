@@ -10,12 +10,14 @@
             Ceci est le formulaire de création d'un groupe et de son "leader" sur Playlist.<br>
             Une fois le groupe créé, le leader pourra inviter les autres membres depuis cette <a href="{{ route('band.show') }}">page.</a><br>
             <u>Si le groupe est déja créé</u>, vous devez attendre de recevoir le mail d'invitation du leader.
-            </p><br>
-            <p class="note">Welcome,<br>
-            Here below the band leader subscription form.<br>
-            Once the band is created, the leader invite others members by sending them emails from this <a href="{{ route('band.show') }}">page</a>.<br>
-            It means if the band is already created, the members have to wait for receiving this email.
-            </p><br>
+            </p>
+            <div class="jumbotron">
+                <span class="note">Welcome,<br>
+                Here below the band leader subscription form.<br>
+                Once the band is created, the leader invite others members by sending them emails from this <a href="{{ route('band.show') }}">page</a>.<br>
+                It means if the band is already created, the members have to wait for receiving this email.
+                </span>
+            </div>
         @else
             <p>Bonjour et bienvenu(e) à toi,<br>
             Suite à l'invitation de {{ $item->user->name }}, merci de saisir vos identifiants.<br>

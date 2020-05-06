@@ -8,6 +8,7 @@ use App\Plan;
 use Stripe\Stripe;
 use App\Traits\SubscriptionControlTrait;
 use Illuminate\Support\Facades\DB;
+use App\Notifications\Payment;
 
 class SubscriptionController extends Controller
 {
@@ -26,7 +27,6 @@ class SubscriptionController extends Controller
 
         return view('subscr.index', compact('users'));
         // return view('stripe.index', with('users', json_decode($users, true)));
-
         // $stripe_customers = \Stripe\Customer::all(['limit' => 3]);     
         // return view('stripe.index', with('stripe_customers', json_decode($stripe_customers, true)));
     }
@@ -56,6 +56,7 @@ class SubscriptionController extends Controller
         $band = $user->band;
         $band->id_plan = $plan->id;
         $band->save();
+        $user->notify(new Payment('subscription'));
             
         return redirect('songs')->with('message', __('Merci pour votre abonnement'));
         // return back()->with('message', __('Votre abonnement a bien été pris en compte'));
@@ -63,7 +64,7 @@ class SubscriptionController extends Controller
 
     public function show(){
         $userCustomer = $this->userCustomer(Auth::user());
-        return view('plans.manage', compact('userCustomer'));
+        return view('subscr.manage', compact('userCustomer'));
     }
 
     public function delete(){
@@ -71,5 +72,6 @@ class SubscriptionController extends Controller
         $subscription = \Stripe\Subscription::retrieve($subscription_id);
         $subscription->delete();
         DB::table('subscriptions')->where('user_id', Auth::user()->id)->update(['stripe_status' => 'subscr_deleted']);
+        return view('subscr.confirmdeleted');
     }
 }

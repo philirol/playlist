@@ -19,15 +19,11 @@ class CreateSongsTable extends Migration
             $table->unsignedBigInteger('band_id')->nullable();   
                 $table->foreign('band_id')
                 ->references('id')
-                ->on('bands')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');  
+                ->on('bands');  
             $table->unsignedBigInteger('user_id')->nullable();    
             $table->foreign('user_id')
                 ->references('id')
-                ->on('users')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');            
+                ->on('users');            
             $table->string('title', 70);         
             $table->integer('order')->default(0);
             $table->boolean('list')->default(true);

@@ -8,7 +8,7 @@
   </tr>
 </table>
 </div>
-
+Supprimer les clients ici les suppriment sur Stripe.
 <table class="table table-striped">
     <!-- <thead class="thead-dark">
         <tr>

@@ -8,9 +8,12 @@ use Illuminate\Support\Facades\Auth;
 use Image;
 use Stripe\Stripe;
 use Illuminate\Support\Facades\DB;
+use App\Traits\SubscriptionControlTrait;
 
 class UserController extends Controller
 {
+    use SubscriptionControlTrait;
+
     public function __construct()
     {
         $this->middleware('admin', ['only' => 'indexByAdmin','customerdestroy']);
@@ -21,7 +24,6 @@ class UserController extends Controller
     public function index()
     {
         return $this->show(Auth::user());
-
     }
     
     public function indexByAdmin($slug, $sort = null)
@@ -52,14 +54,22 @@ class UserController extends Controller
         return view('user.edit', compact('user'));
     }
 
-    public function destroy(User $user){
-        $this->authorize('delete', $user);
+    public function delete(User $user){
+        $this->UserHasValidSubscription($user) ? $subscr=1 : $subscr=0;
+        return view('user.delete', compact('user', 'subscr'));
+    }
 
+    public function destroy(User $user){
+
+        $this->authorize('delete', $user);
         //update items which belonged to the user
         DB::table('songsubs')->where('user_id',$user->id)->update(['user_id' => Auth::user()->id]);
         DB::table('songs')->where('user_id',$user->id)->update(['user_id' => Auth::user()->id]);
         DB::table('subscriptions')->where('user_id',$user->id)->update(['stripe_status' => 'user_deleted']);
-        
+
+        foreach($user->donations as $don){
+            $don->delete();
+        }        
         $user->delete();
 
         if($user->stripe_id <> null){ 

@@ -14,8 +14,11 @@
         <div class="col-md-8">
             <p>Indiquer ci-dessous l'email du membre à inviter.<br>
             Il recevra un email avec un bouton de validation pour accepter l'invitation.</p>
-            <p class="note">Enter the email of a partner to join the band.<br>
-            He will receive an email with a validation button to accept your invitation.</p><br>
+            <div class="jumbotron">
+            <span class="note">Enter the email of a partner to join the band.<br>
+            He will receive an email with a validation button to accept your invitation.
+            </span>
+            </div>
         
             <div class="card">
                 <div class="card-body">

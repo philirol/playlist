@@ -19,9 +19,7 @@ class CreateUsersTable extends Migration
             $table->unsignedBigInteger('band_id')->default(0);  
                 $table->foreign('band_id')
                 ->references('id')
-                ->on('bands')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->on('bands');
             $table->string('name');
             $table->boolean('leader')->default(false);
             $table->boolean('admin')->default(false);

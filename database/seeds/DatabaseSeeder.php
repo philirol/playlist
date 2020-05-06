@@ -22,13 +22,13 @@ class DatabaseSeeder extends Seeder
 
         DB::table('bands')->insert([
             'bandname' => 'The Rolling Fools',
-            'slug' => 'rolling_fools',
+            'slug' => 'rolling-fools',
             'freeupload' => '1',
         ]);
 
         DB::table('bands')->insert([
             'bandname' => 'Mothers if Invasion',
-            'slug' => 'mothers_invasion',
+            'slug' => 'mothers-invasion',
             'freeupload' => '0',
         ]);
 

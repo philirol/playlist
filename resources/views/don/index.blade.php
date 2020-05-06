@@ -26,7 +26,7 @@
                     </div>
                     @enderror
                 </div>
-                    <button type="submit" class="btn btn-primary">@lang('Valider')</button>
+                    <button type="submit" class="btn btn-dark">@lang('Valider')</button>
                 </form>
                 @else
                 <p>Pour effectuer un don, meci de vous  <a href="{{ route('login') }}">inscrire</a> ou de vous <a href="{{ route('register') }}">connecter</a>.</p>

@@ -25,10 +25,12 @@
 L'éditeur du site Playlist se dégage de toute responsabilité en cas de modification ou d'appropriation des fichiers après téléchargement par les autres membres du groupe.</p>
 
 <h3>Conservation des données personnelles</h3>
-<p>Les données personnelles de l'utilisateur sont conservées jusqu'à sa suppression, effectuée sur le site par lui-même ou par l'action de son leader par la suppression du groupe.
+Les données personnelles de l'utilisateur sont conservées jusqu'à sa suppression, effectuée sur le site par lui-même ou par l'action de son leader par la suppression du groupe.
+<br>
+Des éléments de facturation pourront être conservées si l'utilisateur a effectué une transation financière, conformément à l'article 123-22 du code du commerce.
+<br>
+Les données bancaires utilisées par l'utilisateur au moment de son abonnement sont enregistrées et conservées uniquement par Stripe, pour le renouvellement annuel de la souscription.
 </p>
-<p>Des éléments de facturation pourront être conservées si l'utilisateur a effectué une transation financière, conformément à l'article 123-22 du code du commerce.</p>
-<p>Les données sont stockées par les services d'hébergement de la société partenaire mentionnée sur la page des <a href="{{ URL::to('/ML') }}">mentions légales</a></p>
 
 <h3>Droit d'accès aux données personnelles</h3>
 <p>Conformément à la loi 78-17 du 6 janvier 1978, connue sous le nom de loi informatique et libertés, l'utilisateur a le droit d'accès, de rectification et de suppression de ses données stockées.<br>

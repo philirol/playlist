@@ -8,17 +8,17 @@
           <div class="col-md-8">
                     <div class="card">
                         <div class="card-header" >
-                            <h4 class="float-left">Payment Details </h4>
-                            <div class="float-right" ><img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png"></div>
+                            <h5 class="float-left">@lang('Détail du paiement')</h5>
+                            <div class="float-right" ><img class="img-responsive pull-right" src="{{asset('images/stripe_cb_orig.png')}}" width="150" height="47"></div>
                         </div>
                         <div class="card-body" >
-                            <h5 class="card-title">Credit or debit card</h5><br><br>
+                            <h5 class="card-title">@lang('Carte de crédit/débit')</h5><br>
                             <div id="card-element"></div>
                             <div id="card-errors" role="alert"></div><br><br>
-                            <button class="btn btn-primary btn-lg btn-block" type="submit">@lang('Versement de') {{session('amount')}} €</button>
+                            <button class="btn btn-dark btn-lg btn-block" type="submit">@lang('Faire un don de') {{session('amount')}} €</button>
                         </div>
                     </div><br>
-                    <a href="javascript:history.back()" class="btn btn-primary"><span class="glyphicon glyphicon-circle-arrow-left"></span> @lang('Retour')</a> 
+                    <a href="javascript:history.back()" class="btn btn-outline-dark"><span class="glyphicon glyphicon-circle-arrow-left"></span> @lang('Retour')</a> 
           </div>
     </div>
 </div>                   

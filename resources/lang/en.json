@@ -49,13 +49,17 @@
 
     "Autoriser mon IP ": "Allow my IP ",
 
+    "Avant d'utiliser ce site veuillez trouver le lien de vérification dans vos emails": "Before proceeding, please check your email for a verification link.",
+
     "Bienvenue sur Playlist ": "Welcome on Playlist ",
+
+    "Bienvenu sur Playlist, le site de Playlist des musiciens.\n    Cliquez sur Playlist ou Projets en haut à gauche et visitez la partie démo." : "test",
 
     "Bonjour :)": "Hello!",
 
     "Browse pour changer": "Browse for change",
 
-    "Avant d'utiliser ce site veuillez trouver le lien de vérification dans vos emails": "Before proceeding, please check your email for a verification link.",
+    "Carte de crédit/débit": "Credit or debit card",
 
     "Catégorie": "Category",
 
@@ -81,6 +85,8 @@
 
     "Connexion": "Login",
 
+    "Contactez-nous": "Contact us",
+
     "Contenu adulte": "Adult content",
 
     "Continuer": "Continue",
@@ -99,8 +105,6 @@
     
     "Créez votre playlist, enregistrez des liens, déposez vos fichiers par morceaux, etc.": "Set up your playlist and create all items per song...",
 
-    "Dans": "In",
-
     "de": "of",
 
     "Date création": "Created at",
@@ -117,9 +121,13 @@
 
     "Désabonnement": "Unsubscribing",
 
+    "Désolé, il n'y a pas de groupe correspondant à ce lien.": "We are sorry, any group correspond to this url.",
+
+    "Détail du Paiement": "Payment Details",
+
     "Don": "Donation",
 
-    "Durée : 1 an renouvelable tacitement": "Duration : one tacitly renewable year",
+    "Durée : 1 an": "Duration : one year",
 
     "Editer": "Edit",
 
@@ -136,6 +144,8 @@
     "En liste principale, désactivez pour modifier": "In main list, uncheck to change",
 
     "Envoi de la demande": "Send demand",
+
+    "Saisir les informations de votre carte bancaire": "Enter your credit card information",
 
     "Envoyer": "Send",
 
@@ -160,6 +170,8 @@
     "Fermer (Esc)": "Close (Esc)",
 
     "Faire un don": "Make a donation",
+
+    "Faire un don de": "Your donation for",
 
     "Fiche Utilisateur" : "User Card",
 
@@ -189,9 +201,13 @@
     
     "Gestion de votre abonnement": "Subscription management",
 
+    "Gratuit jusqu'à 500Mo": "Free up to 500Mo",
+
     "groupe": "band",
 
     "Groupe": "Band",
+
+    "Groupe inconnu": "Unknown band",
 
     "Groupes": "Bands",
 
@@ -261,9 +277,11 @@
 
     "Les membres du groupe seront avertis par mail de la modification" : "An email will be sent to all members to warn them for changes on the song",
 
-    "Liste des utilisateurs" : "Users list",
-
     "Liste des groupes" : "Bands list",
+
+    "Liste des fichiers" : "list of your files",
+    
+    "Liste des utilisateurs" : "Users list",
 
     "Marquer comme lu": "Mark as read",
 
@@ -273,7 +291,7 @@
 
     "Mentions légales": "Legal mentions",  
     
-    "Merci beaucoup pour votre don": "Thank you very much for your donation!",
+    "Merci pour votre don": "Thank you for your donation!",
 
     "Merci d'utiliser notre application": "Thank you for using our application!",
 
@@ -293,9 +311,11 @@
 
     "Mode maintenance": "Maintenance mode",
 
-    "Modifer le profil": "Profile update",
-
     "Modification morceau" : "Song modification ",
+    
+    "Modifier": "Modify",
+
+    "Modifier le profil": "Profile update",
 
     "Modifier l'album": "Update album",
 
@@ -353,6 +373,8 @@
 
     "Pagination : ": "Pagination: ",
 
+    " par ": " by ",
+
     "Photo": "Photo",
 
     "Photos": "Photos",
@@ -363,9 +385,11 @@
 
     "Politique de confidentialité": "Privacy policy",
 
-    "Posté par": "Posted by",
+    "Posté dans ": "Posted in",
 
     "Pour changer de mot de passe, ": "To change your password, ",
+    
+    "pour le plan ": "for plan ",
 
     "Pour le site :": "For site:",
 
@@ -411,6 +435,8 @@
 
     "Sélectionner un fichier": "Choose file",
 
+    "Sélectionner une photo": "Choose a photo",
+
     "Service temporairement indisponible ou en maintenance": "The server is currently unavailable",
 
     "Si vous n'avez pas créé de compte aucune action supplémentaire n'est requise": "If you did not create an account, no further action is required.",
@@ -426,14 +452,18 @@
     "Suivant (Flèche droite)": "Next (Right arrow key)",
 
     "Suppression du groupe": "Band deleting",
-
+    
     "Suppression de l'abonnement": "Subscription canceling",
+
+    "Suppression utilisateur": "User deleting",
 
     "supprimer": "delete",
 
     "Supprimer": "Delete",
 
     "Supprimer cette photo": "Delete this photo",
+
+    "Supprimer la photo": "Delete the photo",
 
     "Supprimer l'album": "Delete this album",
 
@@ -442,6 +472,8 @@
     "Supprimer la catégorie": "Category delete",
 
     "Supprimer le groupe": "Delete the Band",
+
+    "Supprimer le morceau": "Delete song",
 
     "Supprimer membre ?": "Really delete member ?",
 
@@ -477,17 +509,19 @@
 
     "Valider": "Send",
 
-    "Versement de": "Donation of",
-
     "Versement libre": "Free donation",
 
     "Veuillez utiliser le bouton ci-dessous pour vérifier votre adresse email.": "Please click the button below to verify your email address.",
 
     "Ville": "City",
 
+    "Voir l'abonnement": "See the subscription",
+
+    "Voir les fichiers du groupe": "See band files",
+
     "Voir les photos de ": "Show photos from ",
 
-    "Volume de stockage disponible pour cette formule": "Available storage volume for this plan",
+    "Volume disponible": "Available storage volume for this plan",
 
     "Volume des données stockées": "Storage datas stored",
 
@@ -496,6 +530,8 @@
     "Vos dons": "Your donations",
 
     "Votre abonnement a bien été pris en compte": "Your plan subscribed successfully",
+
+    "Votre abonnement a bien été supprimé.": "Your subscription has been canceled successfully.",
 
     "Votre groupe a déjà contracté un abonnement": "Your band has already a current subscription",
 
@@ -517,13 +553,17 @@
 
     "Vous n'avez aucun album pour le moment": "You have no album yet.",
 
+    "Vous n'avez effectué aucun don.": "You did any donation yet.",
+
     "Vous n'avez pas accès à la page demandée": "Page forbidden or unauthorized action.",
-
+    
     "Vous ne pouvez pas voter pour vos photos !": "You cannot vote for your photos!",
-
+    
     "Vous pouvez enregistrer cette page pour conserver vos données en utilisant le menu de votre navigateur.": "You can save this page to keep your data using your browser menu.",
-
+    
     "Vous recevez ce message parce que nous avons reçu une demande de renouvellement du mot de passe pour votre compte.": "You are receiving this email because we received a password reset request for your account.",
+    
+    "Vous serez débité de ": "You will be charged ",
 
     "Vraiment supprimer cet album ?": "Really delete this album",
 

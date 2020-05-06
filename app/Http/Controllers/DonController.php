@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Donation;
+use App\Notifications\Payment;
 
 class DonController extends Controller
 {
@@ -48,7 +49,9 @@ class DonController extends Controller
                         "description" => "Playlist donation by user_id ". $user->id                                              
                 ));                   
            }  
-        return back()->with('message', __('Merci beaucoup pour votre don'));
+           $user->notify(new Payment('donation'));
+
+        return back()->with('message', __('Merci pour votre don'));
     }
 
     public function historyDonation(){
