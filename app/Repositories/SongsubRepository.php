@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use App\Songsub;
 use App\Traits\SubscriptionControlTrait;
+use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
 
 class SongsubRepository
 {
@@ -55,19 +58,53 @@ class SongsubRepository
                     $songsub->title = $filename;
                     $songsub->filesize = $fileSize; 
                     //type 2 files will be treated with html5 audio player (wma, aiff, mid not supported by the player)  
-                    return $songsub;
+                    $this->save($songsub);
                     
                 } else {
-                    return redirect()->action('SongController@show', [$song->id])->with('messageDanger', __('Taille des fichiers limités à ').$maxFileSize)->send();
+                    $message = "Taille des fichiers limités à ".$maxFileSize;
+                    $this->redirect($song, $message);
                 }
             } else {
-                return redirect()->action('SongController@show', [$song->id])->with('messageDanger', __('Extension de fichier invalide'))->send();
+                $message = "Extension de fichier invalide";
+                $this->redirect($song, $message);
             } 
         } else {
-            return redirect()->action('SongsubController@showPlan')->with('messageDanger', __('Espace de stockage insuffisant'))->send();
-        } 
+            $message = "Espace de stockage insuffisant";
+            $this->redirect($song, $message);
+            } 
     }
-	
+
+    public function storeLink(Songsub $songsub, Request $request){
+        $songsub->url = $request->url;
+        $songsub->title = $request->title;
+        $songsub->type = 1;
+        $this->save($songsub);
+    }
+
+    public function save(Songsub $songsub){
+        $song = session('song');        
+        
+        $songsub->user()->associate(Auth::user());
+        $songsub->song()->associate($song);
+        
+        $songsub->band_id = Auth::user()->band_id;
+
+        //comptage des songsubs et update du nombre dans le champ songsub de la table song
+        $countsongsub = Songsub::where('song_id', $song->id)->count(); 
+        $countsongsub == null ? $songsub->main = 1 : ''; //main = 1 pour le       
+        $song->songsub = $countsongsub + 1;
+        $songsub->touch();
+
+        $song->touch();
+        $song->refresh();
+        $this->redirect($song);
+    }
+
+    public function redirect($song, $message = null){
+        if ($message == null){
+            return redirect()->route('songs.show', [$song])->send();
+        } else return redirect()->route('songs.show', [$song])->with('messageDanger', __($message))->send();
+    }
 }	
 
 

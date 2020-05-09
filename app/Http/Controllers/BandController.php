@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Band;
+use App\{Songsub, Media};
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Band as BandRequest;
 use Illuminate\Http\Request;
 use App\Traits\DeleteSong;
 use Stripe\Stripe;
+use Illuminate\Support\Facades\Storage;
 
 class BandController extends Controller
 {
@@ -71,6 +73,12 @@ class BandController extends Controller
     {
         Auth::check() ? $band = Auth::user()->band : $band = Band::find(1);
         return view('band.show', compact('band'));
+    }
+
+    public function showByVisitors($slug) //pour les users
+    {
+        $band = Band::firstWhere('slug',$slug);
+        return view('visitors.showband', compact('band'));
     }
 
     /**
@@ -150,9 +158,29 @@ class BandController extends Controller
         $band->delete();
         return redirect()->route('login');
     }
-}
-        
-        
-        
 
+    public function storedfilelist(){
+
+        $files_with_size = array();
+        $files = Storage::disk('public')->files(Auth::user()->band->slug);
+        $size1= 0;        
+        foreach ($files as $key => $file) {
+            $size1 += $files_with_size[$key]['size'] = Storage::disk('public')->size($file);            
+        }
+        
+        $songsubs = Songsub::type()->where('band_id', Auth::user()->band_id)->orderBy('created_at','desc')->get();
+        $size2a = $songsubs->sum('filesize');
+        
+        $medias = Media::where('band_id', Auth::user()->band_id)->get();
+        $size2b = $medias->sum('filesize');
+
+        $size2 = $size2a + $size2b;
+        
+        // size1 gives the total size of the band directory
+        // size2 do the same but with the values registered in the database for each file
+        // both must give the same value
+
+        return view('band.storedfilelist', compact('songsubs', 'medias', 'size1', 'size2a', 'size2b'));
+    } 
+}
 

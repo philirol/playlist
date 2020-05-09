@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use App\Traits\SubscriptionControlTrait;
-use Illuminate\Support\Facades\Storage;
 
 class SongsubController extends Controller
 {
@@ -54,38 +53,20 @@ class SongsubController extends Controller
 
     public function store(Request $request)
     { 
-        $song = session('song');        
-        $songsub = new Songsub;
-        
+        $songsub = new Songsub;        
         $this->mainSongsub($request->main, $songsub);
         
-        if($request->testfile != null){ 
-            
+        if($request->testfile != null){             
             $this->validatorFile();
             $this->songsubRepository->storeFile($songsub);
+            // if( ($this->songsubRepository->storeFile($songsub)) instanceof \App\Songsub)
         }
 
         if($request->testfile == null){
             $this->validatorLink();
-            $songsub->url = $request->url;
-            $songsub->title = $request->title;
-            $songsub->type = 1;
+            $this->songsubRepository->storeLink($songsub, $request);
         }
         
-        $songsub->user()->associate(Auth::user());
-        $songsub->song()->associate($song);
-        
-        $songsub->band_id = Auth::user()->band_id;
-
-        //comptage des songsubs et update du nombre dans le champ songsub de la table song
-        $countsongsub = Songsub::where('song_id', $song->id)->count(); 
-        $countsongsub == null ? $songsub->main = 1 : ''; //main = 1 pour le       
-        $song->songsub = $countsongsub + 1;
-        $songsub->touch();
-
-        $song->touch();
-        $song->refresh();
-        return redirect()->action('SongController@show', [$song->id]);
     }
 
     public function download(Songsub $songsub)
@@ -161,24 +142,5 @@ class SongsubController extends Controller
         DB::table('songs')->where('id', $songsub->song_id)->update(['songsub' => $songsub->song->songsub - 1]); //removing 1 to the songsub number
         
         return back()->with('message', __('L\'élément a bien été supprimé'));
-    }
-
-    public function storedfilelist(){
-
-        $files_with_size = array();
-        $files = Storage::disk('public')->files(Auth::user()->band->slug);
-        $size1= 0;        
-        foreach ($files as $key => $file) {
-            $size1 += $files_with_size[$key]['size'] = Storage::disk('public')->size($file);            
-        }
-        
-        $songsubs = Songsub::type()->where('band_id', Auth::user()->band_id)->orderBy('created_at','desc')->get();
-        $size2 = $songsubs->sum('filesize');
-        
-        // size1 gives the total size of the band directory
-        // size2 do the same but with the values registered in the database for each file
-        // both must give the same value
-
-        return view('songsub.storedfilelist', compact('songsubs', 'size1', 'size2'));
-    }    
+    }   
 }

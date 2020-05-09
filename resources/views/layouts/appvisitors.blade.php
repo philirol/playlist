@@ -14,8 +14,18 @@
     <!-- <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet"> -->
 
-    <script src="{{ asset('js/app.js') }}"></script> 
-    
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+        function vidSwap(vidURL) {
+        var myVideo = document.getElementsByTagName('video')[0];
+        myVideo.src = vidURL;
+        myVideo.load();
+        myVideo.play();    
+        }
+        var deleteLinks = document.querySelectorAll('.delete');
+
+    </script>
+
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     
@@ -31,13 +41,22 @@
     <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.css"/> -->
    
     <!-- <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/> -->
+
+@if(View::hasSection('style_photos'))
+<style type="text/css">
+      [class*="col"] { margin-bottom: 20px; }
+      img { width: 100%; }
+      body { margin-top: 10px; }
+    </style>
+@endif
+
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <div id="wrap">
+        <nav class="navbar navbar-expand-lg navbar-light shadow-sm" style="background-color: #fca733">
             <div class="container">
-                <a class="navbar-brand" href="{{ action('SongController@index', '1') }}">Playlist</a>
-                <a class="navbar-brand" href="{{ action('SongController@index','0') }}">@lang('Projets')</a>
+                <a class="navbar-brand" href="{{ action('SongController@indexByVisitors', session('band_slug_for_visitors')) }}">Playlist</a>
+                <a class="navbar-brand" href="{{ route('visitors.showband',session('band_slug_for_visitors')) }}">@lang('Le groupe')</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -45,56 +64,19 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ URL::to('/songs/pdf') }}">@lang('Imprimer Playlist')<span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('band.show')}}">@lang('Le groupe')</a>
-                        </li>          
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('user.index') }}">Profil</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('contact.create') }}">Contact</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/') }}">@lang('Aide')</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('plans.index') }}">@lang('Paiement')</a>
+                            <a class="nav-link" href="{{ route('visitors.photos') }}">@lang('Photos/Vidéos')</a>
                         </li>
                     </ul>
 
                     <!-- Right Side (ml) Of Navbar -->              
-                     <ul class="navbar-nav ml-auto"> 
-
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">@lang('Connexion')</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">@lang('Inscription')</a>
-                                </li>
-                            @endif
-                            @else
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>{{ Auth::user()->name }}<span class="caret"></span>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        @lang('Se déconnecter')
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                                </li>
-                        @endguest
+                     <ul class="navbar-nav ml-auto">                         
                         <li class="nav-item dropdown">
                             <a class="nav-link" href="#" id="navbarDropdownFlag" role="button" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
@@ -116,33 +98,6 @@
                 </div>
             </div>
         </nav>
-        @if(Auth::check() and Auth::user()->admin)
-        <nav class="navbar navbar-expand-lg navbar-light shadow-sm" style="background-color: #ddd78f;">
-            <div class="container">
-                <span class="navbar-brand">Admin</span>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent2" aria-controls="navbarSupportedContent2" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent2">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">                   
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('user.indexByAdmin') }}">@lang('Utilisateurs')</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('band.index') }}">@lang('Groupes')</a>
-                        </li>
-                        {{--   
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('ville.index') }}">@lang('Villes')</a>
-                        </li>
-                        --}} 
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        @endif
-
         <main class="py-3 container">
                 @if (session()->has('message'))
                     <div class="alert alert-success" role="alert">
@@ -155,9 +110,26 @@
                     </div>
                 @endif
             @yield('content')
-        </main>
-    </div>       
-    @yield('scripts')
+        </main>     
+    </div>
+
+    <footer id="foot">
+        <br>
+        <div class="content-foot">
+            <p>Copyright © 2020 Védas-Informatique</p>
+            <p>
+                <a href="{{ URL::to('/ML') }}">Mentions légales</a>
+                &nbsp; &nbsp; - &nbsp;&nbsp;
+                <a href="{{ URL::to('/CF') }}">Politique de confidentialité</a>
+                &nbsp; &nbsp; - &nbsp;&nbsp;
+                <a href="{{ URL::to('/CGV') }}">CGV</a>
+                &nbsp; &nbsp; - &nbsp;&nbsp;
+                <a href="">A propos</a>
+            </p>
+        </div>
+    </footer>
+
 </body>
 </html>
 
+@yield('scripts')

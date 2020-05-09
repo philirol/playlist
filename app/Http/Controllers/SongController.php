@@ -31,7 +31,9 @@ class SongController extends Controller
 
     private function chechBandId(){
         if(!Auth::check()){
-            $band_id = session('band_id', 1); //session('band_id') can be provided by VisitosMiddleware, if not, we give by default the id of the demo group
+            // $band_id = session('band_id', 1); //session('band_id') can be provided by VisitosMiddleware, if not, we give by default the id of the demo group
+            // La solution est pour l'instant de ne pas se servir de la fonction Index de cette classe pour la partie visiteur, mais d'utiliser la fonction IndexByVisitors
+            $band_id = 1;
         } elseif (Auth::check() && !Auth::user()->admin) {
             $band_id = Auth::user()->band->id;
         } else {
@@ -78,7 +80,7 @@ class SongController extends Controller
         $bandname = $band->bandname; 
         $songs = Song::where('band_id', $band->id)->orderBy('order', 'ASC')->get();
         // dd($songs);
-        return view('songs.visitors', compact('songs', 'bandname'));
+        return view('songs.indexVisitors', compact('songs', 'bandname'));
     }
 
     public function create()
@@ -86,6 +88,8 @@ class SongController extends Controller
         $song = new Song; //création d'une song vide pour formulaire de création        
         return view('songs.create', compact('song'));
     }
+
+
 
     public function store(SongRequest $songRequest)
     {
@@ -99,12 +103,18 @@ class SongController extends Controller
         // return view('songs.show', compact('song'))->with('message', __('Le nouveau morceau a bien été créé!'));
     }
 
+
+
+    
     public function mailtomembers(Song $song, $mailtomembers){
         if ($mailtomembers !== null){
             $users = Auth::user()->band->users;
             Notification::send($users, new SongNotif($song, $users));
         }
     }
+
+
+
 
     public function update(SongRequest $songRequest, Song $song) 
     {    

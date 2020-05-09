@@ -9,7 +9,7 @@
   </tr>
 </table>
 </div>
-@section('media')
+@section('players')
 @endsection
 <table class="table table-striped">
   <tbody id="tablecontents"> {{-- tbody for sorting list js --}}
@@ -23,36 +23,36 @@
         <td>&nbsp;</td>
         @endif
         <td>
-        @foreach($song->songsubs as $songsub)        
-          @if($songsub->main == 1)
-          
-          @switch($songsub->type)
-              @case(1)
-              @if( preg_match('/(vimeo)/', $songsub->url ) || preg_match('/(yout)/', $songsub->url ))
-              <a href="{{ route('player',  $songsub) }}"><img src="{{asset('images/ytb.png')}}" alt="@lang('Jouer dans le lecteur')" title="@lang('Jouer dans le lecteur')"></a>
-              @else
-              <a href="{{ $songsub->url }}" target="_blank"><img src="{{asset('images/www.png')}}" width="22" height="22" alt="@lang('Ouvrir dans site web')" title="@lang('Ouvrir dans site web')"></a>
-              @endif
-                  @break
+          @foreach($song->songsubs as $songsub)        
+            @if($songsub->main == 1)
+            
+              @switch($songsub->type)
+                  @case(1)
+                  @if( preg_match('/(vimeo)/', $songsub->url ) || preg_match('/(yout)/', $songsub->url ))
+                  <a href="{{ route('player',  $songsub) }}"><img src="{{asset('images/ytb.png')}}" alt="@lang('Jouer dans le lecteur')" title="@lang('Jouer dans le lecteur')"></a>
+                  @else
+                  <a href="{{ $songsub->url }}" target="_blank"><img src="{{asset('images/www.png')}}" width="22" height="22" alt="@lang('Ouvrir dans site web')" title="@lang('Ouvrir dans site web')"></a>
+                  @endif
+                      @break
 
-              @case(2)
-              <a href="#" onClick="javascript:vidSwap('{{ asset('storage/' . $songsub->file) }}'); return false;"><img src="{{asset('images/file2.png')}}" alt="@lang('Jouer dans le lecteur')" title="@lang('Jouer dans le lecteur')"></a>
-          {{-- 
-              <a href="{{ action('SongController@index', ['player' =>$songsub]) }}"><img src="{{asset('images/file.png')}}" alt="Go Youtube"></a>
-          
-              <figure>
-              <figcaption>{{ $songsub->title }}:</figcaption>
-              <audio controls src="{{ asset('storage/' . $songsub->file) }}">Your browser does not support the <code>audio</code> element.</audio>
-              </figure>
-          --}}
-                  @break
+                  @case(2)
+                  <a href="#" onClick="javascript:vidSwap('{{ asset('storage/' . $songsub->file) }}'); return false;"><img src="{{asset('images/file2.png')}}" alt="@lang('Jouer dans le lecteur')" title="@lang('Jouer dans le lecteur')"></a>
+              {{-- 
+                  <a href="{{ action('SongController@index', ['player' =>$songsub]) }}"><img src="{{asset('images/file.png')}}" alt="Go Youtube"></a>
+              
+                  <figure>
+                  <figcaption>{{ $songsub->title }}:</figcaption>
+                  <audio controls src="{{ asset('storage/' . $songsub->file) }}">Your browser does not support the <code>audio</code> element.</audio>
+                  </figure>
+              --}}
+                      @break
 
-              @default
-              <a href="{{ route('songsub.dwnld', ['songsub' => $songsub->id]) }}"><img src="{{asset('images/dwnld.png')}}" width="22" height="22" alt="@lang('Télécharger le fichier')" title="@lang('Télécharger le fichier')"></a>
-          @endswitch
+                  @default
+                  <a href="{{ route('songsub.dwnld', ['songsub' => $songsub->id]) }}"><img src="{{asset('images/dwnld.png')}}" width="22" height="22" alt="@lang('Télécharger le fichier')" title="@lang('Télécharger le fichier')"></a>
+              @endswitch
 
-          @endif          
-        @endforeach
+            @endif          
+          @endforeach
         </td>
       </tr>
     @endforeach

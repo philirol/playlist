@@ -44,10 +44,8 @@
 
 @if(View::hasSection('style_photos'))
 <style type="text/css">
-      [class*="col"] { margin-bottom: 20px; }
       img { width: 100%; }
-      body { margin-top: 10px; }
-    </style>
+</style>
 @endif
 
 </head>
@@ -56,8 +54,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ action('SongController@index', '1') }}">Playlist</a>
-                <a class="navbar-brand" href="{{ route('band.show')}}">@lang('Le groupe')</a>
-                <a class="navbar-brand" href="#">@lang('Visiteurs')</a>
+                <a class="navbar-brand" href="{{ action('SongController@index', '0') }}">Projets</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -69,16 +66,19 @@
                             <a class="nav-link" href="{{ URL::to('/songs/pdf') }}">@lang('Imprimer Playlist')<span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ action('SongController@index','0') }}">@lang('Projets')</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="{{ route('contact.create') }}">Contact</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ URL::to('hlp') }}">@lang('Aide')</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ URL::to('photos') }}">@lang('Photos')</a>
+                            <a class="nav-link" href="{{ route('band.show') }}">@lang('Le groupe')</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('medias.index') }}">Book</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('visitors') }}">@lang('Visiteurs')</a>
                         </li>
                     </ul>
 
@@ -172,7 +172,7 @@
             </div>
         </nav>
         @endif
-        @if(View::hasSection('media'))                    
+        @if(View::hasSection('players'))                    
             <main class="py-3 container">
                 <div class="row">                
                     <div class="col-lg-8">                    
@@ -233,15 +233,13 @@
     <footer id="foot">
         <br>
         <div class="content-foot">
-            <p>Copyright © 2020 Védas-Informatique</p>
+            <p>Playlist@2020-VédasInformatique</p>
             <p>
                 <a href="{{ URL::to('/ML') }}">Mentions légales</a>
                 &nbsp; &nbsp; - &nbsp;&nbsp;
                 <a href="{{ URL::to('/CF') }}">Politique de confidentialité</a>
                 &nbsp; &nbsp; - &nbsp;&nbsp;
                 <a href="{{ URL::to('/CGV') }}">CGV</a>
-                &nbsp; &nbsp; - &nbsp;&nbsp;
-                <a href="">A propos</a>
             </p>
         </div>
     </footer>

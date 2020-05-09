@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.appvisitors')
 
 @section('content')
 @section('style_photos')
 @endsection
-<div class="bg-info rounded-lg">
+<div class="bg-secondary rounded-lg">
 <table class="table text-white">
   <tr>
     <td class="align-middle"><h4>@lang('Photos')</h4></td>

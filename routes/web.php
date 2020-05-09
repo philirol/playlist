@@ -11,7 +11,7 @@ Route::middleware('members')->group(function(){
     Route::get('/home', 'HomeController@index')->name('home');
     
     Route::get('SubscribedPlan','SongsubController@showPlan');
-    Route::get('/strd/files', 'SongsubController@storedfilelist')->name('storedfilelist');
+    Route::get('/strd/files', 'BandController@storedfilelist')->name('storedfilelist');
     Route::get('user/{user}', 'UserController@show')->name('user.show');
     Route::get('deleteImage/{user}', 'UserController@deleteImage')->name('user.deleteImage');
     Route::delete('customer/{user}', 'UserController@customerdestroy')->name('customer.destroy');
@@ -40,7 +40,20 @@ Route::middleware('members')->group(function(){
     Route::get('addmember', 'InvitationController@addmember')->name('invit.addmember');
     Route::post('mailtomember', 'InvitationController@mailtomember')->name('invit.mailtomember');
     Route::get('inv/{uid}','InvitationController@store');
+
+    Route::get('visitors', 'VisitorsController@index')->name('visitors');
 });
+
+Route::middleware('visitors')->group(function(){
+    Route::view('nogroup','visitors.nogroup')->name('nogroup');
+    // Route::get('groupe/{slug}', 'SongController@indexByVisitors');
+    // Route::get(config('app.visitors_urlslugprefix').'/{slug}', 'SongController@indexByVisitors');
+    Route::group(['prefix' => config('app.visitors_urlslugprefix')], function () {
+        Route::get('/{slug}', 'SongController@indexByVisitors');
+    });
+});
+Route::view('medias', 'visitors.medias')->name('visitors.medias');
+Route::get('showband/{slug}', 'BandController@showByVisitors')->name('visitors.showband');
 
 
 Auth::routes();
@@ -52,13 +65,10 @@ Route::view('/ML', 'mentionslegales');
 Route::view('/CF', 'confidentialite');
 Route::view('/CGV', 'cgv');
 Route::view('hlp', 'help');
-Route::view('photos', 'photos.photos');
-Route::view('nogroup','band.nogroup')->name('nogroup');
-
-Route::get('groupe/{slug}', 'SongController@index')->middleware('visitors');
 
 Route::post('song-sortable','SongController@update_order')->name('orderingPlaylist');
 Route::resource('songs', 'SongController');
+
 Route::get('playlist/{list}', 'SongController@index')->name('playlist');
 
 Route::get('dwnld/{songsub}', 'SongsubController@download')->name('songsub.dwnld');
@@ -89,11 +99,11 @@ Route::get('users/{slug}/{sort}', 'UserController@indexByAdmin')->middleware('ad
 Route::get('users/{slug}', 'UserController@indexByAdmin')->middleware('admin')->name('user.band');
 Route::get('band/del','BandController@delete')->name('band.delete');
 Route::get('band/{band}', 'BandController@showByAdmin')->name('bandByAdmin');
-Route::get('Uband', 'BandController@show')->name('band.show'); //method show sans paramètre
+Route::get('Myband', 'BandController@show')->name('band.show'); //method show sans paramètre
 Route::get('bandsorted/{sort}', 'BandController@index')->name('band.index');
 Route::resource('band', 'BandController')->except(['show','index']);//except show car pas besoin de paramètre pour cette méthode, non CRUD
 
-
+Route::resource('medias', 'MediaController');
 
 
 

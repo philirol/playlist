@@ -52,9 +52,11 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'https://playlist7b.local/'),
 
     'asset_url' => env('ASSET_URL', null),
+
+    'visitors_urlslugprefix' => 'groupe/',
 
     /*
     |--------------------------------------------------------------------------

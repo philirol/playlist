@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="bg-info rounded-lg">
+<div class="bg-secondary rounded-lg">
 <table class="table text-white">
   <tr>
     <td class="align-middle"><h4>@lang('Groupe inconnu')</h4></td>

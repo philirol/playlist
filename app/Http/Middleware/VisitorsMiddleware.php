@@ -24,13 +24,12 @@ class VisitorsMiddleware
         } 
 
         if($band = Band::firstWhere('slug',$slug)){
-            // dd('coucou');
-            session(['band_id' => $band->id]);
+            session(['band_slug_for_visitors' => $band->slug]);
             // dd(session()->get('band_id'));
             return $next($request);
         }
-        // else return redirect()->route('nogroup');       
-        else return redirect('songs');       
+        else return redirect()->route('nogroup');       
+        // else return redirect('songs');       
         
     }
 }

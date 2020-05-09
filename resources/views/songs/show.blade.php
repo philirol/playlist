@@ -18,7 +18,7 @@
         <button type="submit" class="btn btn-danger">@lang('Supprimer le morceau')</button>
     </form>
     <hr>
-@section('media')
+@section('players')
 @endsection
 @if($song->songsubs) 
     @lang('Éléments joints au morceau'):

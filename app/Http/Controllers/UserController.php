@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\{User, Band};
 use App\Http\Requests\User as UserRequest;
 use Illuminate\Support\Facades\Auth;
-use Image;
+use Intervention\Image\Facades\Image as InterventionImage;
 use Stripe\Stripe;
 use Illuminate\Support\Facades\DB;
 use App\Traits\SubscriptionControlTrait;
@@ -115,8 +115,9 @@ class UserController extends Controller
             $filename = 'userId' . $user->id . '-' .time() . '.' . $image->getClientOriginalExtension();
             $paths = $image->storeAs('avatars', $filename, 'public'); //image storing
             $user->update(['image' => $filename]); //update bdd field
+            
             $thumbnailpath = public_path('storage/avatars/'.$filename);
-            $img = Image::make($thumbnailpath)->resize(150, 150, function($constraint) {
+            $img = InterventionImage::make($thumbnailpath)->resize(150, 150, function($constraint) {
                 $constraint->aspectRatio();
             });
             $img->save($thumbnailpath);
