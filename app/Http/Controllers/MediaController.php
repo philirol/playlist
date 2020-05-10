@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Repositories\MediaRepository;
 use App\Media;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class MediaController extends Controller
 {
@@ -22,10 +23,20 @@ class MediaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id = null)
     {
-        $medias = Media::all();
-        return view('medias.index', compact('medias'));
+        if ($id){
+            $band_id = $id;
+            $visitor = 1;
+        } else {
+            Auth::check() ? $band_id = Auth::user()->band->id : $band_id = 1;
+            $visitor = 0;
+        }          
+
+        $band = \App\Band::find($band_id);
+
+        $medias = Media::where('band_id',$band_id)->orderBy('created_at', 'DESC')->get();
+        return view('medias.index', compact('medias','band', 'visitor'));
     }
 
     /**

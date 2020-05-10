@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends( $visitor == 1 ? 'layouts.appvisitors' : 'layouts.app')
 
 @section('content')
 @section('style_photos')
@@ -13,9 +13,9 @@
       <p class="text-white"> Vous pouvez ici composer votre book de photos, qui sera accessible à partir du site visiteurs.</p>
     </div>
   </section>
-
+  @if ($visitor == 0)
   <p class="note text-center"><a href="{{ route('medias.create') }}">Télécharger une nouvelle photo</a></p>
-
+  @endif
   <div class="py-5 bg-light">
     <div class="container">
 
@@ -29,10 +29,11 @@
                   @isset($media->description) {{$media->description}} @else <span class="note">(pas de description)</span> @endisset
                 </p>
                 <div class="d-flex justify-content-between align-items-center">
+                  @if ($visitor == 0)
                   <div class="btn-group">
-                    <a href="{{ route('medias.edit', [$media]) }}" class="btn btn-sm btn-outline-secondary">@lang('Edit')</a>      
-
+                    <a href="{{ route('medias.edit', [$media]) }}" class="btn btn-sm btn-outline-secondary">@lang('Edit')</a>
                   </div>
+                  @endif
                   <small class="text-muted">{{ Carbon\Carbon::parse($media->created_at)->format('d/m/Y') }}</small>
                 </div>
               </div>

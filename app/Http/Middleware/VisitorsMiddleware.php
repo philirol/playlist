@@ -17,17 +17,19 @@ class VisitorsMiddleware
     public function handle($request, Closure $next)
     {
         $slug = $request->path();
-        $prefix = 'groupe/';
+        $prefix = config('app.visitors_urlslugprefix');
 
+        // we get the slug here
         if (substr($slug, 0, strlen($prefix)) == $prefix) {
             $slug = substr($slug, strlen($prefix));
         } 
-
+        // if slug is found
         if($band = Band::firstWhere('slug',$slug)){
             session(['band_slug_for_visitors' => $band->slug]);
-            // dd(session()->get('band_id'));
+            session(['visitors' => 1]);
             return $next($request);
         }
+        // if not
         else return redirect()->route('nogroup');       
         // else return redirect('songs');       
         

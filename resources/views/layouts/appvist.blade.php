@@ -100,19 +100,19 @@
                                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>{{ Auth::user()->name }}<span class="caret"></span>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{ route('user.index') }}">Profil</a>
-                                        <a class="dropdown-item" href="{{ route('plans.index') }}">@lang('Abonnement')</a>
-                                        <a class="dropdown-item" href="{{ route('don') }}">@lang('Don')</a>
-                                        
-                                        <a class="dropdown-item" href="{{ route('logout') }}"
-                                           onclick="event.preventDefault();
-                                                         document.getElementById('logout-form').submit();">
-                                            @lang('Se déconnecter')
-                                        </a>
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            @csrf
-                                        </form>
-                                    </div>
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        @lang('Se déconnecter')
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('user.index') }}">Profil</a>
+                                    <a class="dropdown-item" href="{{ route('plans.index') }}">@lang('Abonnement')</a>
+                                    <a class="dropdown-item" href="{{ route('don') }}">@lang('Don')</a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </div>
                                 </li>
                         @endguest
                         <li class="nav-item dropdown">
@@ -225,9 +225,7 @@
                             {{ session()->get(__('messageDanger')) }}
                         </div>
                     @endif
-                <div class="container">
                 @yield('content')
-                </div>
             </main>
         @endif        
     </div>

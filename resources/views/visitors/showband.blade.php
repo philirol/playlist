@@ -24,7 +24,6 @@
                 <div class="card-body">
                     <span class="font-weight-bold">{{ $user->name }}</span>&nbsp;&nbsp;
                     <small class="text-muted">(@lang('Créé le') {{ Carbon\Carbon::parse($user->created_at)->format('d m y') }})</small>
-                    <p class="card-text"><u>{{ $user->email }}</u></p>
                     @can('delete',$user)
                     <small><a href="{{ route('user.delete', $user->id) }}">@lang('supprimer')</a></small>
                     @endcan  
@@ -35,7 +34,5 @@
         </div>
     </div>
     @endforeach
-
-<a href="{{ action('SongController@indexByVisitors', session('band_slug_for_visitors')) }}" class="btn btn-primary">@lang('Retour Playlist')</a>
 
 @endsection

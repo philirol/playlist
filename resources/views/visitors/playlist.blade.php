@@ -1,10 +1,9 @@
-@extends( (session('visitors')==1) ? 'layouts.appvisitors' : 'layouts.app')
-
+@extends('layouts.appvisitors')
 @section('content')
 <div class="bg-secondary rounded-lg">
 <table class="table text-white">
   <tr>
-    <td class="align-middle"><h4>Playlist de {{ $bandname }}</h4></td>
+    <td class="align-middle"><h4>Playlist de {{ $band->bandname }}</h4></td>
   </tr>
 </table>
 </div>

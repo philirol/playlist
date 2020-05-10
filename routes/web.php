@@ -3,6 +3,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Songsub;
 
+Auth::routes();
+
 Route::fallback(function(){
     return view('errors/fallback');
 });
@@ -41,22 +43,23 @@ Route::middleware('members')->group(function(){
     Route::post('mailtomember', 'InvitationController@mailtomember')->name('invit.mailtomember');
     Route::get('inv/{uid}','InvitationController@store');
 
-    Route::get('visitors', 'VisitorsController@index')->name('visitors');
 });
+Route::get('visitors', 'VisitorsController@index')->name('visitors');
 
 Route::middleware('visitors')->group(function(){
     Route::view('nogroup','visitors.nogroup')->name('nogroup');
     // Route::get('groupe/{slug}', 'SongController@indexByVisitors');
     // Route::get(config('app.visitors_urlslugprefix').'/{slug}', 'SongController@indexByVisitors');
     Route::group(['prefix' => config('app.visitors_urlslugprefix')], function () {
-        Route::get('/{slug}', 'SongController@indexByVisitors');
+        Route::get('/{slug}', 'VisitorsController@playlist');
     });
 });
-Route::view('medias', 'visitors.medias')->name('visitors.medias');
-Route::get('showband/{slug}', 'BandController@showByVisitors')->name('visitors.showband');
+// Route::view('medias', 'visitors.medias')->name('visitors.medias');
+Route::get('showband/{id}', 'VisitorsController@showBand')->name('visitors.showband');
 
+Route::get('medias/{id?}', 'MediaController@index')->name('medias.index');
+Route::resource('medias', 'MediaController')->except(['index']);
 
-Auth::routes();
 
 Route::view('/','auth/login')->name('accueil');
 Route::get('language/{lang}', 'HomeController@language')->name('language');
@@ -103,7 +106,6 @@ Route::get('Myband', 'BandController@show')->name('band.show'); //method show sa
 Route::get('bandsorted/{sort}', 'BandController@index')->name('band.index');
 Route::resource('band', 'BandController')->except(['show','index']);//except show car pas besoin de paramètre pour cette méthode, non CRUD
 
-Route::resource('medias', 'MediaController');
 
 
 

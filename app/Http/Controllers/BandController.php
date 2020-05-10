@@ -75,12 +75,6 @@ class BandController extends Controller
         return view('band.show', compact('band'));
     }
 
-    public function showByVisitors($slug) //pour les users
-    {
-        $band = Band::firstWhere('slug',$slug);
-        return view('visitors.showband', compact('band'));
-    }
-
     /**
      * Show the form for editing the specified resource.
      *

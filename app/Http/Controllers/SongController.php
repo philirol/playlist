@@ -75,14 +75,6 @@ class SongController extends Controller
         return view('songs.index', compact('songs', 'bandname', 'url'));
     }
 
-    public function indexByVisitors($slug){
-        $band = Band::where('slug', $slug)->first();
-        $bandname = $band->bandname; 
-        $songs = Song::where('band_id', $band->id)->orderBy('order', 'ASC')->get();
-        // dd($songs);
-        return view('songs.indexVisitors', compact('songs', 'bandname'));
-    }
-
     public function create()
     {   
         $song = new Song; //création d'une song vide pour formulaire de création        
