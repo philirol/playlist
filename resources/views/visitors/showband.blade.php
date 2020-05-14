@@ -1,13 +1,7 @@
 @extends('layouts.appvisitors')
 
 @section('content')
-<div class="bg-secondary rounded-lg">
-<table class="table text-white">
-  <tr>
-    <td class="align-middle"><h4>@lang('Membres') of {{ $band->bandname }}</h4> </td>
-  </tr>
-</table>
-</div>
+<x-flag-page position="left" type="{{config('app.visitorflagcolor')}}" :band="$band" page="{{__('Membres')}}" margbot="3"/>
 <p class="text-muted font-italic">@lang('Création du groupe le') {{ Carbon\Carbon::parse($band->created_at)->formatLocalized('%d %B %Y') }}</p>
 
     @foreach($band->users as $user)

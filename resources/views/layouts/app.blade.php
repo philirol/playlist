@@ -44,7 +44,7 @@
 
 @if(View::hasSection('style_photos'))
 <style type="text/css">
-      img { width: 100%; }
+      #imgbook { width: 100%; }
 </style>
 @endif
 
@@ -52,16 +52,22 @@
 <body>
     <div id="wrap">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+            
             <div class="container">
-                <a class="navbar-brand" href="{{ action('SongController@index', '1') }}">Playlist</a>
-                <a class="navbar-brand" href="{{ action('SongController@index', '0') }}">Projets</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <div class="pull-left" width="32" height="32"><img width="32" height="32" src="{!! asset('images/logo2.png') !!}"/></div>
+                <button class="navbar-toggler ml-auto hidden-sm-up float-xs-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                        <a class="nav-link" href="{{ action('SongController@index', '1') }}">Playlist</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="{{ action('SongController@index', '0') }}">Projets</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ URL::to('/songs/pdf') }}">@lang('Imprimer Playlist')<span class="sr-only">(current)</span></a>
                         </li>
@@ -88,7 +94,11 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">@lang('Connexion')</a>
+                                <!-- <a class="nav-link" href="{{ route('login') }}" type="button">@lang('Connexion')</a> -->
+                                <input type="button" class="btn btn-light mt-2" value="@lang('Connexion')" onclick="login()">
+                                <script>
+                                function login(){ location.href = "{{ route('login') }}";} 
+                                </script>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
@@ -214,7 +224,8 @@
                 </div>
             </main>
         @else
-            <main class="py-3 container">
+            <main class="py-3">
+                <div class="container">
                     @if (session()->has('message'))
                         <div class="alert alert-success" role="alert">
                             {{ session()->get(__('message')) }}
@@ -225,7 +236,6 @@
                             {{ session()->get(__('messageDanger')) }}
                         </div>
                     @endif
-                <div class="container">
                 @yield('content')
                 </div>
             </main>
@@ -242,6 +252,8 @@
                 <a href="{{ URL::to('/CF') }}">Politique de confidentialité</a>
                 &nbsp; &nbsp; - &nbsp;&nbsp;
                 <a href="{{ URL::to('/CGV') }}">CGV</a>
+                &nbsp; &nbsp; - &nbsp;&nbsp;
+                <a href="{{ route('contact.admin') }}">Contact</a>
             </p>
         </div>
     </footer>

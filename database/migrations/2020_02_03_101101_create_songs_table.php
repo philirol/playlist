@@ -29,8 +29,7 @@ class CreateSongsTable extends Migration
             $table->boolean('list')->default(true);
             $table->text('comments', 1000)->nullable();
             $table->tinyInteger('songsub')->unsigned()->default(0);
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamps();
             
         });
     }

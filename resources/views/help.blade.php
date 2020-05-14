@@ -1,13 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="bg-info rounded-lg">
-<table class="table text-white">
-  <tr>
-    <td class="align-middle"><h4>@lang('Aide')</h4></td>
-  </tr>
-</table>
-</div>
+<x-flag-page position="left" type="{{config('app.appflagcolor')}}" page="{{__('Aide')}}" margbot="3"/>
 <h5>Page en construction</h5>
 <hr>
 <ul>

@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends( session('visitors') == 1 ? 'layouts.appvisitors' : 'layouts.app' )
 
 @section('content')
-<br>
-<h1>Conditions Générales de Vente</h1>
-<br>
+
+<x-flag-page position="left" type="{{ session('visitors') == 1 ? config('app.visitorflagcolor') : config('app.appflagcolor') }}" page="Conditions Générales de Vente" margbot="3"/>
+
 <h3>Préambule</h3>
 <p>Les présentes conditions générales de vente sont définies entre l'éditeur du site Playlist: Védas Informatique, représenté par Philippe Roland, sous le statut de micro-entrepreneur - SIRET 849 500 012 00018, et dénommé par "l'Éditeur" ci-dessous par mesure de simplification et l'Utilisateur (personne physique ou morale qui réalise une transaction financière sur le site Playlist).<br>
 "Playlist" étant identifié par le site internet accessible à l'adresse : https://playlistband.net</p>

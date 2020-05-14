@@ -60,7 +60,7 @@ class SongController extends Controller
 
         $list == 1 ? session(['listname' => 'Playlist']) : session(['listname' => 'Projets']);
         
-        $bandname = Band::find($band_id)->bandname;        
+        $band = Band::find($band_id);        
      
         $songs = Song::where([
             ['band_id', $band_id],
@@ -72,7 +72,7 @@ class SongController extends Controller
             
         session()->exists('filetoplay') ? $url = session('filetoplay')->url : $url = 'https://www.youtube.com/watch?v=6Zv6M2WMY2s';
 
-        return view('songs.index', compact('songs', 'bandname', 'url'));
+        return view('songs.index', compact('songs', 'band', 'url'));
     }
 
     public function create()

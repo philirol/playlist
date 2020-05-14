@@ -1,13 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="bg-info rounded-lg">
-<table class="table text-white">
-  <tr>
-    <td class="align-middle"><h4>@lang('Abonnement')</h4></td>
-  </tr>
-</table>
-</div>
+<x-flag-page position="left" type="{{config('app.appflagcolor')}}" page="{{ __('Abonnement') }}" margbot="3"/>
 
 <div class="py-3 row justify-content-center">
     <div class="col-md-8">

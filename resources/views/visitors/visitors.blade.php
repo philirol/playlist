@@ -1,13 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="bg-info rounded-lg">
-<table class="table text-white">
-  <tr>
-    <td class="align-middle"><h4>@lang('Partie visiteurs')</h4></td>
-  </tr>
-</table>
-</div>
+<x-flag-page position="center" type="{{config('app.appflagcolor')}}" page="{{__('Partie visiteurs')}}" margbot="3"/>
+
 <div class="text-center">
     <p>Transmettre le lien ci-dessous pour présenter votre groupe : <br><span class="note">(cliquez dessus pour voir la partie visiteurs.)</span></p> 
     <p><a href="{{ $url }}" target="_blank">{{$url}}</a></p>

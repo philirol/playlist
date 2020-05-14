@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<h3>@lang('Nouveau morceau')</h3>
-<br>
+<x-flag-page position="left" type="{{config('app.appflagcolor')}}" page="{{ __('Nouveau morceau') }}" margbot="3"/>
+
 <form action="{{ route('songs.store') }}" method="post">
 @include('includes.formsong')
 <button type="submit" class="btn btn-primary my-4">@lang('Valider')</button>

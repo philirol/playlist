@@ -1,14 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="bg-info rounded-lg">
-<table class="table text-white">
-  <tr>
-    <td class="align-middle"><h4>{{ $bandname }}</h4> <h6>{{ __(session('listname')) }}</h6></td>
-    <td class="text-right"><a href="{{ route('songs.create') }}" class="btn btn-primary my-1">@lang('Nouveau morceau')</a></td>
-  </tr>
-</table>
+<div class="py-3 pl-3 pt-2 pb-3 mb-0 pr-3 bg-{{config('app.appflagcolor')}} rounded-lg text-white">
+      <div class="d-inline-block"><h4>{{ $band->bandname }}</h4></div>
+      <div class="d-inline-block float-right"><a href="{{ route('songs.create') }}" class="btn btn-primary my-1">@lang('Nouveau morceau')</a></div>
+      <div><h6>{{ __(session('listname')) }}</h6></div>
 </div>
+<br>
 @section('players')
 @endsection
 <table class="table table-striped">

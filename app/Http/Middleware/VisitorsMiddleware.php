@@ -27,6 +27,7 @@ class VisitorsMiddleware
         if($band = Band::firstWhere('slug',$slug)){
             session(['band_slug_for_visitors' => $band->slug]);
             session(['visitors' => 1]);
+            session(['band' => $band]);
             return $next($request);
         }
         // if not

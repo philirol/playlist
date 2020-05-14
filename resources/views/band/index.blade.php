@@ -3,15 +3,11 @@
 
 @endsection
 @section('content')
-<div class="bg-info rounded-lg">
-<table class="table text-white">
-  <tr>
-    <td class="align-middle"><h3>@lang('Liste des goupes') ({{ $bandnumber}})</h3></td>
-  </tr>
-</table>
+<div class="p-3 bg-{{config('app.appflagcolor')}} rounded-lg text-white">
+      <div class="d-inline-block"><h3>@lang('Liste des goupes') ({{ $bandnumber}})</h3></div>
 </div>
-
-<table class="table table-striped">
+<br>
+<table class="table table-sm">
     <thead class="thead-dark">
         <tr>
             <th scope="col"><a href="{{ route('band.index', ['sort' => 'id']) }}">id</a></th>
@@ -27,10 +23,10 @@
         <tr>
             <th scope="row">{{ $band->id }}</td>
             <td><a href="{{ route('bandByAdmin', $band->id)}}">{{ $band->bandname }}</td>
-            <td>{{ $band->sizedir }} ({{ bcdiv($band->sizedir, 1048576, 0) }}Mo)</td>
+            <td>{{ substr(number_format($band->sizedir,0, ',', ' '), 0, -4) }} Ko</td>
             <td>{{ $band->users_count }}</td>
             <td>{{ $band->songs_count }}</td>
-            <td>{{ Carbon\Carbon::parse($band->created_at)->format('d/m/Y') }}</td> 
+            <td>{{ Carbon\Carbon::parse($band->created_at)->format('d/m/y') }}</td> 
         </tr>
         @endforeach 
     <tbody> 

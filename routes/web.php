@@ -54,11 +54,20 @@ Route::middleware('visitors')->group(function(){
         Route::get('/{slug}', 'VisitorsController@playlist');
     });
 });
-// Route::view('medias', 'visitors.medias')->name('visitors.medias');
-Route::get('showband/{id}', 'VisitorsController@showBand')->name('visitors.showband');
 
-Route::get('medias/{id?}', 'MediaController@index')->name('medias.index');
-Route::resource('medias', 'MediaController')->except(['index']);
+Route::post('contactWbm', 'ContactController@mailtoAdmin')->name('contact.store');
+Route::get('contactWbm/{visitor?}', 'ContactController@AdminContactForm')->name('contact.admin');
+
+Route::post('contact/{id}', 'ContactController@mailtoLeader')->name('contact.store');
+Route::get('contact', 'ContactController@create')->name('contact.create');
+
+Route::post('vcontact/{id}', 'ContactController@mailtoLeader')->name('mailvisitorstore');
+Route::get('vcontact/{id}', 'ContactController@contact')->name('mailvisitorcreate');
+
+Route::get('vmedias/{id}', 'VisitorsController@visitMedias')->name('vmedias');
+Route::get('vband/{id}', 'VisitorsController@visitBand')->name('vband');
+
+Route::resource('medias', 'MediaController');
 
 
 Route::view('/','auth/login')->name('accueil');
@@ -78,10 +87,6 @@ Route::get('dwnld/{songsub}', 'SongsubController@download')->name('songsub.dwnld
 Route::get('songsub/{sub?}', 'SongsubController@create')->name('songsub.create');
 // Route::get('songsub/{song}/edit', 'SongsubController@edit')->middleware('members');
 Route::resource('songsub', 'SongsubController')->except(['create']);
-
-Route::get('contactez-nous', 'ContactController@create')->name('contact.create');
-Route::post('contactez-nous', 'ContactController@store')->name('contact.store');
-
 
 Route::get('songsband/{id}', function($id){  //coming from band/show.blade.php (admin area)
     session(['band_id' => $id]);

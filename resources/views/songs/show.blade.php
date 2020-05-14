@@ -2,7 +2,7 @@
 
 @section('content')
 @include('includes.songhead')
-<br><br>
+<br>
 @if ($song->comments)
 <h6>@lang('Notes des membres'):</h6>
 <div class="jumbotron">

@@ -1,13 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="bg-info rounded-lg">
-<table class="table text-white">
-  <tr>
-    <td class="align-middle"><h4>Book (Upload)</h4></td>
-  </tr>
-</table>
-</div>
+<x-flag-page position="center" type="{{config('app.appflagcolor')}}" page="Book - Upload" margbot="3"/>
 <div class="py-4">
         <form method="POST" action="{{ route('medias.store') }}" enctype="multipart/form-data">
             @csrf

@@ -41,15 +41,18 @@
     <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.css"/> -->
    
     <!-- <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/> -->
-
+    @if(View::hasSection('style_photos'))
+<style type="text/css">
+      #imgbook  { width: 100%; }
+</style>
+@endif
 </head>
 <body>
     <div id="wrap">
-        <nav class="navbar navbar-expand-lg navbar-light shadow-sm" style="background-color: #fca733">
+        <nav class="navbar navbar-expand-lg navbar-light shadow-sm" style="background-color: #fca733">        
             <div class="container">
-                <a class="navbar-brand" href="{{ action('VisitorsController@playlist', [$band->slug]) }}">Playlist</a>
-                <a class="navbar-brand" href="{{ route('visitors.showband', [$band]) }}">@lang('Le groupe')</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <div class="pull-left"><img width="32" height="32" src="{!! asset('images/logo2.png') !!}"/></div>
+                <button class="navbar-toggler ml-auto hidden-sm-up float-xs-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -57,13 +60,19 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ action('VisitorsController@playlist', session('band_slug_for_visitors')) }}">Playlist</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('vband', session('band')) }}">@lang('Le groupe')</a>
+                        </li>   
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ URL::to('/songs/pdf') }}">@lang('Imprimer Playlist')<span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('contact.create') }}">Contact</a>
+                            <a class="nav-link" href="{{ route('mailvisitorcreate', session('band')) }}">Contact</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('medias.index', [$band]) }}">@lang('Photos/Vidéos')</a>
+                            <a class="nav-link" href="{{ route('vmedias', session('band')) }}">@lang('Photos/Vidéos')</a>
                         </li>
                     </ul>
 
@@ -118,7 +127,7 @@
                 &nbsp; &nbsp; - &nbsp;&nbsp;
                 <a href="{{ URL::to('/CGV') }}">CGV</a>
                 &nbsp; &nbsp; - &nbsp;&nbsp;
-                <a href="">A propos</a>
+                <a href="{{ route('contact.admin','visitor') }}">Contact</a>
             </p>
         </div>
     </footer>

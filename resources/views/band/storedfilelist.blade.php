@@ -1,17 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="bg-info rounded-lg">
-<table class="table text-white">
-  <tr>
-    <td class="align-middle"><h4>@lang('Liste des fichiers')</h4></td>
-  </tr>
-</table>
-</div>
+<x-flag-page position="left" type="{{config('app.appflagcolor')}}" page="{{__('Liste des fichiers')}}" margbot="3"/>
 @section('media')
 @endsection
 <p>Fichiers dans Playlist et Projets : <strong>{{ substr(number_format($size2a,0, ',', ' '), 0, -4) }} Ko</strong></p>
-<table class="table table-striped">
+<table class="table table-sm">
   @foreach($songsubs as $songsub)
     <tr class="row1">
       <td>
@@ -41,13 +35,13 @@
 <br>
 
 <p>Fichiers dans le Book <strong> {{ substr(number_format($size2b,0, ',', ' '), 0, -4) }} Ko</strong></p>
-<table class="table table-striped">
+<table class="table table-sm">
   @foreach($medias as $media)
     <tr class="row1">
       <td>
         <span class="note">
-        @empty ($media['description']) @lang('media sans description') @else {{ $media['description'] }} @endempty          
-        ({{ number_format($media['filesize'],0, ',', ' ')}} Ko)
+        @empty ($media['description']) @lang('media sans description') @else {{ substr($media['description'],0,30) }} @endempty          
+        ({{ substr(number_format($media['filesize'],0, ',', ' '), 0, -4) }} Ko)
         </span>
       </td>
       <td width="10%">
@@ -67,6 +61,7 @@
     </tr> 
   @endforeach
 </table>
+<br>
 <p><strong>Poids total des fichiers :</strong> {{ substr(number_format(($size2a + $size2b),0, ',', ' '), 0, -4) }} Ko (bdd) - {{ substr(number_format($size1,0, ',', ' '), 0, -4) }} Ko (dossier du groupe)</p>
 
 <p><a href="javascript:history.back()" class="btn btn-primary"><span class="glyphicon glyphicon-circle-arrow-left"></span> @lang('Retour')</a></p>

@@ -58,6 +58,10 @@ return [
 
     'visitors_urlslugprefix' => 'groupe/',
 
+    'visitorflagcolor' => 'secondary',
+    'appflagcolor' => 'info',
+    'adminflagcolor' => 'primary',
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

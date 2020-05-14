@@ -39,7 +39,7 @@
                     <div class="form-group row">
                         <label for="bandname" class="col-md-4 col-form-label text-md-right">@lang('Nom du groupe')</label>
                         <div class="col-md-6">                         
-                            <input id="bandname" type="text" class="form-control @error('bandname') is-invalid @enderror" name="bandname" value="{{ old('bandname') }}" required autocomplete="bandname" autofocus>
+                            <input id="bandname" type="text" class="form-control @error('bandname') is-invalid @enderror" name="bandname" value="{{ old('bandname') }}" required autocomplete="bandname" maxlength="30" autofocus>
                             @error('bandname')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('bandname') }}</strong>

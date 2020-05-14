@@ -63,9 +63,8 @@ class BandController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function showByAdmin(Band $band) //pour l'admin avec choix du groupe, provenant de band.index
-    {
-        
-        // dd($band->bandname);
+    {        
+
         return view('band.show', compact('band'));
     }
 
@@ -165,8 +164,9 @@ class BandController extends Controller
         $songsubs = Songsub::type()->where('band_id', Auth::user()->band_id)->orderBy('created_at','desc')->get();
         $size2a = $songsubs->sum('filesize');
         
-        $medias = Media::where('band_id', Auth::user()->band_id)->get();
+        $medias = Media::where('band_id', Auth::user()->band_id)->orderBy('created_at','desc')->get();
         $size2b = $medias->sum('filesize');
+        // dd($size2b);
 
         $size2 = $size2a + $size2b;
         

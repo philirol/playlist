@@ -1,13 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="bg-info rounded-lg">
-<table class="table text-white">
-  <tr>
-    <td class="align-middle"><h4>@lang('Vos données personnelles')</h4></td>
-  </tr>
-</table>
-</div>
+<x-flag-page position="left" type="{{config('app.appflagcolor')}}" page="{{__('Vos données personnelles')}}" margbot="3"/>
 @if (Auth::guard('web')->check())
 	<br>
 	<form action="{{ route('user.update', ['user' => $user->id]) }}" method="POST" enctype="multipart/form-data">

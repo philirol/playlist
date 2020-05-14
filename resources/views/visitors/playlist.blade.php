@@ -1,19 +1,16 @@
 @extends('layouts.appvisitors')
 @section('content')
-<div class="bg-secondary rounded-lg">
-<table class="table text-white">
-  <tr>
-    <td class="align-middle"><h4>Playlist de {{ $band->bandname }}</h4></td>
-  </tr>
-</table>
+<x-flag-page position="left" type="{{config('app.visitorflagcolor')}}" :band="$band" page="Playlist" margbot="3"/>
 </div>
-<table class="table table-striped">
-  <tbody id="tablecontents">
-    @foreach($songs as $song)
-      <tr>
-        <td>{{ $song->title }}</td>
-      </tr>
-    @endforeach
-    </tbody>
-</table>
+<div class="container">
+  <table class="table table-striped">
+    <tbody id="tablecontents">
+      @foreach($songs as $song)
+        <tr>
+          <td>{{ $song->title }}</td>
+        </tr>
+      @endforeach
+      </tbody>
+  </table>
+</div>
 @endsection

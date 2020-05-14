@@ -1,13 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="bg-info rounded-lg">
-<table class="table text-white">
-  <tr>
-    <td class="align-middle"><h4>Stripe Customers</h4> <h6></td>
-  </tr>
-</table>
-</div>
+<x-flag-page position="left" type="{{config('app.appflagcolor')}}" page="Stripe Customers" margbot="3"/>
 Supprimer les clients ici les suppriment sur Stripe.
 <table class="table table-striped">
     <!-- <thead class="thead-dark">

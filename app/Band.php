@@ -12,6 +12,7 @@ class Band extends Model
     public $incrementing = false;
     protected $appends = array('sizedir');
     
+    
     public function songsubs()
     {
         return $this->hasMany(Songsub::class);

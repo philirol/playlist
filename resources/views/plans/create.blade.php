@@ -1,13 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="bg-info rounded-lg">
-<table class="table text-white">
-  <tr>
-    <td class="align-middle"><h4>Stripe Products & plans</h4></td>
-  </tr>
-</table>
-</div>
+<x-flag-page position="left" type="{{config('app.appflagcolor')}}" page="Stripe Products & Plans" margbot="3"/>
 <div class="py-3 row justify-content-center">
         <div class="jumbotron">
         Cliquer d'abord sur le bouton Creat Product pour créer le produit dans Stripe.<br>

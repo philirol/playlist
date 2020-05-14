@@ -23,20 +23,14 @@ class MediaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id = null)
+    public function index()
     {
-        if ($id){
-            $band_id = $id;
-            $visitor = 1;
-        } else {
-            Auth::check() ? $band_id = Auth::user()->band->id : $band_id = 1;
-            $visitor = 0;
-        }          
+        Auth::check() ? $band_id = Auth::user()->band->id : $band_id = 1;
 
         $band = \App\Band::find($band_id);
 
         $medias = Media::where('band_id',$band_id)->orderBy('created_at', 'DESC')->get();
-        return view('medias.index', compact('medias','band', 'visitor'));
+        return view('medias.index', compact('medias','band'));
     }
 
     /**

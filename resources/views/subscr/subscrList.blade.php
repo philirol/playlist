@@ -1,13 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="bg-info rounded-lg">
-<table class="table text-white">
-  <tr>
-    <td class="align-middle"><h4>Subscriptions</h4> <h6></td>
-  </tr>
-</table>
-</div>
+<x-flag-page position="left" type="{{config('app.appflagcolor')}}" page="{{__('Abonnement')}}" margbot="3"/>
 
 <table class="table table-striped">
     <thead class="thead-info">

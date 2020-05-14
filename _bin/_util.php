@@ -7,6 +7,15 @@
 SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`playlist7b`.`invitations`, CONSTRAINT `invitations_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION) (SQL: delete from `users` where `id` = 12) 
 
 SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`playlist7b`.`invitations`, CONSTRAINT `invitations_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)) (SQL: delete from `users` where `id` = 12) 
+
+//MailHog
+MAIL_DRIVER=smtp
+MAIL_HOST=localhost
+MAIL_PORT=1025
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+
 //free
 MAIL_DRIVER=smtp ou log
 MAIL_HOST=smtp.free.fr
@@ -46,3 +55,17 @@ Route::get('testmail', function(){
 Route::get('sendmail','TestMailgunController@sendmail');
 Route::get('sendmail2','TestMailgunController@testMailgun');
 // FIN TEST MAILGUN
+
+<x-flag-page position="center" type="{{config('app.visitorflagcolor')}}" :band="$band" page="{{__('Membres')}}"/>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+        <div><img width="32" height="32" src="{!! asset('images/logo2.png') !!}"/></div>
+
+            <div class="container">
+                <a class="navbar-brand" href="{{ action('SongController@index', '1') }}">Playlist</a>
+                <a class="navbar-brand" href="{{ action('SongController@index', '0') }}">Projets</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">

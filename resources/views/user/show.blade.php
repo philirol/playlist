@@ -1,14 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="bg-info rounded-lg">
-<table class="table text-white">
-  <tr>
-    <td class="align-middle"><h4>@lang('Vos données personnelles')</h4></td>
-  </tr>
-</table>
-</div>
-<br>
+
+<x-flag-page position="left" type="{{config('app.appflagcolor')}}" page="{{__('Vos données personnelles')}}" margbot="3"/>
+
     <div class="card mb-3" style="max-width: 550px;">
         <div class="row no-gutters">
             <div class="col-md-4">
