@@ -15,7 +15,7 @@
                             <h5 class="card-title">@lang('Carte de crédit/débit')</h5><br>
                             <div id="card-element"></div>
                             <div id="card-errors" role="alert"></div><br><br>
-                            <button class="btn btn-dark btn-lg btn-block" type="submit">@lang('Faire un don de') {{session('amount')}} €</button>
+                            <button class="btn btn-warning btn-lg btn-block" type="submit">@lang('Faire un don de') {{session('amount')}} €</button>
                         </div>
                     </div><br>
                     <a href="javascript:history.back()" class="btn btn-outline-dark"><span class="glyphicon glyphicon-circle-arrow-left"></span> @lang('Retour')</a> 

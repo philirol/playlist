@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Providers;
-use App\{User,Song,Band,Songsub};
+use App\{User,Song,Band,Songsub,Media,Story};
 use App\Policies\SongPolicy;
 use App\Policies\SongsubPolicy;
 use App\Policies\BandPolicy;
 use App\Policies\UserPolicy;
+use App\Policies\StoryPolicy;
+use App\Policies\MediaPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\DB;
@@ -23,6 +25,8 @@ class AuthServiceProvider extends ServiceProvider
         Songsub::class => SongsubPolicy::class,
         Band::class => BandPolicy::class,
         User::class => UserPolicy::class,
+        Story::class => StoryPolicy::class,
+        Media::class => MediaPolicy::class,
     ];
 
     /**

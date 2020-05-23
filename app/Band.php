@@ -23,6 +23,11 @@ class Band extends Model
         return $this->hasMany(Song::class);
     }
 
+    public function story()
+    {
+        return $this->hasOne(Story::class,'band_id', 'id');
+    }
+
     public function users()
     {
         return $this->hasMany(User::class);

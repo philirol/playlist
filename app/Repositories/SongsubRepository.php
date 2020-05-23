@@ -48,8 +48,8 @@ class SongsubRepository
                     $filename = preg_replace('/[^a-zA-Z0-9\-\._]/','', $filename); 
                     $filename = substr($filename, 0, 40);
                                 
-                    $withoutExt = pathinfo($filename, PATHINFO_FILENAME); //suppression de l'extension for that final formatting : filename-time.ext
-                    $filenameToStorage = $withoutExt . '-' .time() . '.' . $extension;                
+                    $withoutExt = pathinfo($filename, PATHINFO_FILENAME); ////handy method pathinfo() of PHP that take the filename without extension
+                    $filenameToStorage = $withoutExt . '-' .time() . '.' . $extension;            
                     $band_folder = $user->band->slug;
                     // dd($tempPath);
                     $paths = $file->storeAs($band_folder, $filenameToStorage, 'public');

@@ -11,15 +11,13 @@
 <!-- <div class="p-3 bg-{{config('app.appflagcolor')}} rounded-lg text-white text-center">
       <div class="d-inline-block"><h4>{{__('Book')}}</h4></div>
 </div> -->
-<a href="#" class="btn btn-secondary btn-sm">Photos</a>
-<a href="#" class="btn btn-success btn-sm">Videos</a>
-<a href="#" class="btn btn-warning btn-sm">Story</a>
+<a href="{{ route('photos.index') }}" class="btn btn-secondary btn-sm">Photos</a>
+<a href="{{ route('videos.index') }}" class="btn btn-success btn-sm">Videos</a>
+<a href="{{ route('story.index') }}" class="btn btn-warning btn-sm">Story</a>
 <p class="pt-4 text-center"> Vous pouvez ici composer votre book de photos, qui sera accessible à partir du site visiteurs.</p>
   <ul class="text-center list-inline">
         <small>
-        <li class="list-inline-item"><a href="{{ route('medias.create') }}">@lang('Télécharger une photo')</a></li>
-        <li class="list-inline-item"><a href="{{ route('medias.create') }}">@lang('Télécharger une vidéo')</a></li>
-        <li class="list-inline-item"><a href="#">@lang('Écrire votre story')</a></li>        
+        <li class="list-inline-item"><a href="{{ route('photos.create') }}">@lang('Télécharger une photo')</a></li>      
         </small>
         </ul>
   <div class="py-5 bg-light">
@@ -36,7 +34,7 @@
                 </p>
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
-                    <a href="{{ route('medias.edit', [$media]) }}" class="btn btn-sm btn-outline-secondary">@lang('Edit')</a>
+                    <a href="{{ route('photos.edit', [$media]) }}" class="btn btn-sm btn-outline-secondary">@lang('Edit')</a>
                   </div>
                   <small class="text-muted">{{ Carbon\Carbon::parse($media->created_at)->format('d/m/Y') }}</small>
                 </div>

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class Songsub extends Model
 {
-    protected $fillable = ['song_id','user_id','main','title','url','file','comments'];
+    protected $fillable = ['main','title','url','file','comments'];
 
     public function user()
     {

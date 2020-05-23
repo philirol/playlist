@@ -61,6 +61,7 @@ class DatabaseSeeder extends Seeder
             'admin' => false,
             'leader' => false,
             'email' => 'clarency@avg.org',
+            'email_verified_at' => now(),
             'password' => Hash::make('password'),
             'image' => 'userId2-1585124056.jpg'
         ]);
@@ -71,6 +72,7 @@ class DatabaseSeeder extends Seeder
             'admin' => false,
             'leader' => true,
             'email' => 'fcobin330@gmail.com',
+            'email_verified_at' => now(),
             'password' => Hash::make('password'),
             'image' => 'userId3-1585124091.jpg'
         ]);
@@ -81,6 +83,7 @@ class DatabaseSeeder extends Seeder
             'admin' => false,
             'leader' => false,
             'email' => 'bobam9940@aol.uk',
+            'email_verified_at' => now(),
             'password' => Hash::make('password'),
             'image' => 'userId4-1585124122.jpg'
         ]);
@@ -91,6 +94,7 @@ class DatabaseSeeder extends Seeder
             'admin' => false,
             'leader' => false,
             'email' => 'jbass2356@zoho.org',
+            'email_verified_at' => now(),
             'password' => Hash::make('password'),
             'image' => 'userId5-1585124166.jpg'
         ]);
@@ -101,6 +105,7 @@ class DatabaseSeeder extends Seeder
             'admin' => false,
             'leader' => false,
             'email' => 'patsax47@mail.com',
+            'email_verified_at' => now(),
             'password' => Hash::make('password'),
             'image' => 'userId6-1585124199.jpg'
         ]);
@@ -111,6 +116,7 @@ class DatabaseSeeder extends Seeder
             'admin' => true,
             'leader' => true,
             'email' => 'philirol@hotmail.com',
+            'email_verified_at' => now(),
             'password' => Hash::make('password'),
         ]);
 
@@ -120,6 +126,7 @@ class DatabaseSeeder extends Seeder
             'admin' => 0,
             'leader' => 1,
             'email' => 'mothers1@ijdi.co',
+            'email_verified_at' => now(),
             'password' => Hash::make('password'),
         ]);
         
@@ -129,6 +136,7 @@ class DatabaseSeeder extends Seeder
             'admin' => false,
             'leader' => true,
             'email' => 'hdou@trybe.de',
+            'email_verified_at' => now(),
             'password' => Hash::make('password'),
         ]);
 
@@ -532,6 +540,123 @@ class DatabaseSeeder extends Seeder
             'stripe_plan' => 'plan_H4Oq0K9DGJLYZu',
             'cost' => '50',
             'bitval' => '50000000',
+        ]);
+
+
+
+
+        //medias PHOTOS
+
+        DB::table('medias')->insert([
+            'band_id' => 1,
+            'name' => 'demo-band/User2-1589798781.jpg',
+            'type' => 1,
+            'description' => "Janice in darkness bassmoon"
+        ]);
+
+        DB::table('medias')->insert([
+            'band_id' => 1,
+            'name' => 'demo-band/User2-1589798700.jpg',
+            'type' => 1,
+            'description' => "Live in Montreal 2018"
+        ]);
+
+        DB::table('medias')->insert([
+            'band_id' => 1,
+            'name' => 'demo-band/User2-1589798660.jpg',
+            'type' => 1,
+            'description' => "Franck with his Flying V"
+        ]);
+
+        DB::table('medias')->insert([
+            'band_id' => 1,
+            'name' => 'demo-band/User2-1589798597.jpg',
+            'type' => 1,
+            'description' => "A major happening"
+        ]);
+
+        DB::table('medias')->insert([
+            'band_id' => 1,
+            'name' => 'demo-band/User2-1589798548.jpg',
+            'type' => 1,
+            'description' => "Clarence's wanna sing after Ched's drum solo"
+        ]);
+
+        DB::table('medias')->insert([
+            'band_id' => 1,
+            'name' => 'demo-band/User2-1589798470.jpg',
+            'type' => 1,
+            'description' => "An idea of Flyer disco night"
+        ]);
+
+        DB::table('medias')->insert([
+            'band_id' => 1,
+            'name' => 'demo-band/User2-1589798373.jpg',
+            'type' => 1,
+            'description' => "Bob's sometimes talkin"
+        ]);
+
+        DB::table('medias')->insert([
+            'band_id' => 1,
+            'name' => 'demo-band/User2-1589798238.jpg',
+            'type' => 1,
+            'description' => 'He brandishes his guitar like an ax'
+        ]);
+
+        DB::table('medias')->insert([
+            'band_id' => 1,
+            'name' => 'demo-band/User2-1589798144.jpg',
+            'type' => 1,
+            'description' => 'One guest with a beautiful Std Les Paul'
+        ]);
+
+
+
+        //medias VIDEOS
+
+        DB::table('medias')->insert([
+            'band_id' => 1,
+            'name' => 'demo-band/User2-1589803155.mp4',
+            'type' => 2,
+            'description' => "Once upon a night in a great place"
+        ]);
+
+        DB::table('medias')->insert([
+            'band_id' => 1,
+            'name' => 'demo-band/User2-1589803128.mp4',
+            'type' => 2,
+            'description' => "Lift to heaven"
+        ]);
+
+        DB::table('medias')->insert([
+            'band_id' => 1,
+            'name' => 'demo-band/User2-1589803080.mp4',
+            'type' => 2,
+            'description' => "A great gift in the sky"
+        ]);
+
+        DB::table('medias')->insert([
+            'band_id' => 1,
+            'name' => 'This is not as toxic it could be',
+            'type' => 2,
+            'description' => "demo-band/User2-1589803048.mp4"
+        ]);
+
+        DB::table('medias')->insert([
+            'band_id' => 1,
+            'name' => 'demo-band/User2-1589803015.mp4',
+            'type' => 2,
+            'description' => "A short moment of a great drum solo."
+        ]);
+
+
+
+
+        //medias STORY
+
+        DB::table('story')->insert([
+            'band_id' => 1,
+            'story' => 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.'
         ]);
 
     }

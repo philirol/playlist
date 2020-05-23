@@ -1,11 +1,11 @@
-@extends( session('visitors') == 1 ? 'layouts.appvisitors' : 'layouts.app' )
+@extends( $book == 'app' ? 'layouts.app' : 'layouts.appvisitors' )
 
 @section('content')
 
-<x-flag-page position="left" type="{{ session('visitors') == 1 ? config('app.adminflagcolor') : config('app.adminflagcolor') }}" page="Contact Playlist" margbot="3"/>
-<p>Contactez le webmaster.</p>
+<x-flag-page position="left" type="{{ $book == 'visit' ? config('app.visitorflagcolor') : config('app.appflagcolor') }}" page="Contact Playlist" margbot="3"/>
+<p>@lang('Contactez le webmaster du site Playlist.')</p>
     @if (!session()->has('message'))
-        <form action="{{ route('contact.admin') }}" method="POST">
+        <form action="{{ route('contact.store') }}" method="POST">
         @include('includes.formcontact')
             
     @endif

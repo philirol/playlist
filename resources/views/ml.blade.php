@@ -1,7 +1,7 @@
-@extends( session('visitors') == 1 ? 'layouts.appvisitors' : 'layouts.app' )
+@extends( $book == 'app' ? 'layouts.app' : 'layouts.appvisitors' )
 
 @section('content')
-<x-flag-page position="left" type="{{ session('visitors') == 1 ? config('app.visitorflagcolor') : config('app.appflagcolor') }}" page="Mentions Légales" margbot="3"/>
+<x-flag-page position="left" type="{{ $book == 'visit' ? config('app.visitorflagcolor') : config('app.appflagcolor') }}" page="Mentions Légales" margbot="3"/>
 
 <h3>Editeur</h3>
 <p>Le site Playlist est édité par la société Védas Informatique, micro-entreprise inscrite au répertoire des métiers sous le numéro d'immatriculation 849 500 012 RM 34</p>

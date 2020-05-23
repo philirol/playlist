@@ -56,7 +56,7 @@ return [
 
     'asset_url' => env('ASSET_URL', null),
 
-    'visitors_urlslugprefix' => 'groupe/',
+    'visitors_urlslugprefix' => 'book/',
 
     'visitorflagcolor' => 'secondary',
     'appflagcolor' => 'info',
@@ -185,6 +185,7 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         'Cohensive\Embed\EmbedServiceProvider',
+        App\Providers\BandServiceProvider::class,
 
     ],
 
@@ -241,7 +242,7 @@ return [
         'Image' => 'Intervention\Image\Facades\Image',
         'Embed' => 'Cohensive\Embed\Facades\Embed',
         'Intervention\Image\ImageServiceProvider',
-
+        'Bandhelper' => App\Helpers\BandHelper::class,
     ],
 
 ];

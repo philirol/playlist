@@ -7,8 +7,6 @@
     
     "Action ou page non autorisée.": "Unauthorized request or action.",
 
-    "Activer pour passer en liste principale": "check to put item in main list",
-    
     "Aide" : "Help" ,
     
     "Administration": "Administration",
@@ -86,6 +84,8 @@
     "Connexion": "Login",
 
     "Contactez-nous": "Contact us",
+    
+    "Contactez le webmaster du site Playlist.": "Contact the Playlist website webmaster.",
 
     "Contenu adulte": "Adult content",
 
@@ -141,8 +141,6 @@
 
     "Email : ": "Email: ",
 
-    "En liste principale, désactivez pour modifier": "In main list, uncheck to change",
-
     "Envoi de la demande": "Send demand",
 
     "Saisir les informations de votre carte bancaire": "Enter your credit card information",
@@ -174,6 +172,12 @@
     "Faire un don de": "Your donation for",
 
     "Fiche Utilisateur" : "User Card",
+
+    "Fichiers Playlist & Projets" : "Playlist and Projects files",
+
+    "Fichiers pour le Book" : "Files for the Book",
+
+    "Fichier téléchargé." : "File uploaded.",
 
     "Fichier(s)/lien(s)" : "File(s)/link(s)",
 
@@ -263,11 +267,19 @@
 
     "Le groupe a bien été modifié": "The Band has been updated",
 
+    "Le groupe n'a pas encore mis de photos.": "The Band hasn't uploaded a photo yet.",
+
+    "Le groupe n'a pas encore mis de vidéos.": "The Band hasn't uploaded a video yet.",
+
+    "Le groupe n'a pas encore rédigé sa story.": "The Band didn't write its story yet.",
+
     "Le mode a bien été actualisé.": "The mode has been updated.",
 
     "Le morceau a bien été mis à jour!": "The song has been modified successfully!.",
 
     "Le morceau a bien été supprimé!": "The song has been deleted successfully!.",
+
+    "Le navigateur ne supporte pas le format de vidéo.": "Your browser does not support the video tag.",
 
     "Le nouveau morceau a bien été créé!": "The new song has been created successfully!.",
 
@@ -289,7 +301,11 @@
 
     "Membres": "Members",
 
-    "Mentions légales": "Legal mentions",  
+    "Mentions légales": "Legal mentions",
+
+    "Merci de cliquer dans le lien à l'intérieur afin de valider votre adresse mail": "Please check your email for a verification link in your mailbox",
+
+    "Merci de confirmer votre mot de passe avant de continuer.": "Please confirm your password before continuing.",
     
     "Merci pour votre don": "Thank you for your donation!",
 
@@ -304,6 +320,8 @@
     "Mettre à jour le lien": "Update link",
 
     "Mettre dans": "Move in",
+
+    "Mettre dans liste principale et la playlist du book": "Put in main list and Playlist book",
 
     "Modif nom du groupe": "Change band name",
 
@@ -357,6 +375,8 @@
 
     "Notes des membres": "Comments of members",
 
+    "Nous vous avons envoyé un email de confirmation d'inscription": "We sent you an email",
+
     "Nouveau": "New",
 
     "Nouveau groupe": "New Band",
@@ -383,6 +403,8 @@
 
     "Photos orphelines": "Orphan photos",
 
+    "Poids total des fichiers": "Total weight for your files",
+
     "Politique de confidentialité": "Privacy policy",
 
     "Posté dans ": "Posted in",
@@ -403,11 +425,13 @@
 
     "Rapport généré pour : ": "Report generated for:",
 
-    "Renouvellement": "Reset Password",
-
+    "Renouvellement de mot de passe": "Reset Password",
+    
     "Renouvellement du mot de passe": "Password reset",
-
+    
     "Renouveller": "Reset",
+
+    "Envoyer le lien": "Send Password Reset Link",
 
     "Retour": "Back",
 
@@ -443,7 +467,7 @@
 
     "Si vous n'avez pas fait cette demande, aucune action complémentaire n'est requise.": "If you did not request a password reset, no further action is required.",
 
-    "Si vous n'avez pas reçu l'email ": "If you did not receive the email",
+    "Si vous n'avez pas reçu l'email": "If you did not receive the email",
 
     "Souscripteur": "Subscriber",
 
@@ -507,6 +531,8 @@
 
     "Utilisez le bouton ci-dessous pour renouveler votre mot de passe.": "Click the button below to reset your password.",
 
+    "Validation de votre courriel": "Verify Your Email Address",
+
     "Valider": "Send",
 
     "Versement libre": "Free donation",
@@ -521,7 +547,7 @@
 
     "Voir les photos de ": "Show photos from ",
 
-    "Volume disponible": "Available storage volume for this plan",
+    "Volume total disponible": "Total available storage volume",
 
     "Volume des données stockées": "Storage datas stored",
 

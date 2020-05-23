@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
-use App\Band;
-use App\{Songsub, Media};
+use App\Helpers\BandHelper;
+use App\{Songsub, Media, Band};
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Band as BandRequest;
 use Illuminate\Http\Request;
 use App\Traits\DeleteSong;
+use App\Traits\SubscriptionControlTrait;
 use Stripe\Stripe;
 use Illuminate\Support\Facades\Storage;
 
 class BandController extends Controller
 {
     use DeleteSong;
+    use SubscriptionControlTrait;
 
     public function __construct()
     {    
@@ -36,13 +38,7 @@ class BandController extends Controller
      */
     public function create()
     {
-        $band = new Band;
-        $villes = DB::table('villes')
-                            ->select('id', 'ville_nom', 'ville_code_postal')
-                            //->whereBetween('id', [1,100])
-                            ->orderBy('ville_nom')
-                            ->get();
-        return view('band.create', compact('band','villes'));
+        //
     }
 
     /**
@@ -70,7 +66,7 @@ class BandController extends Controller
 
     public function show() //pour les users
     {
-        Auth::check() ? $band = Auth::user()->band : $band = Band::find(1);
+        $band = Bandhelper::getBand();
         return view('band.show', compact('band'));
     }
 
@@ -169,12 +165,19 @@ class BandController extends Controller
         // dd($size2b);
 
         $size2 = $size2a + $size2b;
+
+        $plans = $this->BandPlan();
+        foreach ($plans as $plan) {
+            $limitUpload = $plan->bitval;
+            $planName = $plan->name;
+        }
+        
         
         // size1 gives the total size of the band directory
         // size2 do the same but with the values registered in the database for each file
         // both must give the same value
 
-        return view('band.storedfilelist', compact('songsubs', 'medias', 'size1', 'size2a', 'size2b'));
+        return view('band.storedfilelist', compact('songsubs', 'medias', 'size1', 'size2a', 'size2b', 'limitUpload','planName'));
     } 
 }
 

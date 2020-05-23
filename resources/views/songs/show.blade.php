@@ -22,7 +22,7 @@
 @endsection
 @if($song->songsubs) 
     @lang('Éléments joints au morceau'):
-    <table class="table table-striped">
+    <table class="table table-sm table-striped">
         @foreach($song->songsubs as $songsub)
                 <tr class="row1" data-id="{{ $songsub->id }}">
                     <td>

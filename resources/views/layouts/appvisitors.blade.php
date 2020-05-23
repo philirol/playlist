@@ -20,64 +20,61 @@
         var myVideo = document.getElementsByTagName('video')[0];
         myVideo.src = vidURL;
         myVideo.load();
-        myVideo.play();    
+        myVideo.play();
         }
         var deleteLinks = document.querySelectorAll('.delete');
-
     </script>
 
-    <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    
 
-    <!-- New Bootstrap menu déroulant marche pas si actif, à voir si on garde suite au changmenets css -->
-    <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script> -->
-    
-    <!-- Resident -->
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
-    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> -->
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
-    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.css"/> -->
-   
-    <!-- <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/> -->
-    @if(View::hasSection('style_photos'))
-<style type="text/css">
-      #imgbook  { width: 100%; }
-</style>
+@if(View::hasSection('style_photos'))
+    <style type="text/css">
+        #imgbook { width: 100%; }
+    </style>
 @endif
+
 </head>
 <body>
     <div id="wrap">
-        <nav class="navbar navbar-expand-lg navbar-light shadow-sm" style="background-color: #fca733">        
+        <nav class="navbar navbar-expand-lg navbar-light shadow-sm" style="background-color: #fca733">  
+
             <div class="container">
-                <div class="pull-left"><img width="32" height="32" src="{!! asset('images/logo2.png') !!}"/></div>
+                <div class="pull-left"><img width="32" height="32" src="{!! asset('images/logo3.png') !!}"/></div>
                 <button class="navbar-toggler ml-auto hidden-sm-up float-xs-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
+                
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ action('VisitorsController@playlist', session('band_slug_for_visitors')) }}">Playlist</a>
-                        </li>
+                            <a class="nav-link" href="{{ action('BookController@index', session('band_slug_for_visitors')) }}">Accueil</a>
+                        </li>  
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('vband', session('band')) }}">@lang('Le groupe')</a>
-                        </li>   
+                            <a class="nav-link" href="{{ route('book.playlist') }}">Playlist</a>
+                        </li>  
                         <li class="nav-item">
                             <a class="nav-link" href="{{ URL::to('/songs/pdf') }}">@lang('Imprimer Playlist')<span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('mailvisitorcreate', session('band')) }}">Contact</a>
+                            <a class="nav-link" href="{{ route('book.band') }}">@lang('Le groupe')</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('vmedias', session('band')) }}">@lang('Photos/Vidéos')</a>
+                            <a class="nav-link" href="{{ route('book.story') }}">Story</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('book.photos') }}">Photos</a>
+                        </li>                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('book.videos') }}">@lang('Vidéos')</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('book.contact') }}">Contact</a>
                         </li>
                     </ul>
 
                     <!-- Right Side (ml) Of Navbar -->              
-                     <ul class="navbar-nav ml-auto">                         
+                    <ul class="navbar-nav ml-auto">                         
                         <li class="nav-item dropdown">
                             <a class="nav-link" href="#" id="navbarDropdownFlag" role="button" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
@@ -99,36 +96,74 @@
                 </div>
             </div>
         </nav>
-        <main class="py-3 container">
-                @if (session()->has('message'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session()->get(__('message')) }}
+        @if(View::hasSection('players'))                    
+            <main class="py-3 container">
+                <div class="row">
+                    <div class="col-lg-8">                    
+                        @if (session()->has('message'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session()->get(__('message')) }}
+                            </div>
+                        @endif
+                        @if (session()->has('messageDanger'))
+                            <div class="alert alert-danger" role="alert">
+                                {{ session()->get(__('messageDanger')) }}
+                            </div>
+                        @endif
+                        @yield('content')
                     </div>
-                @endif
-                @if (session()->has('messageDanger'))
-                    <div class="alert alert-danger" role="alert">
-                        {{ session()->get(__('messageDanger')) }}
-                    </div>
-                @endif
-            <div class="container">
-            @yield('content')
-            </div>
-        </main>     
+                    <aside class="jumbotron">
+                            <div>
+                                @php    
+                                if(isset($url)){ 
+                                        
+                                    $embed = Embed::make($url)->parseUrl();
+                                    if ($embed) {
+                                        $embed->setAttribute([
+                                            'width' => 320,
+                                            'id' => 'video'
+                                            ]);
+                                        echo $embed->getHtml();  
+                                    }
+                                }
+                                @endphp
+                                {{-- substr(strrchr($songsub->file, '/'), 1) --}}
+                                <!-- <span class="note">ouvrir dans youtube</span> -->
+                            </div>
+                            <div class="pt-4">
+                                <video id='video' width="320" height="180" controls preload poster="{{asset('images/audiowave.png')}}" autoplay></video>
+                                <!-- <script>document.write(vidURL)</script> -->
+                            </div>
+                    </aside> 
+                </div>
+            </main>
+        @else
+            <main class="py-3">
+                <div class="container">
+                    @if (session()->has('message'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session()->get(__('message')) }}
+                        </div>
+                    @endif
+                    @if (session()->has('messageDanger'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session()->get(__('messageDanger')) }}
+                        </div>
+                    @endif
+                    @yield('content')
+                </div>
+            </main>
+        @endif     
     </div>
 
     <footer id="foot">
-        <br>
-        <div class="content-foot">
-            <p>Copyright © 2020 Védas-Informatique</p>
-            <p>
-                <a href="{{ URL::to('/ML') }}">Mentions légales</a>
+        <div class="content-foot pt-2">
+            Playlist@2020-VédasInformatique<br>
+                <a href="{{ route('ml','visit') }}">Mentions légales</a>
                 &nbsp; &nbsp; - &nbsp;&nbsp;
-                <a href="{{ URL::to('/CF') }}">Politique de confidentialité</a>
+                <a href="{{ route('cf','visit') }}">Politique de confidentialité</a>
                 &nbsp; &nbsp; - &nbsp;&nbsp;
-                <a href="{{ URL::to('/CGV') }}">CGV</a>
-                &nbsp; &nbsp; - &nbsp;&nbsp;
-                <a href="{{ route('contact.admin','visitor') }}">Contact</a>
-            </p>
+                <a href="{{ route('contactwbm','visit') }}">Contact</a>
         </div>
     </footer>
 

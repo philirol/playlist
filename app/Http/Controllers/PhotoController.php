@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\BandHelper;
 use Illuminate\Http\Request;
-use App\Repositories\MediaRepository;
+use App\Repositories\PhotoRepository;
 use App\Media;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
-class MediaController extends Controller
+class PhotoController extends Controller
 {
     protected $repository;
     
-    public function __construct(MediaRepository $repository)
+    public function __construct(PhotoRepository $repository)
     {
         $this->repository = $repository;
-        $this->middleware('members')->except('index');
+        $this->middleware('members')->except('index','create');
     }
 
     /**
@@ -25,12 +26,9 @@ class MediaController extends Controller
      */
     public function index()
     {
-        Auth::check() ? $band_id = Auth::user()->band->id : $band_id = 1;
-
-        $band = \App\Band::find($band_id);
-
-        $medias = Media::where('band_id',$band_id)->orderBy('created_at', 'DESC')->get();
-        return view('medias.index', compact('medias','band'));
+        $band = Bandhelper::getBand();
+        $medias = Media::where('band_id',$band->id)->ofType(1)->orderBy('created_at', 'DESC')->get();
+        return view('photos.index', compact('medias','band'));
     }
 
     /**
@@ -40,7 +38,7 @@ class MediaController extends Controller
      */
     public function create()
     {
-        return view('medias.create');
+        return view('photos.create');
     }
 
     /**
@@ -59,7 +57,7 @@ class MediaController extends Controller
 
         Str::contains($message,'stockage') ? $messagetype = 'messageDanger' : $messagetype = 'message';
 
-        return redirect('medias')->with($messagetype,__($message));
+        return redirect('photos')->with($messagetype,__($message));
     }
 
     /**
@@ -82,7 +80,8 @@ class MediaController extends Controller
     public function edit($id)
     {
         $media = Media::find($id);
-        return view('medias.edit', compact('media'));
+        $this->authorize('view', $media);
+        return view('photos.edit', compact('media'));
     }
 
     /**
@@ -99,9 +98,10 @@ class MediaController extends Controller
         ]);
 
         $media = Media::find($id);
+        $this->authorize('update', $media);
         $media->update($this->params($request));
 
-        return redirect()->route('medias.index')->with('message',__('Modification effectuée'));
+        return redirect()->route('photos.index')->with('message',__('Modification effectuée'));
     }
 
     private function params(Request $request){
@@ -117,9 +117,9 @@ class MediaController extends Controller
     public function destroy($id)
     {
         $media = Media::find($id);
-        // dd($media);
+        $this->authorize('delete', $media);
         unlink(storage_path('app/public/'.$media->name));
         $media->delete();
-        return redirect()->route('medias.index')->with('message',__('Suppression effectuée'));
+        return redirect()->route('photos.index')->with('message',__('Suppression effectuée'));
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\BandHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -10,18 +11,16 @@ use App\Mail\ContactLeader;
 
 class ContactController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('members')->except('create');
+    }
+    
     public function create()
     {
-        Auth::check() ? $band = Auth::user()->band : $band = 'noband';
+        $band = BandHelper::getBand();
         return view('contact.leader', compact('band'));
-    } 
-
-
-    public function contact($id){
-        $band = \App\Band::find($id);
-        // dd($band);
-        return view('visitors.contact', compact('band'));
-    }    
+    }  
 
     public function mailtoLeader($id)
     {

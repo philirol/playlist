@@ -69,3 +69,5 @@ Route::get('sendmail2','TestMailgunController@testMailgun');
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+

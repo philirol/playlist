@@ -2,9 +2,12 @@
 
 @section('content')
 <x-flag-page position="left" type="{{config('app.appflagcolor')}}" page="{{__('Liste des fichiers')}}" margbot="3"/>
-@section('media')
-@endsection
-<p>Fichiers dans Playlist et Projets : <strong>{{ substr(number_format($size2a,0, ',', ' '), 0, -4) }} Ko</strong></p>
+<div class="jumbotron note">
+  @lang('Poids total des fichiers') : {{ substr(number_format(($size2a + $size2b),0, ',', ' '), 0, -4) }} Ko (bdd) - {{ substr(number_format($size1,0, ',', ' '), 0, -4) }} Ko (dossier du groupe)
+<br />
+  @lang('Volume total disponible') : {{ substr(number_format(($limitUpload),0, ',', ' '), 0, -4) }} Ko<span class="note"> (plan {{$planName}})</span>
+  </div>
+<p>Fichiers Playlist & Projets : <strong>{{ substr(number_format($size2a,0, ',', ' '), 0, -4) }} Ko</strong></p>
 <table class="table table-sm">
   @foreach($songsubs as $songsub)
     <tr class="row1">
@@ -34,7 +37,7 @@
 
 <br>
 
-<p>Fichiers dans le Book <strong> {{ substr(number_format($size2b,0, ',', ' '), 0, -4) }} Ko</strong></p>
+<p>@lang('Fichiers pour le Book') : <strong> {{ substr(number_format($size2b,0, ',', ' '), 0, -4) }} Ko</strong></p>
 <table class="table table-sm">
   @foreach($medias as $media)
     <tr class="row1">
@@ -62,8 +65,8 @@
   @endforeach
 </table>
 <br>
-<p><strong>Poids total des fichiers :</strong> {{ substr(number_format(($size2a + $size2b),0, ',', ' '), 0, -4) }} Ko (bdd) - {{ substr(number_format($size1,0, ',', ' '), 0, -4) }} Ko (dossier du groupe)</p>
-
-<p><a href="javascript:history.back()" class="btn btn-primary"><span class="glyphicon glyphicon-circle-arrow-left"></span> @lang('Retour')</a></p>
+<p>
+  <a href="javascript:history.back()" class="btn btn-primary"><span class="glyphicon glyphicon-circle-arrow-left"></span> @lang('Retour')</a>
+</p>
 
 @endsection

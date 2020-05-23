@@ -1,19 +1,19 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Songsub;
+use App\{Songsub,Band};
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
-Route::fallback(function(){
-    return view('errors/fallback');
-});
+// Route::fallback(function(){
+//     return view('errors/fallback');
+// });
 
 Route::middleware('members')->group(function(){
     Route::get('/home', 'HomeController@index')->name('home');
     
     Route::get('SubscribedPlan','SongsubController@showPlan');
-    Route::get('/strd/files', 'BandController@storedfilelist')->name('storedfilelist');
+    Route::get('/list/files', 'BandController@storedfilelist')->name('storedfilelist');
     Route::get('user/{user}', 'UserController@show')->name('user.show');
     Route::get('deleteImage/{user}', 'UserController@deleteImage')->name('user.deleteImage');
     Route::delete('customer/{user}', 'UserController@customerdestroy')->name('customer.destroy');
@@ -44,38 +44,49 @@ Route::middleware('members')->group(function(){
     Route::get('inv/{uid}','InvitationController@store');
 
 });
-Route::get('visitors', 'VisitorsController@index')->name('visitors');
 
-Route::middleware('visitors')->group(function(){
-    Route::view('nogroup','visitors.nogroup')->name('nogroup');
-    // Route::get('groupe/{slug}', 'SongController@indexByVisitors');
-    // Route::get(config('app.visitors_urlslugprefix').'/{slug}', 'SongController@indexByVisitors');
-    Route::group(['prefix' => config('app.visitors_urlslugprefix')], function () {
-        Route::get('/{slug}', 'VisitorsController@playlist');
-    });
-});
-
-Route::post('contactWbm', 'ContactController@mailtoAdmin')->name('contact.store');
-Route::get('contactWbm/{visitor?}', 'ContactController@AdminContactForm')->name('contact.admin');
 
 Route::post('contact/{id}', 'ContactController@mailtoLeader')->name('contact.store');
 Route::get('contact', 'ContactController@create')->name('contact.create');
 
-Route::post('vcontact/{id}', 'ContactController@mailtoLeader')->name('mailvisitorstore');
-Route::get('vcontact/{id}', 'ContactController@contact')->name('mailvisitorcreate');
+Route::get('book', 'BookController@geturl')->name('visitors');
 
-Route::get('vmedias/{id}', 'VisitorsController@visitMedias')->name('vmedias');
-Route::get('vband/{id}', 'VisitorsController@visitBand')->name('vband');
+Route::post('book/contact/{id}', 'ContactController@mailtoLeader')->name('book.contact');
+Route::get('book/contact', 'BookController@contact')->name('book.contact');
 
-Route::resource('medias', 'MediaController');
+Route::get('book/story', 'BookController@story')->name('book.story');
+Route::get('book/videos', 'BookController@videos')->name('book.videos');
+Route::get('book/photos', 'BookController@photos')->name('book.photos');
+Route::get('book/band', 'BookController@band')->name('book.band');
+Route::get('book/playlist', 'BookController@playlist')->name('book.playlist');
+
+Route::get('playbook/{songsub}/{id}', function(Songsub $songsub, $id){
+    session(['filetoplaybook' => $songsub]);
+    return redirect()->action('BookController@playlist',$id);
+})->name('playerVisitor');
+
+Route::middleware('visitors')->group(function(){
+    Route::view('nogroup','book.nogroup')->name('nogroup');
+    Route::group(['prefix' => config('app.visitors_urlslugprefix')], function () {
+        Route::get('/{slug}', 'BookController@index');
+    });
+});
+
+Route::resource('photos', 'PhotoController');
+Route::resource('videos', 'VideoController');
+Route::resource('story', 'StoryController');
 
 
 Route::view('/','auth/login')->name('accueil');
 Route::get('language/{lang}', 'HomeController@language')->name('language');
 Route::get('/songs/pdf', 'SongController@printPlaylist');
-Route::view('/ML', 'mentionslegales');
-Route::view('/CF', 'confidentialite');
-Route::view('/CGV', 'cgv');
+
+Route::get('cgv/{book?}', function($book){ return view('cgv', compact('book')); })->name('cgv');
+Route::get('cf/{book?}', function($book){ return view('cf', compact('book')); })->name('cf');
+Route::get('ml/{book?}', function($book){ return view('ml', compact('book')); })->name('ml');
+Route::post('sendtowbm', 'ContactController@mailtoAdmin')->name('contact.store');
+Route::get('contactwbm/{book?}', function($book){ return view('contact.admin', compact('book')); })->name('contactwbm');
+
 Route::view('hlp', 'help');
 
 Route::post('song-sortable','SongController@update_order')->name('orderingPlaylist');
@@ -102,6 +113,7 @@ Route::get('playin/{songsub}/{id}', function(Songsub $songsub, $id){
     session(['filetoplay' => $songsub]);
     return redirect('songs/' . $id);
 })->name('playin');
+
 
 Route::get('users/{slug}/{sort}', 'UserController@indexByAdmin')->middleware('admin')->name('user.indexByAdmin');
 Route::get('users/{slug}', 'UserController@indexByAdmin')->middleware('admin')->name('user.band');
@@ -147,3 +159,6 @@ Route::get('newusermail', function () {
 
 // Route::get('register-step2', 'Auth\RegisterStep2Controller@showForm');
 // Route::post('register-step2', 'Auth\RegisterStep2Controller@postForm')->name('register.step2');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

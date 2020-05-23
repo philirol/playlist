@@ -59,11 +59,6 @@
           <div class="custom-control custom-switch">
                 <input type="checkbox" class="custom-control-input" id="customSwitch1" name="main" value="1" {{ $songsub->main == 1 ? 'checked' : '' }}>
                 <label class="custom-control-label" for="customSwitch1">
-                @if($songsub->main == 1 )
-                    @lang('En liste principale, désactivez pour modifier')
-                @else
-                    @lang('Activer pour passer en liste principale')
-                @endif    
-                
+                @lang('Mettre dans liste principale et la playlist du book').                
                 </label>              
           </div>

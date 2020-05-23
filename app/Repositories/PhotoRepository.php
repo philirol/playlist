@@ -3,13 +3,12 @@
 namespace App\Repositories;
 
 use App\Media;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image as InterventionImage;
 use App\Traits\SubscriptionControlTrait;
 
-class MediaRepository
+class PhotoRepository
 {
     use SubscriptionControlTrait;
     
@@ -21,7 +20,7 @@ class MediaRepository
 
     if ( Gate::any(['freeupload', 'freePlan'], $fileSize) || $this->BandPlanLimitControl(Auth::user(), $fileSize)){ 
 
-        $filename = 'Book' . Auth::user()->id . '-' .time() . '.' . $mediafile->getClientOriginalExtension();
+        $filename = 'User' . Auth::user()->id . '-' .time() . '.' . $mediafile->getClientOriginalExtension();
         $path = $mediafile->storeAs($band->slug, $filename, 'public'); //image storing
         
         $mediapath = public_path('storage/'.$band->slug.'/'.$filename);
@@ -37,6 +36,7 @@ class MediaRepository
         $media = new Media;
         $media->description = $request->description;
         $media->name = $path;
+        $media->type = 1; // 1 for photos
         $media->filesize = $fileSizeNew;
         $media->band()->associate($band);      
 

@@ -13,4 +13,15 @@ class Media extends Model
     public function band(){
         return $this->belongsTo(Band::class);
     }
+
+    public function scopeOfType($query, $type)
+    {
+        return $query->where('type', $type);
+    }
+
+    public function scopeType($query)
+    {
+        return $query->where('type', '>', 1);
+    }
+
 }

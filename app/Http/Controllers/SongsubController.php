@@ -3,15 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use App\Http\Requests\Songsub as SongsubRequest;
 use App\Repositories\SongsubRepository;
 use App\Songsub;
-use App\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Redirect;
 use App\Traits\SubscriptionControlTrait;
 
 class SongsubController extends Controller
@@ -65,8 +59,7 @@ class SongsubController extends Controller
         if($request->testfile == null){
             $this->validatorLink();
             $this->songsubRepository->storeLink($songsub, $request);
-        }
-        
+        }        
     }
 
     public function download(Songsub $songsub)
@@ -135,11 +128,11 @@ class SongsubController extends Controller
     
     public function destroy(Songsub $songsub)
     {
-        if ($songsub->type > 1){ // if > 1 this is a file, not a link
+        if ($songsub->type > 1){ // if > 1 for a file, not a link
             $this->destroyFile($songsub);
         }
         $songsub->delete();
-        DB::table('songs')->where('id', $songsub->song_id)->update(['songsub' => $songsub->song->songsub - 1]); //removing 1 to the songsub number
+        DB::table('songs')->where('id', $songsub->song_id)->update(['songsub' => $songsub->song->songsub - 1]); //removing 1 at song table
         
         return back()->with('message', __('L\'élément a bien été supprimé'));
     }   

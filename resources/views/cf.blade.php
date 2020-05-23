@@ -1,7 +1,7 @@
-@extends( session('visitors') == 1 ? 'layouts.appvisitors' : 'layouts.app' )
+@extends( $book == 'app' ? 'layouts.app' : 'layouts.appvisitors' )
 
 @section('content')
-<x-flag-page position="left" type="{{ session('visitors') == 1 ? config('app.visitorflagcolor') : config('app.appflagcolor') }}" page="Politique de confidentialité" margbot="3"/>
+<x-flag-page position="left" type="{{ $book == 'visit' ? config('app.visitorflagcolor') : config('app.appflagcolor') }}" page="Politique de confidentialité" margbot="3"/>
 
 <p>Le principe de confidentialité s'applique sur toute donnée personnelle transmise par les utilisateurs via le site Playlist.<br>
  S'entend par "utilisateur" toute personne physique ou morale identifiable par les données personnelles qu'elle transmet.</p>

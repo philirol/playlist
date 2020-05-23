@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Notifications\NewUser;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -14,7 +15,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except(['language']);
+        $this->middleware(['auth','verified'])->except(['language']);
     }
 
     /**
@@ -24,12 +25,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        Auth::user()->nconnex ++;
-        Auth::user()->update();
-        if(Auth::user()->admin) {
+        $user = Auth::user();
+        $user->nconnex ++;
+        $user->update();
+        if($user->admin) {
             return redirect()->route('band.index', ['sort' => 'id']); //sorted by id by default
         }
-        return redirect('songs')->with('message', __('Bienvenue sur Playlist ').Auth::user()->name.' !');
+        return redirect('songs')->with('message', __('Bienvenue sur Playlist ').$user->name.' !');
     }
 
     public function language(String $locale)
