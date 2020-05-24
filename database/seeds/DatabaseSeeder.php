@@ -54,6 +54,7 @@ class DatabaseSeeder extends Seeder
         } 
         //ce script crééra $number x $i lignes. Le pb est que des songs appartiennent à plusieurs users mais bon pas grave c'est du test
         */
+        $faker = Faker::create();
         
         DB::table('users')->insert([
             'band_id' => 1,
@@ -61,8 +62,9 @@ class DatabaseSeeder extends Seeder
             'admin' => false,
             'leader' => false,
             'email' => 'clarency@avg.org',
-            'email_verified_at' => now(),
+            'email_verified_at' => $faker->dateTimeBetween('-6 months'),
             'password' => Hash::make('password'),
+            'created_at' => $faker->dateTimeBetween('-4 years', '-6 months'),
             'image' => 'userId2-1585124056.jpg'
         ]);
 
