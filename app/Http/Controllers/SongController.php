@@ -69,7 +69,7 @@ class SongController extends Controller
     {
         $song = Song::create($songRequest->all());
         $user = Auth::user();
-        $song->band_id = $user->band->id; 
+        $song->band_id = Bandhelper::getBand()->id; 
         $song->user_id = $user->id;
         //le morceau a pu être créé avant car band_id et user_id sont nullable dans la table
         $this->list($song);
@@ -97,7 +97,7 @@ class SongController extends Controller
         // array_search(...) get the key of the list the song was
         // Order putted at first position if the song change of list      
         if( array_search($song->list, $song->getListOptions()) <> intval($songRequest->list)){
-            $songRequest['order'] = 0 ;
+            $songRequest['order'] = 1 ;
         }      
         $song->update($songRequest->all()); 
         $this->mailtomembers($song, $songRequest->mailtomembers);
