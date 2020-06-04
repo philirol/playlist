@@ -25,6 +25,7 @@ class Song extends Model
     {
         return $this->hasMany(Songsub::class);
     }
+    
 
     protected $attributes = ['list' => 1]; 
 
