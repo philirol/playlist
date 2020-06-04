@@ -3,17 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use App\Http\Requests\Songsub as SongsubRequest;
 use App\Repositories\SongsubRepository;
 use App\Songsub;
-use App\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Gate;
-use Carbon\Carbon;
 use App\Traits\SubscriptionControlTrait;
 
 class SongsubController extends Controller
@@ -23,7 +15,7 @@ class SongsubController extends Controller
     
     public function __construct(SongsubRepository $songsubRepository) 
     {   
-        $this->middleware('members')->except(['index','create']);   
+        $this->middleware('members')->except(['index','create','edit']);   
         $this->songsubRepository = $songsubRepository;           
     }
     
@@ -55,40 +47,19 @@ class SongsubController extends Controller
 
     public function store(Request $request)
     { 
-        $song = session('song');        
-        $songsub = new Songsub;
-        
+        $songsub = new Songsub;        
         $this->mainSongsub($request->main, $songsub);
         
-        if($request->testfile != null){ 
-            
+        if($request->testfile != null){             
             $this->validatorFile();
             $this->songsubRepository->storeFile($songsub);
+            // if( ($this->songsubRepository->storeFile($songsub)) instanceof \App\Songsub)
         }
 
         if($request->testfile == null){
             $this->validatorLink();
-            $songsub->url = $request->url;
-            $songsub->title = $request->title;
-            $songsub->type = 1;
-        }
-        
-        $songsub->user()->associate(Auth::user());
-        $songsub->song()->associate($song);
-
-        //comptage des songsubs et update du nombre dans le champ songsub de la table song
-        $countsongsub = Songsub::where('song_id', $song->id)->count(); 
-        $countsongsub == null ? $songsub->main = 1 : ''; //main = 1 pour le       
-        $song->songsub = $countsongsub + 1;
-        $songsub->touch();
-
-        $song->touch();
-        $song->refresh();
-        return redirect()->action('SongController@show', ['id' => $song->id]);
-    }
-
-    public function toproposeplan(){
-        
+            $this->songsubRepository->storeLink($songsub, $request);
+        }        
     }
 
     public function download(Songsub $songsub)
@@ -133,7 +104,7 @@ class SongsubController extends Controller
     
     public function update(Request $request, Songsub $songsub)
     {
-        $this->authorize('edit',$songsub);
+        $this->authorize('update',$songsub);
         $this->mainSongsub($request->main, $songsub);       
 
         if($request->testfile != null){                        
@@ -148,7 +119,7 @@ class SongsubController extends Controller
             $songsub->update($this->validatorLink());
         }
         $song = session('song');
-        return redirect()->action('SongController@show', ['id' => $song->id]);
+        return redirect()->action('SongController@show', [$song->id]);
     }
 
     private function destroyFile(Songsub $songsub){
@@ -157,13 +128,12 @@ class SongsubController extends Controller
     
     public function destroy(Songsub $songsub)
     {
-        if ($songsub->type > 1){ // if > 1 this is a file, not a link
+        if ($songsub->type > 1){ // if > 1 for a file, not a link
             $this->destroyFile($songsub);
         }
         $songsub->delete();
-        DB::table('songs')->where('id', $songsub->song_id)->update(['songsub' => $songsub->song->songsub - 1]); //removing 1 to the songsub number
+        DB::table('songs')->where('id', $songsub->song_id)->update(['songsub' => $songsub->song->songsub - 1]); //removing 1 at song table
         
         return back()->with('message', __('L\'élément a bien été supprimé'));
-    }
-    
+    }   
 }

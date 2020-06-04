@@ -23,62 +23,54 @@
         myVideo.play();    
         }
         var deleteLinks = document.querySelectorAll('.delete');
-
     </script>
-
-    <!-- Styles -->
+    <link rel="icon" href="{{ URL::asset('images/favicon.png') }}" type="image/x-icon"/>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    
 
-    <!-- New Bootstrap menu déroulant marche pas si actif, à voir si on garde suite au changmenets css -->
-    <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script> -->
-    
-    <!-- Resident -->
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
-    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> -->
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
-    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.css"/> -->
-   
-    <!-- <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/> -->
+@if(View::hasSection('style_photos'))
+    <style type="text/css">
+        #imgbook { width: 100%; }
+    </style>
+@endif
 
 </head>
 <body>
     <div id="wrap">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ action('SongController@index', '1') }}">Playlist</a>
-                <a class="navbar-brand" href="{{ action('SongController@index','0') }}">@lang('Projets')</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+            
+            <div class="container">               
+                <div class="pull-left" width="32" height="32">
+                    <a href="{{ route('songs.index') }}"><img width="32" height="32" src="{!! asset('images/logo3.png') !!}"/></a>
+                </div>
+                <button class="navbar-toggler ml-auto hidden-sm-up float-xs-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
+                        <li class="nav-item">
+                        <a class="nav-link" href="{{ action('SongController@index', '1') }}">Playlist</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="{{ action('SongController@index', '0') }}">Projets</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ URL::to('/songs/pdf') }}">@lang('Imprimer Playlist')<span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('band.show')}}">@lang('Le groupe')</a>
-                        </li>          
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('user.index') }}">Profil</a>
+                            <a class="nav-link" href="{{ route('band.show') }}">@lang('Le groupe')</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('contact.create') }}">Contact</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/') }}">@lang('Aide')</a>
+                            <a class="nav-link" href="{{ URL::to('hlp') }}">@lang('Aide')</a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('photos.index') }}">Book</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Extras
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="{{ route('plans.index') }}">@lang('Abonnement')</a>
-                                <a class="dropdown-item" href="{{ route('don') }}">@lang('Don')</a>
-                            </div>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('visitors') }}">@lang('Visiteurs')</a>
                         </li>
                     </ul>
 
@@ -88,7 +80,10 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">@lang('Connexion')</a>
+                                <input type="button" class="btn btn-light mt-2" value="@lang('Connexion')" onclick="login()">
+                                <script>
+                                function login(){ location.href = "{{ route('login') }}";} 
+                                </script>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
@@ -100,16 +95,19 @@
                                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>{{ Auth::user()->name }}<span class="caret"></span>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        @lang('Se déconnecter')
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
+                                        <a class="dropdown-item" href="{{ route('user.index') }}">Profil</a>
+                                        <a class="dropdown-item" href="{{ route('plans.index') }}">@lang('Abonnement')</a>
+                                        <a class="dropdown-item" href="{{ route('don') }}">@lang('Don')</a>
+                                        
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                           onclick="event.preventDefault();
+                                                         document.getElementById('logout-form').submit();">
+                                            @lang('Se déconnecter')
+                                        </a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            @csrf
+                                        </form>
+                                    </div>
                                 </li>
                         @endguest
                         <li class="nav-item dropdown">
@@ -134,45 +132,40 @@
             </div>
         </nav>
         @if(Auth::check() and Auth::user()->admin)
-        <nav class="navbar navbar-expand-lg navbar-light shadow-sm" style="background-color: #ddd78f;">
-            <div class="container">
-                <span class="navbar-brand">Admin</span>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent2" aria-controls="navbarSupportedContent2" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent2">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">                   
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('user.indexByAdmin', ['slug' => 'demo-band','sort' => 'id']) }}">@lang('Utilisateurs')</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('band.index', ['sort' => 'id']) }}">@lang('Groupes')</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Stripe
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="{{ route('stripe.plan') }}">@lang('Stripe products')</a>
-                                <a class="dropdown-item" href="{{ route('stripe.index') }}">@lang('Stripe clients')</a>
-                                <a class="dropdown-item" href="{{ route('stripe.subscr') }}">@lang('Subscriptions')</a>
-                            </div>
-                        </li>
-                        {{--   
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('ville.index') }}">@lang('Villes')</a>
-                        </li>
-                        --}} 
-                    </ul>
+            <nav class="navbar navbar-expand-lg navbar-light shadow-sm" style="background-color: #ddd78f;">
+                <div class="container">
+                    <span class="navbar-brand">Admin</span>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent2" aria-controls="navbarSupportedContent2" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent2">
+                        <!-- Left Side Of Navbar -->
+                        <ul class="navbar-nav mr-auto">                   
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('user.indexByAdmin', ['slug' => 'demo-band','sort' => 'id']) }}">@lang('Utilisateurs')</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('band.index', ['sort' => 'id']) }}">@lang('Groupes')</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Stripe
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" href="{{ route('plans.create') }}">@lang('Stripe products')</a>
+                                    <a class="dropdown-item" href="{{ route('subscr.index') }}">@lang('Stripe clients')</a>
+                                    <a class="dropdown-item" href="{{ route('subscr.subscrList') }}">@lang('Subscriptions')</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
         @endif
-        @if(View::hasSection('media'))                    
+        @if(View::hasSection('players'))                    
             <main class="py-3 container">
                 <div class="row">                
-                    <div class="col-md-8">                    
+                    <div class="col-lg-8">                    
                         @if (session()->has('message'))
                             <div class="alert alert-success" role="alert">
                                 {{ session()->get(__('message')) }}
@@ -185,33 +178,34 @@
                         @endif
                         @yield('content')
                     </div>
-                    <aside class="col-md-4">
-                        <div>
-                            <video id='video' width="320" height="200" controls preload poster="{{asset('images/woman3.jpg')}}" autoplay></video>
-                            <!-- <script>document.write(vidURL)</script> -->
-                        </div>
-                        <div class="py-4">
-                            @php    
-                            if(isset($url)){ 
-                                    
-                                $embed = Embed::make($url)->parseUrl();
-                                if ($embed) {
-                                    $embed->setAttribute([
-                                        'width' => 320,
-                                        'id' => 'video'
-                                        ]);
-                                    echo $embed->getHtml();  
+                    <aside class="jumbotron">
+                            <div>
+                                @php    
+                                if(isset($url)){ 
+                                        
+                                    $embed = Embed::make($url)->parseUrl();
+                                    if ($embed) {
+                                        $embed->setAttribute([
+                                            'width' => 320,
+                                            'id' => 'video'
+                                            ]);
+                                        echo $embed->getHtml();  
+                                    }
                                 }
-                            }
-                            @endphp
-                            {{-- substr(strrchr($songsub->file, '/'), 1) --}}
-                            <!-- <span class="note">ouvrir dans youtube</span> -->
-                        </div>
+                                @endphp
+                                {{-- substr(strrchr($songsub->file, '/'), 1) --}}
+                                <!-- <span class="note">ouvrir dans youtube</span> -->
+                            </div>
+                            <div class="pt-4">
+                                <video id='video' width="320" height="180" controls preload poster="{{asset('images/audiowave.png')}}" autoplay></video>
+                                <!-- <script>document.write(vidURL)</script> -->
+                            </div>
                     </aside> 
                 </div>
             </main>
         @else
-            <main class="py-3 container">
+            <main class="py-3">
+                <div class="container">
                     @if (session()->has('message'))
                         <div class="alert alert-success" role="alert">
                             {{ session()->get(__('message')) }}
@@ -222,19 +216,23 @@
                             {{ session()->get(__('messageDanger')) }}
                         </div>
                     @endif
-                @yield('content')
+                    @yield('content')
+                </div>
             </main>
         @endif        
     </div>
 
     <footer id="foot">
-        <br>
-        <div class="content-foot">
-            <p>@ 2020 Playlist by Védas-Informatique</p>
-            <p>
-                <a href="">Mentions légales</a>&nbsp; &nbsp; - &nbsp;&nbsp;
-                <a href="">Politique de confidentialité</a>
-            </p>
+        <div class="content-foot pt-2">
+            Playlist@2020-VédasInformatique<br>
+            
+                <a href="{{ route('ml','app') }}">Mentions légales</a>
+                &nbsp; &nbsp; - &nbsp;&nbsp;
+                <a href="{{ route('cf','app') }}">Politique de confidentialité</a>
+                &nbsp; &nbsp; - &nbsp;&nbsp;
+                <a href="{{ route('cgv','app') }}">CGV</a>
+                &nbsp; &nbsp; - &nbsp;&nbsp;
+                <a href="{{ route('contactwbm','app') }}">Contact</a>
         </div>
     </footer>
 

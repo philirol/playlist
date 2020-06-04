@@ -6,13 +6,14 @@ use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Stripe\Stripe;
 
 trait SubscriptionControlTrait {
     
     // used in planController too
     private function BandHasValidSubscription() { 
 		$array_id_users_band = User::where('band_id', Auth::user()->band->id)->get()->modelKeys(); //modelKeys return an array of all the members of the band
-        return DB::table('subscriptions')->whereDate('updated_at','>', Carbon::now()->subYear())->whereIn('user_id',$array_id_users_band)->get(); //return php stdclass object       
+        return DB::table('subscriptions')->where('stripe_status', 'active')->whereDate('updated_at','>', Carbon::now()->subYear())->whereIn('user_id',$array_id_users_band)->get(); //return php stdclass object       
     }
 
     public function BandPlan(){ 
@@ -24,6 +25,10 @@ trait SubscriptionControlTrait {
             $plan = DB::table('plans')->where('slug', 'free')->get(); //if non plan, we'll control the bitval of the free one
         }
         return $plan ;
+    }
+
+    public function UserHasValidSubscription(User $user){
+        return DB::table('subscriptions')->where('stripe_status', 'active')->whereDate('updated_at','>', Carbon::now()->subYear())->where('user_id',$user->id)->first(); 
     }
 
     public function BandPlanLimitControl(User $user, $fileSize){
@@ -40,6 +45,15 @@ trait SubscriptionControlTrait {
     public function showPlan(){
         $plan =  $this->BandPlan()->first();
         return view('band.proposAbon', compact('plan'));
+    }
+
+    public function userCustomer(User $user){
+        Stripe::setApiKey(env("STRIPE_SECRET"));
+        return \Stripe\Customer::retrieve($user->stripe_id);
+    }
+    
+    public function getUserSubscrId(User $user){
+        return DB::table('subscriptions')->where('user_id', $user->id)->value('stripe_id');
     }
 
 }

@@ -2,10 +2,10 @@
 
 return [
 
-    'to' => [
-        'address' => 'philirol@hotmail.com',
-        'name' => 'playlist'
-    ],
+    // 'to' => [
+    //     'address' => 'philirol@hotmail.com',
+    //     'name' => 'playlist'
+    // ],
     /*
     |--------------------------------------------------------------------------
     | Mail Driver

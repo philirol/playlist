@@ -4,12 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Song;
-use App\Songsub;
-use App\Band;
+use App\Helpers\BandHelper;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Song as SongRequest;
 use App\Notifications\SongNotif;
-use Illuminate\Database\Eloquent\Builder;
 use PDF;
 use App\Traits\DeleteSong;
 use Illuminate\Support\Facades\Notification;
@@ -28,23 +26,11 @@ class SongController extends Controller
         // $this->middleware('admin');
         //only : fonctions qui seront non permises aux users non admin    
     }  
-
-    private function chechBandId(){
-        if(!Auth::check()){
-            $band_id = 1; //pour groupe démo
-        } elseif (Auth::check() && !Auth::user()->admin) {
-            $band_id = Auth::user()->band->id;
-        } else {
-            // for the admin, we show the playlist of his own banf if he doesn't choose another band playlist in admin area.
-            // We take de value of session(band_id). If it doesn't exist we pass the band_id of the admin as default value
-            $band_id = session('band_id', Auth::user()->band_id);
-        }
-        return $band_id;
-    }
     
     public function index($list = null){
 
-        $band_id = $this->chechBandId();           
+        $band = Bandhelper::getBand();
+        $band_id = $band->id;         
 
         // list = null at the welcome, we show the playlist by default, if not we take the value of the choice in nav bar and we store it the session for 
         if($list == null && !session()->exists('list')) { // coming from welcome
@@ -56,21 +42,19 @@ class SongController extends Controller
             session(['list' => $list]); //coming from choice nav bar ($list not null)
         }
 
-        $list == 1 ? session(['listname' => 'Playlist']) : session(['listname' => 'Projets']);
-        
-        $bandname = Band::find($band_id)->bandname;        
+        $list == 1 ? session(['listname' => 'Playlist']) : session(['listname' => 'Projets']);        
      
         $songs = Song::where([
             ['band_id', $band_id],
             ['list', $list ]
-            ])->orderBy('order', 'ASC')->get();
+            ])->orderBy('order', 'ASC')->with('songsubs')->get();
         
         /* $urlDefault = $songs::find(1)->songsubs()->find(1)->get('url');
         dd($urlDefault); */
             
         session()->exists('filetoplay') ? $url = session('filetoplay')->url : $url = 'https://www.youtube.com/watch?v=6Zv6M2WMY2s';
 
-        return view('songs.index', compact('songs', 'bandname', 'url'));
+        return view('songs.index', compact('songs', 'band', 'url'));
     }
 
     public function create()
@@ -79,11 +63,13 @@ class SongController extends Controller
         return view('songs.create', compact('song'));
     }
 
+
+
     public function store(SongRequest $songRequest)
     {
         $song = Song::create($songRequest->all());
         $user = Auth::user();
-        $song->band_id = $user->band->id; 
+        $song->band_id = Bandhelper::getBand()->id; 
         $song->user_id = $user->id;
         //le morceau a pu être créé avant car band_id et user_id sont nullable dans la table
         $this->list($song);
@@ -91,12 +77,18 @@ class SongController extends Controller
         // return view('songs.show', compact('song'))->with('message', __('Le nouveau morceau a bien été créé!'));
     }
 
+
+
+    
     public function mailtomembers(Song $song, $mailtomembers){
         if ($mailtomembers !== null){
             $users = Auth::user()->band->users;
             Notification::send($users, new SongNotif($song, $users));
         }
     }
+
+
+
 
     public function update(SongRequest $songRequest, Song $song) 
     {    
@@ -105,7 +97,7 @@ class SongController extends Controller
         // array_search(...) get the key of the list the song was
         // Order putted at first position if the song change of list      
         if( array_search($song->list, $song->getListOptions()) <> intval($songRequest->list)){
-            $songRequest['order'] = 0 ;
+            $songRequest['order'] = 1 ;
         }      
         $song->update($songRequest->all()); 
         $this->mailtomembers($song, $songRequest->mailtomembers);
@@ -156,14 +148,15 @@ class SongController extends Controller
 
     public function printPlaylist()
     {
-        $band_id = $this->chechBandId();
+        $band = BandHelper::getBand();
+        $band_id = $band->id; 
         
         $data = Song::where([
             ['band_id', $band_id],
             ['list', 1 ]
             ])->orderBy('order', 'ASC')->get();
 
-            $bandname = Band::find($band_id)->bandname;
+        $bandname = $band->bandname;
 
         $pdf = PDF::loadView('songs.print_playlist', compact('data', 'bandname'));  
         

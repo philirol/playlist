@@ -1,13 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="bg-info rounded-lg">
-<table class="table text-white">
-  <tr>
-    <td class="align-middle"><h4>@lang('Suppression du groupe')</h4> <h6></td>
-  </tr>
-</table>
-</div>
+<x-flag-page position="left" type="{{config('app.appflagcolor')}}" :band="$band" page="{{__('Suppression du groupe')}}" margbot="3"/>
 
 <div class="py-2 row justify-content-center">
     <div class="col-md-8">

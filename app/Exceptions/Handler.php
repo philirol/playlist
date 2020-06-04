@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Exceptions;
-use Exception;
+use Throwable;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Mail;
@@ -38,7 +38,7 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $exception
      * @return void
      */
-    public function report(\Exception $e)
+    public function report(Throwable $e)
     {
         /* if ($e instanceof \Exception && !$e instanceof \Illuminate\Validation\ValidationException) {
 
@@ -68,13 +68,14 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $exception
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $exception)
+    public function render($request, Throwable $exception)
     {
         if ($exception instanceof AuthorizationException){
             if ($request->expectsJson()) {
                 return response()->json(['error' => 'Unauthorized.'], 403);
             }
-            return redirect('songs')->with('messageDanger', 'Action non autorisée !');
+            // return redirect('songs')->with('messageDanger', 'Action non autorisée !');
+            return back()->with('messageDanger', 'Action non autorisée !');
         }
     
      //https://stripe.com/docs/api/errors/handling       

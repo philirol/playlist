@@ -14,15 +14,14 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
-
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
     use RegistersUsers;
-
     // protected $redirectTo = '/register-step2';
+
     protected $redirectTo = '/home';
 
     public function __construct()
@@ -34,25 +33,30 @@ class RegisterController extends Controller
     {
         if(!$request->inv){
             $this->validatorLead($request->all())->validate();
-            event(new Registered($user = $this->createLead($request->all())));        
+            event(new Registered($user = $this->createLead($request->all())));     
+
         }else{
             $this->validatorMember($request->all())->validate();
             event(new Registered($user = $this->createMember($request->all()))); 
         }
         $user->createAsStripeCustomer();
 
-        event(new NewUserEvent($user)); //to Mailable::NotifyAdminNewUserMail -> NotifyAdminNewUser.blade.php
+        event(new NewUserEvent($user)); //to Mailable::NotifyAdminNewUserMail -> NotifyAdminNewUser.blade.php        
         $user->notify(new NewUser($user)); //to Notification::NewUser.php (welcome message to new User)
-        $this->guard()->login($user);
-        
+        $this->guard()->login($user);     
+
         return $this->registered($request, $user) ? : redirect($this->redirectPath());
     }
 
     protected function createLead(array $data)
     {             
+        $slug = Str::slug($data['bandname'], '-');
+            do{$slug = $slug.rand(1,99);}
+            while(\App\Band::firstwhere('slug',$slug));                
+
         $id = DB::table('bands')->insertGetId([
             'bandname' => $data['bandname'],
-            'slug' => Str::slug($data['bandname'], '-'),
+            'slug' => $slug,
         ]);
         
         return User::create([
@@ -69,10 +73,11 @@ class RegisterController extends Controller
     {             
         $uid = $data['inv'];
         $invit = Invitation::find($uid);  //the goal is getting the leader_id in invitations table. uid is defined as the primary key in the model so "find($uid)" is possible
+
         $user = User::find($invit->user_id); //the final goal is finding the band_id with the user_id
         $invit->confirmed = 1;
-        $invit->update();
-                
+        $invit->update();                
+
         return User::create([
             'band_id' => $user->band_id,
             'name' => $data['name'],
@@ -82,22 +87,21 @@ class RegisterController extends Controller
         ]);
     }
 
-    protected function validatorLead(array $data)
-    {
+    protected function validatorLead(array $data)    {
         return Validator::make($data, [
             // 'band_id' => ['required', 'integer'],
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'name' => ['required', 'string', 'max:100'],
+            'email' => ['required', 'string', 'email:rfc,dns', 'max:100', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'bandname' => ['required', 'string', 'min:2']
+            'bandname' => ['required', 'string', 'min:2', 'max:30']
         ]);
     }
 
     protected function validatorMember(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'name' => ['required', 'string', 'max:100'],
+            'email' => ['required', 'string', 'email:rfc,dns', 'max:100', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }

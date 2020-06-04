@@ -36,7 +36,7 @@ class BandPolicy
      */
     public function view(User $user, Band $band)
     {
-        return $band->id === $user->band_id;
+        
     }
 
     /**

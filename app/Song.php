@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Song extends Model
 {
-    public $table = 'songs';
-    protected $fillable = ['band_id','title','url','file','order','list','comments'];
+    protected $fillable = ['title','url','file','order','list','comments'];
     //laisser list dans fillable sinon il se met pas à jour en update
 
     //protected $guarded = [];
@@ -26,20 +25,15 @@ class Song extends Model
     {
         return $this->hasMany(Songsub::class);
     }
+    
 
     protected $attributes = ['list' => 1]; 
-    /*
-    Attribut de list donné par défaut pour une new song (sinon list=NULL).
-    Voir vidéo nord coders n°16 à 17:25
-    https://www.youtube.com/watch?v=MfiCKl8UGpI&list=PLeeuvNW2FHVgvC-PdSfi309DbDMoEswiT&index=16
-    On le positionne sur "Playlist" par défaut dans le formulaire
-    */
+
     public function getListValue(){
         return $this->list;
     }
     
     public function getListAttribute($attributes)
-    //vidéo 14 nord coders 14 à 10:30. Sinon https://laravel.com/docs/master/eloquent-mutators
     {
         return $this->getListOptions()[$attributes];
     }

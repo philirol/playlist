@@ -1,13 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="bg-info rounded-lg">
-<table class="table text-white">
-  <tr>
-    <td class="align-middle"><h4>{{ $band->bandname }}</h4> <h6>@lang('Modification du nom')</h6></td>
-  </tr>
-</table>
-</div>
+<x-flag-page position="left" type="{{config('app.appflagcolor')}}" :band="$band" page="{{__('Modification du nom')}}" margbot="0"/>
 
 <div class="py-4 container">
     <div class="row justify-content-center">

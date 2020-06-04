@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
-use App\Band;
+use App\Helpers\BandHelper;
+use App\{Songsub, Media, Band};
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Band as BandRequest;
 use Illuminate\Http\Request;
 use App\Traits\DeleteSong;
+use App\Traits\SubscriptionControlTrait;
 use Stripe\Stripe;
+use Illuminate\Support\Facades\Storage;
 
 class BandController extends Controller
 {
     use DeleteSong;
+    use SubscriptionControlTrait;
 
     public function __construct()
     {    
@@ -34,13 +38,7 @@ class BandController extends Controller
      */
     public function create()
     {
-        $band = new Band;
-        $villes = DB::table('villes')
-                            ->select('id', 'ville_nom', 'ville_code_postal')
-                            //->whereBetween('id', [1,100])
-                            ->orderBy('ville_nom')
-                            ->get();
-        return view('band.create', compact('band','villes'));
+        //
     }
 
     /**
@@ -61,15 +59,14 @@ class BandController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function showByAdmin(Band $band) //pour l'admin avec choix du groupe, provenant de band.index
-    {
-        
-        // dd($band->bandname);
+    {        
+
         return view('band.show', compact('band'));
     }
 
     public function show() //pour les users
     {
-        Auth::check() ? $band = Auth::user()->band : $band = Band::find(1);
+        $band = Bandhelper::getBand();
         return view('band.show', compact('band'));
     }
 
@@ -124,21 +121,63 @@ class BandController extends Controller
         foreach ($band->users as $user){ 
             foreach($user->songs as $songtodelete){
             $this->deleteSong($songtodelete);
-            }
+            }           
+        }
+
+        foreach ($band->users as $user){ 
+            foreach($user->donations as $don){
+                $don->delete();
+                }       
+        }
+        foreach ($band->users as $user){ 
+            foreach($user->invitations as $invit){
+                $invit->delete();
+                }       
+        }
+
+        foreach ($band->users as $user){ 
             if($user->stripe_id <> null){
                 Stripe::setApiKey(env("STRIPE_SECRET"));
                 $customer = \Stripe\Customer::retrieve($user->stripe_id);
                 $customer->delete();
             }
             DB::table('subscriptions')->where('user_id',$user->id)->update(['stripe_status' => 'user_deleted', 'updated_at' => date('Y-m-d G:i:s')]);
-            $user->delete();            
-        }    
+            $user->delete();           
+        }
         $band->delete();
         return redirect()->route('login');
     }
-}
-        
-        
-        
 
+    public function storedfilelist(){
+
+        $files_with_size = array();
+        $files = Storage::disk('public')->files(Auth::user()->band->slug);
+        $size1= 0;        
+        foreach ($files as $key => $file) {
+            $size1 += $files_with_size[$key]['size'] = Storage::disk('public')->size($file);            
+        }
+        
+        $songsubs = Songsub::type()->where('band_id', Auth::user()->band_id)->orderBy('created_at','desc')->get();
+        $size2a = $songsubs->sum('filesize');
+        
+        $medias = Media::where('band_id', Auth::user()->band_id)->orderBy('created_at','desc')->get();
+        $size2b = $medias->sum('filesize');
+        // dd($size2b);
+
+        $size2 = $size2a + $size2b;
+
+        $plans = $this->BandPlan();
+        foreach ($plans as $plan) {
+            $limitUpload = $plan->bitval;
+            $planName = $plan->name;
+        }
+        
+        
+        // size1 gives the total size of the band directory
+        // size2 do the same but with the values registered in the database for each file
+        // both must give the same value
+
+        return view('band.storedfilelist', compact('songsubs', 'medias', 'size1', 'size2a', 'size2b', 'limitUpload','planName'));
+    } 
+}
 

@@ -18,20 +18,21 @@ class CreateSongsubsTable extends Migration
             $table->unsignedBigInteger('song_id')->nullable();   
             $table->foreign('song_id')
                 ->references('id')
-                ->on('songs')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
-            $table->unsignedBigInteger('user_id')->nullable();    
+                ->on('songs');
+                $table->unsignedBigInteger('user_id')->nullable();    
             $table->foreign('user_id')
                 ->references('id')
-                ->on('users')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->on('users');
+            $table->unsignedBigInteger('band_id')->nullable();    
+                $table->foreign('band_id')
+                ->references('id')
+                ->on('bands'); 
             $table->boolean('main')->default(false); 
             $table->string('title', 70);
             $table->tinyInteger('type')->unsigned()->default(0);
             $table->string('url',400)->nullable();
             $table->string('file', 400)->nullable();  
+            $table->bigInteger('filesize')->nullable(); 
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
         });

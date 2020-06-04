@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<h3>@lang('Modification morceau')</h3>
-<br>
+<x-flag-page position="left" type="{{config('app.appflagcolor')}}" page="{{ __('Modification morceau') }}" margbot="3"/>
+
 <form action="{{ route('songs.update', ['song' => $song->id]) }}" method="post">
     @method('PATCH')
     @include('includes.formsong')

@@ -14,13 +14,11 @@ class CreateDonationsTable extends Migration
     public function up()
     {
         Schema::create('donations', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->integer('user_id');
+            $table->bigIncrements('id');  
+            $table->unsignedBigInteger('user_id')->nullable(); 
             $table->foreign('user_id')
                 ->references('id')
-                ->on('users')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->on('users');
             $table->integer('amount');
             $table->string('stripe_token')->collation('utf8mb4_bin');
             $table->timestamps();

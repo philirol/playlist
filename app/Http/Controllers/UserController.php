@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use App\{User, Band};
 use App\Http\Requests\User as UserRequest;
 use Illuminate\Support\Facades\Auth;
-use Image;
+use Intervention\Image\Facades\Image as InterventionImage;
 use Stripe\Stripe;
 use Illuminate\Support\Facades\DB;
+use App\Traits\SubscriptionControlTrait;
 
 class UserController extends Controller
 {
+    use SubscriptionControlTrait;
+
     public function __construct()
     {
         $this->middleware('admin', ['only' => 'indexByAdmin','customerdestroy']);
@@ -21,7 +24,6 @@ class UserController extends Controller
     public function index()
     {
         return $this->show(Auth::user());
-
     }
     
     public function indexByAdmin($slug, $sort = null)
@@ -52,15 +54,24 @@ class UserController extends Controller
         return view('user.edit', compact('user'));
     }
 
-    public function destroy(User $user){
-        $this->authorize('delete', $user);
+    public function delete(User $user){
+        $this->UserHasValidSubscription($user) ? $subscr=1 : $subscr=0;
+        return view('user.delete', compact('user', 'subscr'));
+    }
 
+    public function destroy(User $user){
+
+        $this->authorize('delete', $user);
         //update items which belonged to the user
         DB::table('songsubs')->where('user_id',$user->id)->update(['user_id' => Auth::user()->id]);
         DB::table('songs')->where('user_id',$user->id)->update(['user_id' => Auth::user()->id]);
         DB::table('subscriptions')->where('user_id',$user->id)->update(['stripe_status' => 'user_deleted']);
-        
+
+        foreach($user->donations as $don){
+            $don->delete();
+        }        
         $user->delete();
+
         if($user->stripe_id <> null){ 
             Stripe::setApiKey(env("STRIPE_SECRET"));
             $customer = \Stripe\Customer::retrieve($user->stripe_id);
@@ -73,7 +84,7 @@ class UserController extends Controller
     public function customerdestroy($id){ //called from admin area
         Stripe::setApiKey(env("STRIPE_SECRET"));
         $customer = \Stripe\Customer::retrieve($id);
-        $customer->delete();
+        $customer->delete(); //with Stripe, subscriptions are canceled following customer deleting
         //Stripe Also immediately cancels any active subscriptions on the customer (see API reference)
         return back()->with('message','Client Stripe supprimé');
     }
@@ -104,8 +115,9 @@ class UserController extends Controller
             $filename = 'userId' . $user->id . '-' .time() . '.' . $image->getClientOriginalExtension();
             $paths = $image->storeAs('avatars', $filename, 'public'); //image storing
             $user->update(['image' => $filename]); //update bdd field
+            
             $thumbnailpath = public_path('storage/avatars/'.$filename);
-            $img = Image::make($thumbnailpath)->resize(150, 150, function($constraint) {
+            $img = InterventionImage::make($thumbnailpath)->resize(150, 150, function($constraint) {
                 $constraint->aspectRatio();
             });
             $img->save($thumbnailpath);

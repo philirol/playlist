@@ -1,25 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="bg-info rounded-lg">
-<table class="table text-white">
-  <tr>
-    <td class="align-middle"><h4>{{ $band->bandname }}</h4> <h6>@lang('Membres')</h6></td>
-    @if(Auth::check() and Auth::user()->admin)
-    <td class="text-right"><a href="{{ route('band.songs', ['band' => $band->id]) }}" class="btn btn-primary my-3">@lang('Voir Playlist')</a></td>
-    @endif
-  </tr>
-</table>
+<div class="py-3 pl-3 pt-2 pb-3 mb-0 pr-3 bg-{{config('app.appflagcolor')}} rounded-lg text-white">
+      <div class="d-inline-block"><h4>{{ $band->bandname }}</h4></div>
+      @if(Auth::check() and Auth::user()->admin)
+      <div class="d-inline-block float-right"><a href="{{ route('band.songs', [$band]) }}" class="btn btn-primary my-1">@lang('Voir Playlist')</a></div>
+      @endif
+      <div><h6>@lang('Membres')</h6></div>
 </div>
-
-<p class="text-muted font-italic">@lang('Création du groupe le') {{ Carbon\Carbon::parse($band->created_at)->format('d m Y') }} {{-- - {{ $band->ville->ville_nom }} ({{ $band->ville->ville_code_postal }}) --}}</p>
+<br>
+<p class="text-muted font-italic">@lang('Création du groupe le') {{ Carbon\Carbon::parse($band->created_at)->formatLocalized('%d %B %Y') }} {{-- - {{ $band->ville->ville_nom }} ({{ $band->ville->ville_code_postal }}) --}}</p>
     @can('update', $band)
         <ul class="list-inline">
         <small>
         <li class="list-inline-item"><a href="{{ route('band.edit', ['band' => $band->id]) }}">@lang('Modif nom du groupe')</a></li>
         <li class="list-inline-item"><a href="{{ route('invit.addmember') }}">@lang('Ajouter des musiciens')</a></li>
-        <li class="list-inline-item"><a href="{{ route('band.delete') }}">@lang('Supprimer le groupe')</a></li>
-        
+        <li class="list-inline-item"><a href="{{ route('band.delete') }}">@lang('Supprimer le groupe')</a></li>        
         </small>
         </ul>
     @endcan
@@ -51,7 +47,7 @@
                     <small class="text-muted">(@lang('Créé le') {{ Carbon\Carbon::parse($user->created_at)->format('d m y') }})</small>
                     <p class="card-text"><u>{{ $user->email }}</u></p>
                     @can('delete',$user)
-                    <small><a href="{{ route('user.delete', $user->id) }}" onclick="return delAsk();">@lang('supprimer')</a></small>
+                    <small><a href="{{ route('user.delete', $user->id) }}">@lang('supprimer')</a></small>
                     @endcan  
                     
                                   
@@ -63,13 +59,4 @@
 
 <a href="{{ action('SongController@index', '1') }}" class="btn btn-primary">@lang('Retour Playlist')</a>
 
-@endsection
-
-@section('scripts')
-<script type="text/javascript">
-    function delAsk() {
-      if(!confirm('Supprimer le membre ?'))
-      event.preventDefault();
-  }
-</script>        
 @endsection

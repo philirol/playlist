@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-{{-- @can('create', $songsub) --}}
 @include('includes.songhead')
     <hr>
     <form action="{{ route('songsub.store') }}" enctype="multipart/form-data" method="POST">

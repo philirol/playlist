@@ -11,7 +11,7 @@
 
 <div class="form-group">
     <label class="label">@lang('Commentaires')</label>
-    <textarea class="form-control @error('comments') is-invalid @enderror" name="comments" placeholder="@lang('Saisir un commentaire')">{{ old('comments') ?? $song->comments }}</textarea>                
+    <textarea class="form-control @error('comments') is-invalid @enderror" name="comments" placeholder="@lang('Saisir un commentaire')" maxlength="980">{{ old('comments') ?? $song->comments }}</textarea>                
     @error('comments')
     <div class="invalid-feedback">
         {{ $errors->first('comments') }}

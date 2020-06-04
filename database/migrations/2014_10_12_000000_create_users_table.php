@@ -19,9 +19,7 @@ class CreateUsersTable extends Migration
             $table->unsignedBigInteger('band_id')->default(0);  
                 $table->foreign('band_id')
                 ->references('id')
-                ->on('bands')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
+                ->on('bands');
             $table->string('name');
             $table->boolean('leader')->default(false);
             $table->boolean('admin')->default(false);
@@ -29,8 +27,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
+            $table->timestamps();
             $table->string('image')->nullable();
             $table->Integer('nconnex')->nullable()->unsigned()->default(0);
             $table->string('stripe_id')->nullable()->collation('utf8mb4_bin');
