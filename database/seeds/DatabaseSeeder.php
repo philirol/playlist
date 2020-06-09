@@ -655,6 +655,7 @@ class DatabaseSeeder extends Seeder
 
 
         //medias STORY
+        //fix pb : turn story to text for the name of the field
 
         DB::table('story')->insert([
             'band_id' => 1,
