@@ -17,6 +17,10 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         Cashier::ignoreMigrations(); // right columns fot Cashier will be built with my tables migrations. See Laravel doc in Cashier, Database Migrations
+        
+        $this->app->bind('path.public', function () {
+            return base_path() . '/../public_html';
+        });
     }
 
     /**
