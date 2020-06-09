@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/roph7587/www/stage
+    - export DEPLOYPATH=/home/roph7587/stage
     - /bin/cp -R * $DEPLOYPATH
