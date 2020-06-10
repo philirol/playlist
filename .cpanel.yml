@@ -1,5 +1,0 @@
----
-deployment:
-  tasks:
-    - export DEPLOYPATH=/home/roph7587/public_html/stage
-    - /bin/cp -R * $DEPLOYPATH
