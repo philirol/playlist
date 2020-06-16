@@ -21,6 +21,7 @@
         myVideo.src = vidURL;
         myVideo.load();
         myVideo.play();
+        document.getElementsById('video').focus();
         }
         var deleteLinks = document.querySelectorAll('.delete');
     </script>
@@ -112,29 +113,31 @@
                         @endif
                         @yield('content')
                     </div>
-                    <aside class="jumbotron">
-                            <div>
-                                @php    
-                                if(isset($url)){ 
-                                        
-                                    $embed = Embed::make($url)->parseUrl();
-                                    if ($embed) {
-                                        $embed->setAttribute([
-                                            'width' => 320,
-                                            'id' => 'video'
-                                            ]);
-                                        echo $embed->getHtml();  
+                    <div>
+                        <aside class="jumbotron">
+                                <div>
+                                    @php    
+                                    if(isset($url)){ 
+                                            
+                                        $embed = Embed::make($url)->parseUrl();
+                                        if ($embed) {
+                                            $embed->setAttribute([
+                                                'width' => 320,
+                                                'id' => 'video'
+                                                ]);
+                                            echo $embed->getHtml();  
+                                        }
                                     }
-                                }
-                                @endphp
-                                {{-- substr(strrchr($songsub->file, '/'), 1) --}}
-                                <!-- <span class="note">ouvrir dans youtube</span> -->
-                            </div>
-                            <div class="pt-4">
-                                <video id='video' width="320" height="180" controls preload poster="{{asset('images/audiowave.png')}}" autoplay></video>
-                                <!-- <script>document.write(vidURL)</script> -->
-                            </div>
-                    </aside> 
+                                    @endphp
+                                    {{-- substr(strrchr($songsub->file, '/'), 1) --}}
+                                    <!-- <span class="note">ouvrir dans youtube</span> -->
+                                </div>
+                                <div class="pt-4">
+                                    <video id='video' width="320" height="180" controls preload poster="{{asset('images/audiowave.png')}}" autoplay></video>
+                                    <!-- <script>document.write(vidURL)</script> -->
+                                </div>
+                        </aside> 
+                    </div>
                 </div>
             </main>
         @else
