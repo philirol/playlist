@@ -12,7 +12,7 @@
 </head>
 <body>
     
-Test mail gun
+Test envoi de mail
 
 </body>
 </html>

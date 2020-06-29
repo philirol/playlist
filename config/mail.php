@@ -60,8 +60,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'webmaster@playlistband.net'),
-        'name' => env('MAIL_FROM_NAME', 'Your Playlist app'),
+        'address' => env('MAIL_FROM_ADDRESS', 'contact@playlistband.net'),
+        'name' => env('MAIL_FROM_NAME', 'Playlistband.net'),
     ],
 
     /*

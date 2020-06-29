@@ -1,10 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="alert alert-info text-center" role="alert">
+<!-- <div class="alert alert-info text-center" role="alert">
     <h3>@lang('Site en construction!')</h3>
-    <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://playlistband.net/?com=vi" target="_blank" class="note">>>> @lang('ancienne version')</a> -->
-</div>
+</div> -->
 <h3 class="text-center">{{ __('welcome.sent1') }}</h3>
 <h5 class="text-center">{{ __('welcome.sent2') }}</h5><br>
 
