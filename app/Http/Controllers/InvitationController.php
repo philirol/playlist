@@ -34,7 +34,7 @@ class InvitationController extends Controller
         $invitations = new Invitation;
         $invitations->email = $data['email'];
         $invitations->uid = Str::uuid();
-        $data['url'] = env("APP_URL").'public/inv/'.$invitations->uid;
+        $data['url'] = env("APP_URL").'inv/'.$invitations->uid;
         $invitations->user_id = Auth::user()->id;
         // Mail::to($data['email'])->sendNow(new InvitMail($data));
         InvitationJob::dispatch($data);

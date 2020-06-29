@@ -41,10 +41,9 @@ Route::middleware('members')->group(function(){
 
     Route::get('addmember', 'InvitationController@addmember')->name('invit.addmember');
     Route::post('mailtomember', 'InvitationController@mailtomember')->name('invit.mailtomember');
-    Route::get('inv/{uid}','InvitationController@store');
-
+    
 });
-
+Route::get('inv/{uid}','InvitationController@store');
 
 Route::post('contact/{id}', 'ContactController@mailtoLeader')->name('contact.store');
 Route::get('contact', 'ContactController@create')->name('contact.create');
