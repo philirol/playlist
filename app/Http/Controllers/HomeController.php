@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Notifications\NewUser;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -42,4 +43,14 @@ class HomeController extends Controller
 
         return back();
     }
+
+    public function sendMail()  {
+        $data['title'] = "Test envoi de mail de o2switch - laravel app";
+        Mail::send('emails.testmailgun', $data, function($message) {
+        $message->to('philirol58@gmail.com', 'Receiver Name')
+        ->subject('Test mail o2switch host');
+        });
+        dd("Mail bien envoyé");
+    }
+    
 }

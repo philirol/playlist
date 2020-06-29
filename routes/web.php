@@ -162,3 +162,5 @@ Route::get('newusermail', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('send-mail', 'HomeController@sendMail');
