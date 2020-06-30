@@ -3,7 +3,8 @@
 @section('content')
 <x-flag-page position="left" type="{{config('app.appflagcolor')}}" page="{{__('Liste des fichiers')}}" margbot="3"/>
 <div class="jumbotron note">
-  @lang('Poids total des fichiers') : {{ substr(number_format(($size2a + $size2b),0, ',', ' '), 0, -4) }} Ko (bdd) - {{ substr(number_format($size1,0, ',', ' '), 0, -4) }} Ko (dossier du groupe)
+  @lang('Poids total des fichiers') : {{ substr(number_format(($size2a + $size2b),0, ',', ' '), 0, -4) }} Ko (bdd)
+   <!-- - {{ substr(number_format($size1,0, ',', ' '), 0, -4) }} Ko (dossier du groupe) -->
 <br />
   @lang('Volume total disponible') : {{ substr(number_format(($limitUpload),0, ',', ' '), 0, -4) }} Ko<span class="note"> (plan {{$planName}})</span>
   </div>
