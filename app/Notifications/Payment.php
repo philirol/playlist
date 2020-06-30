@@ -47,7 +47,7 @@ class Payment extends Notification implements ShouldQueue
                 ->cc('philirol@hotmail.com')
                 ->greeting('Hello '. Auth::user()->name .'!')   
                 ->line('Thank you very much for your '.$this->payment)
-                ->action('Go on Playlist', url('http://localhost/playlist7b.local/public'));
+                ->action('Go on Playlist', url(env("APP_URL")));
     }
 
     /**

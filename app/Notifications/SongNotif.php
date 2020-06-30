@@ -43,7 +43,7 @@ class SongNotif extends Notification implements ShouldQueue
                     ->subject('Message from Playlist')
                     ->greeting('Hello!')   
                     ->line('The song "'. $this->song->title.'" has been modified by '. Auth::user()->name)
-                    ->action('Go on Playlist', url('http://localhost/playlist_laravel58/public'));
+                    ->action('Go on Playlist', url(env("APP_URL")));
     }
 
     /**
