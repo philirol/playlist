@@ -47,7 +47,7 @@ class NewUser extends Notification implements ShouldQueue
                     ->greeting(__('Bonjour '.$this->user->name.','))
                     ->line(__('Merci de vous être inscrit sur le site Playlist.'))
                     ->line(__('Créez votre playlist, enregistrez des liens, déposez vos fichiers par morceaux, etc.'))
-                    ->action('Go on Playlist', url('http://localhost/playlist_laravel58/public'));
+                    ->action('Go on Playlist', url(env("APP_URL")));
     }
 
     /**
