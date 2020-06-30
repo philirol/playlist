@@ -21,10 +21,10 @@ Route::middleware('members')->group(function(){
     Route::get('user/{user}/delete', ['as' => 'user.delete', 'uses' => 'UserController@delete']); //I prefer use a link with get verb. Not secure but Policy & middleware protect
     Route::resource('user', 'UserController')->except(['deleteImage','indexByAdmin']);
     
-    Route::get('/don', 'donController@index')->name('don');
-    Route::get('/dons', 'donController@historyDonation')->name('donhist');
-    Route::post('/don', 'donController@prepaiement')->name('don.post');
-    Route::post('/donb', 'donController@paiement')->name('don.post2');
+    Route::get('donation', 'donController@index')->name('don.donation');
+    Route::get('dons', 'donController@historyDonation')->name('donhist');
+    Route::post('don', 'donController@prepaiement')->name('don.post');
+    Route::post('donb', 'donController@paiement')->name('don.post2');
     
     Route::get('subscrdel','SubscriptionController@delete')->name('subscr.delete');
     Route::get('show','SubscriptionController@show')->name('subscr.manage');
