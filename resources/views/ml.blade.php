@@ -10,7 +10,7 @@
 <p>Le site est publié sous la responsabilité de Philippe Roland</p>
 --}}
 <h3>Hébergement</h3>
-<p>Le site Playlist est hébergé par la société LWS</p>
+<p>Le site Playlist est hébergé par o2Switch</p>
 
 <h3>Contact</h3>
 <p>vedasinformatique@gmail.com</p>
