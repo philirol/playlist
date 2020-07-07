@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image as InterventionImage;
 use App\Traits\SubscriptionControlTrait;
+use App\Http\Controllers\PhotoController;
 
 class PhotoRepository
 {
@@ -34,14 +35,15 @@ class PhotoRepository
         $fileSizeNew = $mediafileTreated->filesize();
         
         $media = new Media;
+        $media->title = $request->title;
         $media->description = $request->description;
         $media->name = $path;
-        $media->type = 1; // 1 for photos
+        $media->type = 1; //1 for photos, 0 for happenings
         $media->filesize = $fileSizeNew;
         $media->band()->associate($band);      
 
         $media->touch();
-        $message= "L'image a bien été ajoutée au book.";
+        $message= "L'image a bien été ajoutée.";
         return $message;
 
         } else {

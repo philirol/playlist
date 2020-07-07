@@ -74,6 +74,8 @@ Route::middleware('visitors')->group(function(){
 Route::resource('photos', 'PhotoController');
 Route::resource('videos', 'VideoController');
 Route::resource('story', 'StoryController');
+Route::get('deleteposter/{media}', 'HappeningsController@deleteposter')->name('happenings.deleteposter');
+Route::resource('happenings', 'HappeningsController')->except(['deleteposter']);
 
 
 Route::view('/','auth/login')->name('accueil');

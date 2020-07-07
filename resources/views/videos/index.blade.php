@@ -3,9 +3,7 @@
 @section('content')
 <x-flag-page position="center" type="{{config('app.appflagcolor')}}" page="{{__('Book - Videos')}}" margbot="0"/>
 
-<a href="{{ route('photos.index') }}" class="btn btn-secondary btn-sm">Photos</a>
-<a href="{{ route('videos.index') }}" class="btn btn-success btn-sm">Videos</a>
-<a href="{{ route('story.index') }}" class="btn btn-warning btn-sm">Story</a>
+@include('includes.menubook')
 
 <p class="pt-4 text-center">Télécharger ici vos fichiers audio et vidéos pour votre book.</p>
   <ul class="text-center list-inline">

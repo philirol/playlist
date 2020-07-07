@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<x-flag-page position="left" type="{{config('app.appflagcolor')}}" page="Book - Story" margbot="3"/>
+<x-flag-page position="center" type="{{config('app.appflagcolor')}}" page="{{__('Book - Story')}}" margbot="3"/>
     <div class="py-5 bg-light">
         <div class="col-md-8 mx-auto">
             <form action="{{ route('story.update', [$story]) }}" method="post" style="display: inline;">

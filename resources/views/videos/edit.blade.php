@@ -7,7 +7,7 @@
 <style type="text/css">
       .photos { width: 100%; margin-bottom: 20px;}
 </style> -->
-<x-flag-page position="left" type="{{config('app.appflagcolor')}}" page="Album Photos/Vidéos" margbot="3"/>
+<x-flag-page position="center" type="{{config('app.appflagcolor')}}" page="{{__('Book - Videos')}}" margbot="3"/>
 
     <div class="py-5 bg-light">
         <div class="col-md-8 mx-auto">

@@ -9,9 +9,7 @@
 <!-- <div class="p-3 bg-{{config('app.appflagcolor')}} rounded-lg text-white text-center">
       <div class="d-inline-block"><h4>{{__('Book')}}</h4></div>
 </div> -->
-<a href="{{ route('photos.index') }}" class="btn btn-secondary btn-sm">Photos</a>
-<a href="{{ route('videos.index') }}" class="btn btn-success btn-sm">Videos</a>
-<a href="{{ route('story.index') }}" class="btn btn-warning btn-sm">Story</a>
+@include('includes.menubook')
 
 @if($story <> null)
   <br /><br />

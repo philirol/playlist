@@ -639,9 +639,9 @@ class DatabaseSeeder extends Seeder
 
         DB::table('medias')->insert([
             'band_id' => 1,
-            'name' => 'This is not as toxic it could be',
+            'name' => 'demo-band/User2-1589803048.mp4',
             'type' => 2,
-            'description' => "demo-band/User2-1589803048.mp4"
+            'description' => "This is not as toxic it could be"
         ]);
 
         DB::table('medias')->insert([

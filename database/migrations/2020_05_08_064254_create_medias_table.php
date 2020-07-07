@@ -20,7 +20,8 @@ class CreateMediasTable extends Migration
                 ->references('id')
                 ->on('bands');
             $table->string('name',255);       
-            $table->tinyInteger('type')->default(0);
+            $table->tinyInteger('type')->default(0);        
+            $table->string('title')->nullable();
             $table->string('description')->nullable();
             $table->bigInteger('filesize')->nullable(); 
             $table->timestamps();

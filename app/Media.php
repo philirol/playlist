@@ -8,7 +8,7 @@ class Media extends Model
 {
     protected $table = 'medias';
   
-    protected $fillable = array('file','name','description');
+    protected $fillable = array('name','type','title','description','filesize');
 
     public function band(){
         return $this->belongsTo(Band::class);

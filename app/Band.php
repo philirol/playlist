@@ -37,7 +37,7 @@ class Band extends Model
     {
         return $this->hasMany(Media::class);
     }
-    
+
     public function getSizedirAttribute()
     {
         return $this->getSizedir();  

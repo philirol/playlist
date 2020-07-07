@@ -14,11 +14,10 @@
     <tr class="row1">
       <td>
         <span class="note">
-          <a href="#" data-toggle="tooltip" title="{{$songsub->song->title}}">{{ $songsub['title'] }}</a>
-          ({{ substr(number_format($songsub['filesize'],0, ',', ' '), 0, -4) }} Ko)
+          {{ $songsub['title'] }} ({{ substr(number_format($songsub['filesize'],0, ',', ' '), 0, -4) }} Ko)
         </span>
       </td> 
-      <td width="10%">
+      <!-- <td width="10%">
         <form action="{{ route('songsub.destroy', ['songsub' => $songsub->id]) }}" method="POST" style="display: inline;">
             @csrf
             @method('DELETE')
@@ -30,7 +29,7 @@
                 </div>
             </div>           
         </form>                    
-      </td>
+      </td> -->
 
     </tr> 
   @endforeach
@@ -38,7 +37,7 @@
 
 <br>
 
-<p>@lang('Fichiers pour le Book') : <strong> {{ substr(number_format($size2b,0, ',', ' '), 0, -4) }} Ko</strong></p>
+<p>@lang('Fichiers du Book (photos, vidéos, affiches happenings)') : <strong> {{ substr(number_format($size2b,0, ',', ' '), 0, -4) }} Ko</strong></p>
 <table class="table table-sm">
   @foreach($medias as $media)
     <tr class="row1">
@@ -48,7 +47,7 @@
         ({{ substr(number_format($media['filesize'],0, ',', ' '), 0, -4) }} Ko)
         </span>
       </td>
-      <td width="10%">
+      <!-- <td width="10%">
         <form action="#" method="POST" style="display: inline;">
             @csrf
             @method('DELETE')
@@ -60,7 +59,7 @@
                 </div>
             </div>           
         </form>                    
-      </td>
+      </td> -->
 
     </tr> 
   @endforeach
