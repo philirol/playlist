@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<x-flag-page position="center" type="{{config('app.appflagcolor')}}" page="Book - Upload Vidéos" margbot="3"/>
+<x-flag-page position="center" type="{{config('app.appflagcolor')}}" page="{{__('Book - Videos')}}" margbot="3"/>
 <div class="py-4">
         <form method="POST" action="{{ route('videos.store') }}" enctype="multipart/form-data">
             @csrf

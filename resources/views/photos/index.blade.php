@@ -11,9 +11,7 @@
 <!-- <div class="p-3 bg-{{config('app.appflagcolor')}} rounded-lg text-white text-center">
       <div class="d-inline-block"><h4>{{__('Book')}}</h4></div>
 </div> -->
-<a href="{{ route('photos.index') }}" class="btn btn-secondary btn-sm">Photos</a>
-<a href="{{ route('videos.index') }}" class="btn btn-success btn-sm">Videos</a>
-<a href="{{ route('story.index') }}" class="btn btn-warning btn-sm">Story</a>
+@include('includes.menubook')
 <p class="pt-4 text-center"> Vous pouvez ici composer votre book de photos, qui sera accessible à partir du site visiteurs.</p>
   <ul class="text-center list-inline">
         <small>

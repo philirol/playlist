@@ -101,6 +101,8 @@
 
     "Créer": "Create",
 
+    "Créer un évenement": "Create a date",
+
     "Créer un groupe": "Create band",
 
     "Créer un membre": "Create user",
@@ -177,7 +179,7 @@
 
     "Fichiers Playlist & Projets" : "Playlist and Projects files",
 
-    "Fichiers pour le Book" : "Files for the Book",
+    "Fichiers du Book (photos, vidéos, affiches happenings)" : "Book files : photos, vidéos, poster events",
 
     "Fichier téléchargé." : "File uploaded.",
 
@@ -196,6 +198,8 @@
     "Gestion des catégories": "Categories management",
 
     "Gestion des utilisateurs (administrateurs en rouge)": "Users management (administrators in red)",
+
+    "Gérer ici votre liste d'évenements, concerts": "Manage here your dates, events, concerts",
 
     "Gérer la description": "Description management",
     
@@ -242,6 +246,8 @@
     "J'accepte les termes et conditions de la politique de confidentialité.": "I accept the terms and conditions of the privacy policy.",
 
     "Jouer dans le lecteur": "Play in audio player",
+
+    "L'affiche a été supprimée": "The poster has been deleted",
 
     "L'album a bien été enregistré": "Album has been saved",
 
@@ -409,6 +415,8 @@
 
     "Politique de confidentialité": "Privacy policy",
 
+    "Affiche": "Poster",
+
     "Posté dans ": "Posted in",
 
     "Pour changer de mot de passe, ": "To change your password, ",
@@ -458,6 +466,8 @@
     "Se déconnecter" : "Sign out" ,
     
     "Se souvenir": "Remember me",
+
+    "Sélectionner l'affiche": "Select the poster",
 
     "Sélectionner un fichier": "Choose file",
 
@@ -520,6 +530,8 @@
     "Titre" : "Title",
 
     "Titre (champ obligatoire)" : "Title (required)",
+
+    "Titre de l'évènement" : "Title of the event",
 
     "Titre pour le lien" : "Title for the link",
 
