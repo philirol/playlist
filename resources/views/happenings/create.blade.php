@@ -8,10 +8,10 @@
 
             <div class="form-group">
                 <label for="bandname">@lang('Titre de l\'évènement')</label>
-                <input id="title" type="text" class="form-control @error('description') is-invalid @enderror" name="title" placeholder="Title" value="{{ old('title') }}" maxlength="150">
-                @error('description')
+                <input id="title" type="text" class="form-control @error('description') is-invalid @enderror" name="title" placeholder="Title" value="{{ old('title') }}" maxlength="75">
+                @error('title')
                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ $errors->first('description') }}</strong>
+                        <strong>{{ $errors->first('title') }}</strong>
                     </span>
                 @enderror  
             </div>
