@@ -12,7 +12,7 @@
       <div class="d-inline-block"><h4>{{__('Book')}}</h4></div>
 </div> -->
 @include('includes.menubook')
-<p class="pt-4 text-center"> Vous pouvez ici composer votre book de photos, qui sera accessible à partir du site visiteurs.</p>
+<p class="pt-4 text-center">@lang('Vous pouvez ici composer votre book, accessible aux visiteurs ici') : <a href="{{ route('visitors') }}"><img src="{!! asset('images/fleche_lien7.jpg') !!}"/></a></p>
   <ul class="text-center list-inline">
         <small>
         <li class="list-inline-item"><a href="{{ route('photos.create') }}">@lang('Télécharger une photo')</a></li>      

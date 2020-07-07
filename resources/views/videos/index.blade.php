@@ -5,7 +5,7 @@
 
 @include('includes.menubook')
 
-<p class="pt-4 text-center">Télécharger ici vos fichiers audio et vidéos pour votre book.</p>
+<p class="pt-4 text-center">@lang('Télécharger ici vos fichiers audio et vidéos pour votre book').</p>
   <ul class="text-center list-inline">
         <small>
         <li class="list-inline-item"><a href="{{ route('videos.create') }}">@lang('Télécharger une vidéo')</a></li>     

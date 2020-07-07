@@ -61,4 +61,10 @@ class BookController extends Controller
         // dd($story);
         return view('book.story', compact('story','band'));
     }
+
+    public function happenings(){
+        $band = $this->getband();
+        $happenings = Media::where('band_id',$band->id)->ofType(0)->orderBy('created_at', 'ASC')->get();
+        return view('book.happenings', compact('happenings','band'));
+    }
 }

@@ -4,21 +4,22 @@
 <x-flag-page position="center" type="{{config('app.appflagcolor')}}" page="{{__('Partie visiteurs')}}" margbot="3"/>
 
 <div class="text-center">
-    <p>Transmettre le lien ci-dessous pour présenter le book de votre groupe :</p> 
+    <p>@lang('Transmettre le lien ci-dessous pour présenter votre groupe') :</p> 
     <p><a href="{{ $url }}" target="_blank">{{$url}}</a></p>
     
 </div>
 <div class="col-md-6 py-4">
     <p>
-        Votre book montrera :
+    {{ __('visitors.sent1') }} :
         <ul>
-            <li>Votre playlist,</li>
-            <li>le groupe et ses membres,</li>
-            <li>la possibilité d'imprimer la playlist,</li>
-            <li>votre story</li>
-            <li>vos photos</li>
-            <li>vos vidéos</li>
-            <li>un formulaire de contact pour envoyer un mail au leader,</li>
+            <li>{{ __('visitors.sent2') }},</li>
+            <li>{{ __('visitors.sent3') }},</li>
+            <li>{{ __('visitors.sent4') }},</li>
+            <li>{{ __('visitors.sent5') }},</li>
+            <li>{{ __('visitors.sent6') }},</li>
+            <li>{{ __('visitors.sent7') }},</li>
+            <li>{{ __('visitors.sent8') }},</li>
+            <li>{{ __('visitors.sent9') }}.</li>
         </ul>
     </p>
 

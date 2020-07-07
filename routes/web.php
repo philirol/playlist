@@ -58,6 +58,7 @@ Route::get('book/videos', 'BookController@videos')->name('book.videos');
 Route::get('book/photos', 'BookController@photos')->name('book.photos');
 Route::get('book/band', 'BookController@band')->name('book.band');
 Route::get('book/playlist', 'BookController@playlist')->name('book.playlist');
+Route::get('book/events', 'BookController@happenings')->name('book.happenings');
 
 Route::get('playbook/{songsub}/{id}', function(Songsub $songsub, $id){
     session(['filetoplaybook' => $songsub]);

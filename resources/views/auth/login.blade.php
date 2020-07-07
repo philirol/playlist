@@ -1,14 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="alert alert-info text-center" role="alert">
-    <h3>@lang('Site en construction!')</h3>
+<div class="py-3 alert alert-info text-center">
+    <!-- <h3>@lang('Site en construction!')</h3> -->
+    <h3 class="text-center">{{ __('welcome.sent1') }}</h3>
+    <h6 class="text-center">{{ __('welcome.sent2') }}</h6>
 </div>
-<h3 class="text-center">{{ __('welcome.sent1') }}</h3>
-<h5 class="text-center">{{ __('welcome.sent2') }}</h5><br>
-
+<div class="row justify-content-center">
+<div class="col-md-6">
+<div class="py-3 alert alert-warning text-center">
 <h6 class="text-center"><a href="{{ route('register') }}">{{ __('welcome.sent3') }}</a>{{ __('welcome.sent4') }}</h6>
-
+</div>
+</div>
+</div>
 <hr><br>
 <div class="container">
     <div class="row justify-content-center">

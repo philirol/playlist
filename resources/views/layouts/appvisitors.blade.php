@@ -49,7 +49,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ action('BookController@index', session('band_slug_for_visitors')) }}">Accueil</a>
+                            <a class="nav-link" href="{{ action('BookController@index', session('band_slug_for_visitors')) }}">@lang('Accueil')</a>
                         </li>  
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('book.playlist') }}">Playlist</a>
@@ -68,6 +68,9 @@
                         </li>                        
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('book.videos') }}">@lang('Vidéos')</a>
+                        </li>                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('book.happenings') }}">@lang('Concerts')</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('book.contact') }}">Contact</a>

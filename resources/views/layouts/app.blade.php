@@ -65,11 +65,24 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('contact.create') }}">Contact</a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="nav-link" href="{{ URL::to('hlp') }}">@lang('Aide')</a>
-                        <li class="nav-item">
+                        </li> -->
+                        <!-- <li class="nav-item">
                             <a class="nav-link" href="{{ route('photos.index') }}">Book</a>
+                        </li> -->
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>Book<span class="caret"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a href="{{ route('photos.index') }}" class="dropdown-item">Photos</a>
+                            <a href="{{ route('videos.index') }}" class="dropdown-item">Videos</a>
+                            <a href="{{ route('story.index') }}" class="dropdown-item">Story</a>
+                            <a href="{{ route('happenings.index') }}" class="dropdown-item">Happenings</a>
+                            </div>
                         </li>
+
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('visitors') }}">@lang('Visiteurs')</a>
                         </li>

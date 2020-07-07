@@ -5,6 +5,8 @@
 
     "Abonnement du groupe" : "Subscription for",
     
+    "Accueil": "Home",
+
     "Action ou page non autorisée.": "Unauthorized request or action.",
 
     "Aide" : "Help" ,
@@ -81,12 +83,16 @@
 
     "Code postal": "Postal code",
 
+    "Concerts": "Events",
+
     "Confirmation du mot de passe": "Confirm Password",
 
     "Connexion": "Login",
 
     "Contactez-nous": "Contact us",
     
+    "Contactez le leader du groupe": "Contact the band leader of",
+
     "Contactez le webmaster du site Playlist.": "Contact the Playlist website webmaster.",
 
     "Contenu adulte": "Adult content",
@@ -254,6 +260,14 @@
     "L'album a bien été modifié": "Album updated successfully !",
     
     "L'élément a bien été supprimé": "Item deleted ok.",
+
+    "L'évènement à été créé.": "The event has been created successfully.",
+
+    "L'évènement à été créé. Votre affiche n'a pas été prise en compte : espace de stockage insuffisant": "The event has been created but your poster overload your capacity storage.",
+
+    "L'évènement à été modifié.": "The event has been modified successfully.",
+
+    "L'évènement à été modifié. Votre affiche n'a pas été prise en compte : espace de stockage insuffisant": "The event has been modified but your poster overload your capacity storage.",
 
     "L'image a bien été enregistrée": "Image has been saved",
 
@@ -527,6 +541,12 @@
 
     "Télécharger le fichier" : "Download file",
 
+    "Télécharger ici vos fichiers audio et vidéos pour votre book" : "Upload here your audio and video files for your book",
+
+    "Télécharger une photo" : "Upload a photo file",
+
+    "Télécharger une vidéo" : "Upload a video file",
+
     "Titre" : "Title",
 
     "Titre (champ obligatoire)" : "Title (required)",
@@ -534,6 +554,8 @@
     "Titre de l'évènement" : "Title of the event",
 
     "Titre pour le lien" : "Title for the link",
+
+    "Transmettre le lien ci-dessous pour présenter votre groupe" : "The link below give access to your book",
 
     "Tous les groupes" : "All bands",
 
@@ -602,6 +624,8 @@
     "Vous ne pouvez pas voter pour vos photos !": "You cannot vote for your photos!",
     
     "Vous pouvez enregistrer cette page pour conserver vos données en utilisant le menu de votre navigateur.": "You can save this page to keep your data using your browser menu.",
+
+    "Vous pouvez ici composer votre book, accessible aux visiteurs ici": "Compose your book here and give the link to your visitors here",
     
     "Vous recevez ce message parce que nous avons reçu une demande de renouvellement du mot de passe pour votre compte.": "You are receiving this email because we received a password reset request for your account.",
     
