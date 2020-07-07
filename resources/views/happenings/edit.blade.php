@@ -36,7 +36,7 @@
 
                 <div class="form-group">
                     <label class="label">@lang('titre')</label>
-                    <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" placeholder="@lang('Saisir un titre')" value="{{ old('title') ?? $media->title }}">             
+                    <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" placeholder="@lang('Saisir un titre')" value="{{ old('title') ?? $media->title }}" maxlength="75">             
                     @error('title')
                     <div class="invalid-feedback">
                         {{ $errors->first('title') }}

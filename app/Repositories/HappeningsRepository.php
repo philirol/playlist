@@ -14,24 +14,16 @@ class HappeningsRepository
     use SubscriptionControlTrait;
     
     public function store($request){ 
-    
+            
         $band= Auth::user()->band;
-
-        if (!$request->hasFile('media')){
-            $path = 'happenings-default.png';
-            $fileSize = 0;
-            $message = "L'évènement à été créé.";
-        } else {
+        
+        if ($request->hasFile('media')){            
             $mediafile = $request->file('media');
             $fileSize = $mediafile->getSize();
-
-            if ( Gate::any(['freeupload', 'freePlan'], $fileSize) || $this->BandPlanLimitControl(Auth::user(), $fileSize)) { 
-
+            if ( Gate::any(['freeupload', 'freePlan'], $fileSize) || $this->BandPlanLimitControl(Auth::user(), $fileSize)) {                 
                 $filename = 'User' . Auth::user()->id . '-' .time() . '.' . $mediafile->getClientOriginalExtension();
-                $path = $mediafile->storeAs($band->slug, $filename, 'public'); //image storing
-                
-                $mediapath = public_path('storage/'.$band->slug.'/'.$filename);
-                
+                $path = $mediafile->storeAs($band->slug, $filename, 'public'); //image storing                
+                $mediapath = public_path('storage/'.$band->slug.'/'.$filename);                
                 $mediafileTreated = InterventionImage::make ($mediapath)->widen(500)->encode ();
                 // $mediafileTreated = InterventionImage::make($mediapath)->resize(300, 300, function($constraint) {
                 //     $constraint->aspectRatio();
@@ -39,6 +31,7 @@ class HappeningsRepository
                 $mediafileTreated->save($mediapath);
                 clearstatcache(); //put that imperatively, if not the size will the one before treatment
                 $fileSize = $mediafileTreated->filesize();
+                
                 $message = "L'évènement à été créé.";
 
                 } else {
@@ -46,6 +39,10 @@ class HappeningsRepository
                     $path = 'happenings-default.png';
                     $fileSize = 0;
                 }
+        } else {
+            $path = 'happenings-default.png';
+            $fileSize = 0;
+            $message = "L'évènement à été créé.";
         }        
                 
         $media = new Media;
@@ -54,30 +51,22 @@ class HappeningsRepository
         $media->name = $path;
         $media->type = 0; //1 for photos, 0 for happenings
         $media->filesize = $fileSize;
-        $media->band()->associate($band);      
-
+        $media->band()->associate($band);    
         $media->touch();
         return $message;
     }
 
-    public function update($request, Media $media){
+    public function update($request, Media $media){ 
 
         $band= Auth::user()->band;
 
-        if (!$request->hasFile('media')){
-            $path = 'happenings-default.png';
-            $fileSize = 0;
-            $message = "L'évènement à été modifié.";
-        } else {
+        if ($request->hasFile('media')) {
             $mediafile = $request->file('media');
             $fileSize = $mediafile->getSize();
             if ( Gate::any(['freeupload', 'freePlan'], $fileSize) || $this->BandPlanLimitControl(Auth::user(), $fileSize)) { 
-
                 $filename = 'User' . Auth::user()->id . '-' .time() . '.' . $mediafile->getClientOriginalExtension();
-                $path = $mediafile->storeAs($band->slug, $filename, 'public'); //image storing
-                
-                $mediapath = public_path('storage/'.$band->slug.'/'.$filename);
-                
+                $path = $mediafile->storeAs($band->slug, $filename, 'public'); //image storing                
+                $mediapath = public_path('storage/'.$band->slug.'/'.$filename);                
                 $mediafileTreated = InterventionImage::make ($mediapath)->widen(500)->encode ();
                 // $mediafileTreated = InterventionImage::make($mediapath)->resize(300, 300, function($constraint) {
                 //     $constraint->aspectRatio();
@@ -85,19 +74,22 @@ class HappeningsRepository
                 $mediafileTreated->save($mediapath);
                 clearstatcache(); //put that imperatively, if not the size will the one before treatment
                 $fileSize = $mediafileTreated->filesize();
-                $message = "L'évènement à été modifié.";
 
+                $message = "L'évènement à été modifié.";
+                $media->name = $path;
+                $media->filesize = $fileSize;   
+                
                 } else {
                     $message = "L'évènement à été modifié. Votre affiche n'a pas été prise en compte : espace de stockage insuffisant";
-                    $path = 'happenings-default.png';
-                    $fileSize = 0;
+                    $media->name = 'happenings-default.png';
+                    $media->fileSize = 0;
                 }                
-        }
+            } else {
+                $message = "L'évènement à été modifié.";                
+            } 
 
         $media->title = $request->title;
         $media->description = $request->description;
-        $media->name = $path;
-        $media->filesize = $fileSize;   
         $media->touch();
         return $message;    
     }
