@@ -14,8 +14,7 @@
                         </div>
                     @endif
 
-                    <p>@lang("Nous vous avons envoyé un email de confirmation d'inscription").</p>
-                    <p>@lang("Merci de cliquer dans le lien à l'intérieur afin de valider votre adresse mail").</p>
+                    <p>@lang("Vous allez recevoir un email de confirmation d'inscription. Vérifiez dans vos courriers indésirables si vous ne le trouvez pas dans votre boîte de réception").</p>
                     
                     @lang("Si vous n'avez pas reçu l'email"), 
                     <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">

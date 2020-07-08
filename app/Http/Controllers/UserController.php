@@ -103,6 +103,7 @@ class UserController extends Controller
 
         $validatedData = $userRequest->validate([
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048,dimensions:min_width=300,min_height=300',
+            'story' => 'string|max:3000',
             
         ]);
 

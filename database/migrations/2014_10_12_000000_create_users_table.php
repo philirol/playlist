@@ -28,7 +28,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
-            $table->string('image')->nullable();
+            $table->string('image')->nullable();        
+            $table->text('story')->nullable();
             $table->Integer('nconnex')->nullable()->unsigned()->default(0);
             $table->string('stripe_id')->nullable()->collation('utf8mb4_bin');
             $table->string('card_brand')->nullable();

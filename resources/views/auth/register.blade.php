@@ -6,23 +6,13 @@
         <div class="col-md-8">
         
         @empty($item)
-            <p>Bonjour et bienvenu(e) à toi,</p>
-            <p>Ceci est le formulaire de création d'un groupe et du "leader" sur Playlist.<br>
-            Le leader invitera ensuite les autres membres par mail via le site afin qu'ils rejoignent automatiquement le groupe</p>
+            <p>{{ __('register.sent1') }},</p>
+            <p>{{ __('register.sent2') }}.<br>
+            {{ __('register.sent3') }}</p>
             </p>
-            <div class="jumbotron">
-                <span class="note">Welcome to you,<br>
-                Here below the band subscription form.<br>
-                Once created, the leader may invite others members by email via the website, so they will be added to the band.
-                </span>
-            </div>
         @else
-            <p>Bonjour et bienvenu(e) à toi,<br>
-            Suite à l'invitation de {{ $item->user->name }}, merci de saisir vos identifiants.<br>
-            Vous pouvez indiquer une autre adresse mail si nécessaire.
-            </p><br>
-            <p class="note">Welcome here,<br>
-            Following the invitation of your band leader {{$item->user->name }}, please subscribe yourself with that form.
+            <p>{{ __('register.sent1') }},<br>
+            {{ __('register.sent4') }} {{ $item->user->name }}, {{ __('register.sent5') }}.
             </p><br>
         @endempty 
 

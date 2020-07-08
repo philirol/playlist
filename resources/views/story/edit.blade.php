@@ -3,13 +3,13 @@
 @section('content')
 <x-flag-page position="center" type="{{config('app.appflagcolor')}}" page="{{__('Book - Story')}}" margbot="3"/>
     <div class="py-5 bg-light">
-        <div class="col-md-8 mx-auto">
+        <div class="col-md-10 mx-auto">
             <form action="{{ route('story.update', [$story]) }}" method="post" style="display: inline;">
                 @method('PATCH')
                 @csrf
                     <div class="form-group">
                         <label class="label"></label>
-                        <textarea class="form-control @error('text') is-invalid @enderror" name="text" maxlength="10000">{{ $story->text }}</textarea>                
+                        <textarea class="form-control @error('text') is-invalid @enderror" name="text" maxlength="10000" rows="12">{{ $story->text }}</textarea>                
                         @error('text')
                         <div class="invalid-feedback">
                             {{ $errors->first('text') }}

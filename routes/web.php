@@ -121,7 +121,7 @@ Route::get('users/{slug}/{sort}', 'UserController@indexByAdmin')->middleware('ad
 Route::get('users/{slug}', 'UserController@indexByAdmin')->middleware('admin')->name('user.band');
 Route::get('band/del','BandController@delete')->name('band.delete');
 Route::get('band/{band}', 'BandController@showByAdmin')->name('bandByAdmin');
-Route::get('Myband', 'BandController@show')->name('band.show'); //method show sans paramètre
+Route::get('myband', 'BandController@show')->name('band.show'); //method show sans paramètre
 Route::get('bandsorted/{sort}', 'BandController@index')->name('band.index');
 Route::resource('band', 'BandController')->except(['show','index']);//except show car pas besoin de paramètre pour cette méthode, non CRUD
 

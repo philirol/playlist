@@ -50,6 +50,16 @@
 				@enderror
 			</div>
 		</div>
+
+		<div class="form-group">
+			<label class="label">My Story</label>
+			<textarea class="form-control @error('story') is-invalid @enderror" name="story" maxlength="3000" rows="8">{{ $user->story }}</textarea>                
+			@error('story')
+			<div class="invalid-feedback">
+				{{ $errors->first('story') }}
+			</div>
+			@enderror
+		</div>
 	    
       <a href="javascript:history.back()" class="btn btn-primary">
 			<span class="glyphicon glyphicon-circle-arrow-left"></span> @lang('Retour')

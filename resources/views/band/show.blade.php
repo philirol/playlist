@@ -32,22 +32,27 @@
     @endforeach--}}
 
     @foreach($band->users as $user)
-    <div class="card mb-3" style="max-width: 550px;">
+    <div class="card mb-3">
         <div class="row no-gutters">
-            <div class="col-md-4">
+            <div class="col-md-2">
             @if ($user->image)
                 <img src="{{ asset('storage/avatars/' . $user->image) }}" alt="user-avatar" class="rounded float-left">
             @else
                 <img src="{{ asset('storage/avatars/avatar.png') }}" alt="user-avatar" class="rounded float-left">
             @endif
             </div>
-            <div class="col-md-8">
+            <div class="col-md-10">
                 <div class="card-body">
                     <span class="font-weight-bold">{{ $user->name }}</span>&nbsp;&nbsp;
-                    <small class="text-muted">(@lang('Créé le') {{ Carbon\Carbon::parse($user->created_at)->format('d m y') }})</small>
-                    <p class="card-text"><u>{{ $user->email }}</u></p>
+                    <!-- <small class="text-muted">(@lang('Créé le') {{ Carbon\Carbon::parse($user->created_at)->format('d m y') }})</small> -->
+                    <!-- <p class="card-text"><u>{{ $user->email }}</u></p>                     -->
+                    @if($user->story) 
+                    <p class="card-text">{{$user->story}}</p> 
+                    @else
+                    <p class="card-text small">@lang('Pas de story pour le membre')</p>
+                    @endif
                     @can('delete',$user)
-                    <small><a href="{{ route('user.delete', $user->id) }}">@lang('supprimer')</a></small>
+                    <small><a href="{{ route('user.delete', $user->id) }}">@lang('Supprimer le membre')</a></small>
                     @endcan  
                     
                                   
