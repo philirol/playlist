@@ -19,6 +19,8 @@
 
     "Adulte": "Adult",
 
+    "Affiche": "Poster",
+
     "Ajouter des musiciens": "Add musicians",
 
     "Ajout fichier": "Add file",
@@ -325,8 +327,6 @@
 
     "Mentions légales": "Legal mentions",
 
-    "Merci de cliquer dans le lien à l'intérieur afin de valider votre adresse mail": "Please check your email for a verification link in your mailbox",
-
     "Merci de confirmer votre mot de passe avant de continuer.": "Please confirm your password before continuing.",
     
     "Merci pour votre don": "Thank you for your donation!",
@@ -350,6 +350,8 @@
     "Modification du nom": "Name modification",
 
     "Mode maintenance": "Maintenance mode",
+
+    "Modification effectuée" : "The item has been modified successfully",
 
     "Modification morceau" : "Song modification ",
     
@@ -397,7 +399,7 @@
 
     "Notes des membres": "Comments of members",
 
-    "Nous vous avons envoyé un email de confirmation d'inscription": "We sent you an email",
+    "Vous allez recevoir un email de confirmation d'inscription. Vérifiez dans vos courriers indésirables si vous ne le trouvez pas dans votre boîte de réception": "We sent you an email to confirm your registration. Check your spams if you don't see it in your inbox",
 
     "Nouveau": "New",
 
@@ -417,6 +419,10 @@
 
     " par ": " by ",
 
+    "Pas de story": "No story",
+
+    "Pas de story pour le membre": "No story for the member",
+
     "Photo": "Photo",
 
     "Photos": "Photos",
@@ -428,8 +434,6 @@
     "Poids total des fichiers": "Total weight for your files",
 
     "Politique de confidentialité": "Privacy policy",
-
-    "Affiche": "Poster",
 
     "Posté dans ": "Posted in",
 
@@ -525,6 +529,8 @@
 
     "Supprimer le groupe": "Delete the Band",
 
+    "Supprimer le membre": "Delete member",
+
     "Supprimer le morceau": "Delete song",
 
     "Supprimer membre ?": "Really delete member ?",
@@ -579,6 +585,8 @@
 
     "Ville": "City",
 
+    "Visiteurs": "Visitors",
+
     "Voir l'abonnement": "See the subscription",
 
     "Voir les fichiers du groupe": "See band files",
@@ -609,7 +617,7 @@
 
     "Votre nom ou pseudo": "Your name or pseudo",
 
-    "Votre profil a été modifié !": "Your profil has been changed!",
+    "Votre profil a été modifié !": "Your profile has been changed successfully!",
 
     "Vos données personnelles": "Personnal datas",
 

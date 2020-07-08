@@ -65,7 +65,8 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => $faker->dateTimeBetween('-6 months'),
             'password' => Hash::make('password'),
             'created_at' => $faker->dateTimeBetween('-4 years', '-6 months'),
-            'image' => 'userId2-1585124056.jpg'
+            'image' => 'userId2-1585124056.jpg',
+            'story' => 'I\'m an English singer, songwriter who defined the singer-songwriter movement of the 1990s. Among my experiences, I grew up in an upper-middle-class North London family, were voluntary stays in mental institutions—once as a teenager. Having played in several bands, I traveled to America, where I released my unnoticed debut album in 1992 on the Kings’ Northway label..'
         ]);
 
         DB::table('users')->insert([
@@ -76,7 +77,8 @@ class DatabaseSeeder extends Seeder
             'email' => 'fcobin330@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
-            'image' => 'userId3-1585124091.jpg'
+            'image' => 'userId3-1585124091.jpg',
+            'story' => 'Franck discovered his love for booze and electric guitar in college. Read on to find more about his family: parents, siblings, wife and kids.'
         ]);
 
         DB::table('users')->insert([
@@ -87,7 +89,8 @@ class DatabaseSeeder extends Seeder
             'email' => 'bobam9940@aol.uk',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
-            'image' => 'userId4-1585124122.jpg'
+            'image' => 'userId4-1585124122.jpg',
+            'story' => 'I was always obsessed by drums when I was younger. Even now I always look backwards to go forwards – I want to find the parts of a musical genre that have been lost...'
         ]);
 
         DB::table('users')->insert([
@@ -98,7 +101,8 @@ class DatabaseSeeder extends Seeder
             'email' => 'jbass2356@zoho.org',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
-            'image' => 'userId5-1585124166.jpg'
+            'image' => 'userId5-1585124166.jpg',
+            'story' => 'Janice’s career on bass is legendary. She could, and did, play almost anything. As a member of Manchester’s top session group, she has literally played on over 3000 songs since the 1980s.'
         ]);
 
         DB::table('users')->insert([
@@ -109,7 +113,8 @@ class DatabaseSeeder extends Seeder
             'email' => 'patsax47@mail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
-            'image' => 'userId6-1585124199.jpg'
+            'image' => 'userId6-1585124199.jpg',
+            'story' => 'Pat, a saxophonist who frequently plays gigs at weddings, restaurants and other venues, stepped outside his home in Manchester’s Kingwood neighborhood on a sunny day about three weeks ago and decided he’d play a tune on his sax.'
         ]);
 
         DB::table('users')->insert([
@@ -659,7 +664,7 @@ class DatabaseSeeder extends Seeder
 
         DB::table('story')->insert([
             'band_id' => 1,
-            'text' => 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.'
+            'text' => 'In late 2015, Janice started posting rock covers of popular songs on YouTube. By 2016, she begans posting original songs under the name Outland. She operated as a solo act until 2017, when she began adding additional band members. The fleshed out Outbar included Clarence as singer and guitarist, Phil as lead guitarist and co-vocalist, Pat as the saxophone, and Dan Witter as drummer. The group was initially promoted as a full band through their music videos posted on the LA YouTube channel. The five were influenced heavily by punk rock and pop punk bands such as Blink-182, Simple Plan, and Green Day. In 2016 they signed to Easy Records and started touring under a new name, Story Ponama. Dan left the band by 2016 to focus on music school, and the band soon hired a new band member. Franck as a Guitarist, so Clarence could focus more on singing, then Bob took over the vacancy Janice left behind.'
         ]);
 
     }
