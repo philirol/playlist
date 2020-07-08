@@ -11,7 +11,7 @@
 
                 <div class="form-group">
                     <label class="label"></label>
-                    <textarea class="form-control @error('text') is-invalid @enderror" name="text" maxlength="10000" value="{{ old('text')}}" autofocus>
+                    <textarea class="form-control @error('text') is-invalid @enderror" name="text" maxlength="10000" rows="12" value="{{ old('text')}}" autofocus>
                     </textarea>                
                     @error('text')
                     <div class="invalid-feedback">

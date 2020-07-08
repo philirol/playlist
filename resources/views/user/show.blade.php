@@ -30,7 +30,7 @@
 
 
     <p class="text-muted">@lang('Créé le') {{ Carbon\Carbon::parse($user->created_at)->format('d/m/Y') }}</p>    
-    <p><a href="{{ route('user.edit', ['user' => $user->id]) }}" class="btn btn-secondary my-3">@lang('Modifier')</a></p>
+    <p><a href="{{ route('user.edit', ['user' => $user->id]) }}" class="btn btn-primary my-3">@lang('Modifier')</a></p>
     <p>@lang('Pour changer de mot de passe, ') 
         <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">@lang('déconnecter-vous')</a>
         @lang('et cliquez sur "Mot de passe oublié".')

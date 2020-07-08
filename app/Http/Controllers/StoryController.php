@@ -91,7 +91,7 @@ class StoryController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'text' => 'required|string|max:10000',
+            'text' => 'nullable|string|max:10000',
         ]);
         $story = Story::find($id);
         $this->authorize('update', $story);
@@ -111,7 +111,7 @@ class StoryController extends Controller
     public function destroy($id)
     {
         $story = Story::find($id);
-        $this->authorize('destroy', $story);
+        $this->authorize('delete', $story);
         $story->delete();
         return redirect()->route('story.index')->with('message',__('Suppression effectuée'));
     }
