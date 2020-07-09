@@ -56,9 +56,11 @@
     @endforeach
     </tbody>
 </table>
+@if (count($songs) > 1)
 <div class="d-none d-lg-block">
 &nbsp;&nbsp;<img src="{{asset('images/uparrow2.png')}}"><span class="align-bottom">&nbsp;&nbsp;<span class="note">@lang('Ordonner les lignes avec')</span>&nbsp;&nbsp;<img src="{{asset('images/updownarrow.png')}}"></span></td>
 </div>
+@endif
 {{--<button class="btn btn-success btn-sm" onclick="window.location.reload()">Réord.</button> --}}
 
 

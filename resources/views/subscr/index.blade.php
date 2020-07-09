@@ -40,5 +40,3 @@ Supprimer les clients ici les suppriment sur Stripe.
 </table>
 
 @endsection
-
-<!-- pour avoir les détails de chaque subscriptions, inclure : <td>{{ $user->subscriptions }}</td> -->
