@@ -61,7 +61,7 @@
 &nbsp;&nbsp;<img src="{{asset('images/uparrow2.png')}}"><span class="align-bottom">&nbsp;&nbsp;<span class="note">@lang('Ordonner les lignes avec')</span>&nbsp;&nbsp;<img src="{{asset('images/updownarrow.png')}}"></span></td>
 </div>
 @endif
-{{--<button class="btn btn-success btn-sm" onclick="window.location.reload()">Réord.</button> --}}
+{{--<button class="btn btn-success btn-sm" onclick="window.location.reload()">Réordonner</button> --}}
 
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

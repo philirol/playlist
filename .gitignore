@@ -4,10 +4,10 @@
 /public/storage
 /storage/*.key
 /vendor
+.cpanel.yml
 .env
 .env.backup
 .phpunit.result.cache
-.cpanel.yml
 Homestead.json
 Homestead.yaml
 npm-debug.log
