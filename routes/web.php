@@ -47,11 +47,10 @@ Route::get('inv/{uid}','InvitationController@store');
 
 Route::post('contact/{id}', 'ContactController@mailtoLeader')->name('contact.store');
 Route::get('contact', 'ContactController@create')->name('contact.create');
+Route::get('book/contact', 'BookController@contact')->name('book.contact');
 
 Route::get('book', 'BookController@geturl')->name('visitors');
 
-Route::post('book/contact/{id}', 'ContactController@mailtoLeader')->name('book.contact');
-Route::get('book/contact', 'BookController@contact')->name('book.contact');
 
 Route::get('book/story', 'BookController@story')->name('book.story');
 Route::get('book/videos', 'BookController@videos')->name('book.videos');
