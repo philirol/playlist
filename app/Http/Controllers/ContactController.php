@@ -34,7 +34,7 @@ class ContactController extends Controller
 
         Mail::to($bandleader->email)->send(new ContactLeader($data));
 
-        return back()->with('message', 'Votre message a bien été envoyé !');
+        return back()->with('message', __('Votre message a bien été envoyé !'));
     }
 
     public function AdminContactForm($id,$visitor = null)
@@ -53,7 +53,7 @@ class ContactController extends Controller
 
         Mail::to('philirol@hotmail.com')->send(new ContactAdmin($data));
 
-        return back()->with('message', 'Votre message a bien été envoyé !');
+        return back()->with('message', __('Votre message a bien été envoyé !'));
     }
 
 }

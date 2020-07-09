@@ -85,7 +85,7 @@ Route::get('/songs/pdf', 'SongController@printPlaylist');
 Route::get('cgv/{book?}', function($book){ return view('cgv', compact('book')); })->name('cgv');
 Route::get('cf/{book?}', function($book){ return view('cf', compact('book')); })->name('cf');
 Route::get('ml/{book?}', function($book){ return view('ml', compact('book')); })->name('ml');
-Route::post('sendtowbm', 'ContactController@mailtoAdmin')->name('contact.store');
+Route::post('sendtowbm', 'ContactController@mailtoAdmin')->name('contact.admin');
 Route::get('contactwbm/{book?}', function($book){ return view('contact.admin', compact('book')); })->name('contactwbm');
 
 Route::view('hlp', 'help');
