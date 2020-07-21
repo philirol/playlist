@@ -75,7 +75,7 @@ class Handler extends ExceptionHandler
                 return response()->json(['error' => 'Unauthorized.'], 403);
             }
             // return redirect('songs')->with('messageDanger', 'Action non autorisée !');
-            return back()->with('messageDanger', 'Action non autorisée !');
+            return back()->with('messageDanger', __('Action non autorisée!'));
         }
     
      //https://stripe.com/docs/api/errors/handling       
