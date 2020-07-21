@@ -5,21 +5,21 @@
     <div class="row justify-content-center">
         <div class="col-md-8 py-4">
             <div class="card">
-                <div class="card-header">{{ __('Validation de votre courriel') }}</div>
+                <div class="card-header">{{ __('verify.sent1') }}</div>
 
                 <div class="card-body">
                     @if (session('resent'))
                         <div class="alert alert-success" role="alert">
-                            {{ __('Un nouveau lien de vérification a été envoyé à votre adresse email.') }}
+                        {{ __('verify.sent2') }}
                         </div>
                     @endif
-
-                    <p>@lang("Vous allez recevoir un email de confirmation d'inscription. Vérifiez dans vos courriers indésirables si vous ne le trouvez pas dans votre boîte de réception").</p>
+                    <p>{{ __('verify.sent3') }}</p>
+                    <p>{{ __('verify.sent4') }}</p>
                     
-                    @lang("Si vous n'avez pas reçu l'email"), 
+                    {{ __('verify.sent5') }}, 
                     <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
                         @csrf
-                        <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('cliquez ici pour en recevoir un nouveau') }}</button>.
+                        <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('verify.sent6') }}</button>.
                     </form>
                     
                 </div>

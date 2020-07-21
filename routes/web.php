@@ -6,10 +6,11 @@ use App\{Songsub,Band};
 Auth::routes(['verify' => true]);
 
 // Route::fallback(function(){
-//     return view('errors/fallback');
-// });
-
-Route::middleware('members')->group(function(){
+    //     return view('errors/fallback');
+    // });
+    
+    Route::middleware('members','verified')->group(function(){
+    Route::get('songsub/{sub?}', 'SongsubController@create')->name('songsub.create');
     Route::get('/home', 'HomeController@index')->name('home');
     
     Route::get('SubscribedPlan','SongsubController@showPlan');
@@ -51,7 +52,7 @@ Route::get('book/contact', 'BookController@contact')->name('book.contact');
 
 Route::get('book', 'BookController@geturl')->name('visitors');
 
-
+//visitor area routes
 Route::get('book/story', 'BookController@story')->name('book.story');
 Route::get('book/videos', 'BookController@videos')->name('book.videos');
 Route::get('book/photos', 'BookController@photos')->name('book.photos');
@@ -91,12 +92,11 @@ Route::get('contactwbm/{book?}', function($book){ return view('contact.admin', c
 Route::view('hlp', 'help');
 
 Route::post('song-sortable','SongController@update_order')->name('orderingPlaylist');
-Route::resource('songs', 'SongController');
+Route::resource('songs', 'SongController')->middleware('verified');
 
 Route::get('playlist/{list}', 'SongController@index')->name('playlist');
 
 Route::get('dwnld/{songsub}', 'SongsubController@download')->name('songsub.dwnld');
-Route::get('songsub/{sub?}', 'SongsubController@create')->name('songsub.create');
 // Route::get('songsub/{song}/edit', 'SongsubController@edit')->middleware('members');
 Route::resource('songsub', 'SongsubController')->except(['create']);
 
