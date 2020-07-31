@@ -29,8 +29,33 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    public function isValidCaptcha(array $data)
+    {
+        if (env('APP_DEBUG') === true) return true;
+
+        if (!isset($data['recaptcha_response']) || is_null($data['recaptcha_response'])) return false;
+
+        $url = env('RECAPTCHA_URL');
+        $secret = env('RECAPTCHA_SECRET_KEY');
+
+        $response = $this->client->get("{$url}?secret={$secret}&response={$data['recaptcha_response']}");
+        $json = $response->getBody();
+        $recaptcha = json_decode($json);
+
+        if (isset($recaptcha->success) && $recaptcha->success == false) return false;
+
+        return ($recaptcha->score >= 0.5) ? true : false;
+    }
+
     public function register(Request $request) //surcharge register du trait RegistersUsers
     {
+        if (!$this->isValidCaptcha($request->all())) {
+            return redirect()->back()->withErrors([
+                'message' => 'invalid recaptcha'
+            ]);
+        }
+
+
         if(!$request->inv){
             $this->validatorLead($request->all())->validate();
             event(new Registered($user = $this->createLead($request->all())));     

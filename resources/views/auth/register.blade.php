@@ -105,6 +105,9 @@
                             <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                         </div>
                     </div>
+                    @if (env('RECAPTCHA_SITE_KEY'))
+                        <input id="recaptchaResponse" name="recaptcha_response" type="hidden">
+                    @endif
 
                     <div class="form-group row mb-0">
                         <div class="col-md-6 offset-md-4">
@@ -119,5 +122,22 @@
         </div>
     </div>
 </div>
+@if (env('RECAPTCHA_SITE_KEY'))
+    <script src='https://www.google.com/recaptcha/api.js?render={{ env("RECAPTCHA_SITE_KEY") }}&onload=onloadCallback&render=explicit'></script>
+   	<script>
+        function onloadCallback() {
+	      grecaptcha.ready(function() {
+	        grecaptcha.execute('{{ env("RECAPTCHA_SITE_KEY") }}', {
+	          action: 'homepage'
+	        }).then(function (token) {
+	        	var recaptchaResponse = document.getElementById('recaptchaResponse');
+	        	recaptchaResponse.value = token;
+	        });
+	      });
+        }
+        
+var stripe = Stripe('{{ env("STRIPE_KEY") }}');
+    </script>
+@endif
 
 @endsection
