@@ -100,10 +100,12 @@ class UserController extends Controller
     public function update(UserRequest $userRequest, User $user)
     {
         $this->authorize('update', $user);
+        // dd($user->id);
 
         $validatedData = $userRequest->validate([
+            // email and name fields are controlled in the model User.php
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048,dimensions:min_width=300,min_height=300',
-            'story' => 'string|max:3000',
+            'story' => 'sometimes|max:3000',
             
         ]);
 
