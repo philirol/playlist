@@ -26,7 +26,8 @@ class User extends FormRequest
     {
         $id = Auth::user()->id;
         return [
-            'name' => 'required|max:255|unique:users,name,' . $id,
+            // 'name' => 'required|max:255|unique:users,name,' . $id,
+            'name' => 'required|max:30',
             'email' => 'required|email|max:255|unique:users,email,' . $id,
         ];
     }
